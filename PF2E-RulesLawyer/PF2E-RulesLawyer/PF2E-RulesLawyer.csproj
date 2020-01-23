@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
 
@@ -11,7 +11,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.3.0.908675" />  
+    <PackageReference Include="Xamarin.Forms" Version="4.3.0.908675" />
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\PF2E_Rules\Creature\Monster\NonPlayerCharacter\" />
+    <Folder Include="Models\PF2E_Rules\Downtime\" />
+    <Folder Include="Models\PF2E_Rules\Encounters\Social\" />
+    <Folder Include="Models\PF2E_Rules\Exploration\" />
   </ItemGroup>
 </Project>

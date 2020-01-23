@@ -4,14 +4,13 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="PF2E_RulesLawyer.Views.ItemDetailPage"
+             x:Class="PF2E_RulesLawyer.Views.PlayerCharacterSheetPage"
              Title="{Binding Title}">
 
     <StackLayout Spacing="20" Padding="15">
         <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Item.Text}" d:Text="Item name" FontSize="Small"/>
+        <Label Text="{Binding Item.Text}" d:Text="Item name" FontSize="Small" />
         <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Item.Description}" d:Text="Item description" FontSize="Small"/>
+        <Label Text="{Binding Item.Description}" d:Text="Item description" FontSize="Small" />
     </StackLayout>
-    
 </ContentPage>

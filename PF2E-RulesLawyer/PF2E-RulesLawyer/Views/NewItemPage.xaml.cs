@@ -13,16 +13,16 @@ namespace PF2E_RulesLawyer.Views
     [DesignTimeVisible(false)]
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
+        public PlayerCharacter Item { get; set; }
 
         public NewItemPage()
         {
             InitializeComponent();
 
-            Item = new Item
+            Item = new PlayerCharacter
             {
-                Text = "Item name",
-                Description = "This is an item description."
+                Name = "PlayerCharacter name",
+                Ancestry = "This is an item description."
             };
 
             BindingContext = this;

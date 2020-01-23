@@ -5,34 +5,29 @@ using Xamarin.Forms.Xaml;
 
 using PF2E_RulesLawyer.Models;
 using PF2E_RulesLawyer.ViewModels;
+using PF2E_RulesLawyer.Models.PF2e_Rules.Creature.PlayerCharacter.Ancestries;
 
 namespace PF2E_RulesLawyer.Views
 {
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
-    public partial class ItemDetailPage : ContentPage
+    public partial class PlayerCharacterSheetPage : ContentPage
     {
-        ItemDetailViewModel viewModel;
+        private PlayerCharacterSheetViewModel viewModel;
 
-        public ItemDetailPage(ItemDetailViewModel viewModel)
+        public PlayerCharacterSheetPage(PlayerCharacterSheetViewModel viewModel)
         {
             InitializeComponent();
 
             BindingContext = this.viewModel = viewModel;
         }
 
-        public ItemDetailPage()
+        public PlayerCharacterSheetPage()
         {
             InitializeComponent();
 
-            var item = new Item
-            {
-                Text = "Item 1",
-                Description = "This is an item description."
-            };
-
-            viewModel = new ItemDetailViewModel(item);
+            viewModel = new PlayerCharacterSheetViewModel();
             BindingContext = viewModel;
         }
     }

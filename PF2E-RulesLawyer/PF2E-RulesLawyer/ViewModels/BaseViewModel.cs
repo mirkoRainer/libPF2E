@@ -12,7 +12,7 @@ namespace PF2E_RulesLawyer.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IDataStore<PlayerCharacter> DataStore => DependencyService.Get<IDataStore<PlayerCharacter>>();
 
         bool isBusy = false;
         public bool IsBusy {
