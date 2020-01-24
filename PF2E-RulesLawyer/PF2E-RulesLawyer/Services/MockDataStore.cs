@@ -14,10 +14,7 @@ namespace PF2E_RulesLawyer.Services
         {
             items = new List<PlayerCharacter>()
             {
-                new PlayerCharacter { Id = Guid.NewGuid().ToString(), Name = "Croft", Ancestry="Dwarf" },
-                new PlayerCharacter { Id = Guid.NewGuid().ToString(), Name = "Lyra", Ancestry="Dwarf" },
-                new PlayerCharacter { Id = Guid.NewGuid().ToString(), Name = "Anais", Ancestry="This is an item description." },
-                new PlayerCharacter { Id = Guid.NewGuid().ToString(), Name = "Frodo", Ancestry="This is an item description." },
+                new PlayerCharacter ("Croft")
             };
         }
 

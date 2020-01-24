@@ -1,3 +1,5 @@
+using PF2E_RulesLawyer.Models.Rules.Encounters;
+
 namespace PF2E_RulesLawyer.Models.Rules
 {
     internal interface IAction

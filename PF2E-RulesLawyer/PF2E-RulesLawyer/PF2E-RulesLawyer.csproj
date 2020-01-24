@@ -16,9 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\PF2E_Rules\Creature\Monster\NonPlayerCharacter\" />
-    <Folder Include="Models\PF2E_Rules\Downtime\" />
-    <Folder Include="Models\PF2E_Rules\Encounters\Social\" />
-    <Folder Include="Models\PF2E_Rules\Exploration\" />
+    <Folder Include="Models\PF2E_Rules\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\PlayerCharacterSheetPage.xaml.cs">
+      <DependentUpon>PlayerCharacterSheetPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

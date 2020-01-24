@@ -14,7 +14,7 @@ namespace PF2E_RulesLawyer.Views
     [DesignTimeVisible(false)]
     public partial class PlayerCharacterSheetPage : ContentPage
     {
-        private PlayerCharacterSheetViewModel viewModel;
+        private readonly PlayerCharacterSheetViewModel viewModel;
 
         public PlayerCharacterSheetPage(PlayerCharacterSheetViewModel viewModel)
         {
@@ -27,7 +27,9 @@ namespace PF2E_RulesLawyer.Views
         {
             InitializeComponent();
 
-            viewModel = new PlayerCharacterSheetViewModel();
+            viewModel = new PlayerCharacterSheetViewModel(
+                new PlayerCharacter("Croft"));
+            viewModel.Title = "Character Sheet";
             BindingContext = viewModel;
         }
     }

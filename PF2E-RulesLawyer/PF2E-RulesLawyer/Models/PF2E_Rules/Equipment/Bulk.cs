@@ -1,6 +1,6 @@
 ﻿namespace PF2E_RulesLawyer.Models.Rules.Equipment
 {
-    internal class Bulk
+    public class Bulk
     {
         private double BulkAmount;
 

@@ -19,22 +19,18 @@ namespace PF2E_RulesLawyer.Views
         {
             InitializeComponent();
 
-            Item = new PlayerCharacter
-            {
-                Name = "PlayerCharacter name",
-                Ancestry = "This is an item description."
-            };
+            Item = new PlayerCharacter("PC Name");
 
             BindingContext = this;
         }
 
-        async void Save_Clicked(object sender, EventArgs e)
+        private async void Save_Clicked(object sender, EventArgs e)
         {
             MessagingCenter.Send(this, "AddItem", Item);
             await Navigation.PopModalAsync();
         }
 
-        async void Cancel_Clicked(object sender, EventArgs e)
+        private async void Cancel_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync();
         }
