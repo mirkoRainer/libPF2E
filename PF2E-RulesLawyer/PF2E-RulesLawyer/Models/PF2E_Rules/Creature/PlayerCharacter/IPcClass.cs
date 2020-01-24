@@ -5,5 +5,8 @@ namespace PF2E_RulesLawyer.Models.Rules.Creature.PlayerCharacter
         string Name { get; set; }
         int HitPoints { get; set; }
         IPcFeat[] ClassFeats { get; set; }
+        string SubClass { get; set; }
+
+        void SetSubClass(string value);
     }
 }

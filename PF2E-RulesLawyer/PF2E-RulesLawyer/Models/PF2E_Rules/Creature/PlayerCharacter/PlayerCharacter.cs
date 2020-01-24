@@ -12,13 +12,12 @@ namespace PF2E_RulesLawyer.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public IAncestry Ancestry { get; set; }
-        public string Background { get; set; }
-        public string PF2eClass { get; set; }
-        public String Heritage { get; set; }
+        public IBackground Background { get; set; }
+        public IHeritage Heritage { get; set; }
         public int Level { get; set; }
-        public String PlayerName { get; set; }
-        public String PcClass { get; set; }
-        public String Size { get; set; }
+        public string PlayerName { get; set; }
+        public IPcClass PcClass { get; set; }
+        public Size Size { get; set; }
         public String Alignment { get; set; }
         public String Traits { get; set; }
         public String Deity { get; set; }
@@ -149,53 +148,6 @@ namespace PF2E_RulesLawyer.Models
         public PlayerCharacter(string name)
         {
             Name = name;
-            PlayerName = "Mike Snow";
-            PcClass = "Rogue";
-            Ancestry = new Dwarf();
-            Size = Ancestry.Size.ToString();
-            Alignment = "CG";
-            Traits = "Dwarven, Humanoid";
-            Deity = "Tourag";
-            HeroPoints = 1;
-            ExperiencePoints = 10;
-            Strength = 18;
-            StrengthModifier = new AbilityModifier(
-                new AbilityScore(Strength, Ability.Strength))
-                    .Amount;
-            Dexterity = 12;
-            DexterityModifier = new AbilityModifier(
-                new AbilityScore(Dexterity, Ability.Dexterity))
-                    .Amount;
-            Constitution = 16;
-            ConstitutionModifier = new AbilityModifier(
-                new AbilityScore(Constitution, Ability.Constitution))
-                    .Amount;
-            Intelligence = 10;
-            IntelligenceModifier = new AbilityModifier(
-                new AbilityScore(Intelligence, Ability.Intelligence))
-                    .Amount;
-            Wisdom = 18;
-            WisdomModifier = new AbilityModifier(
-                new AbilityScore(Wisdom, Ability.Wisdom))
-                    .Amount;
-            Charisma = 8;
-            CharismaModifier = new AbilityModifier(
-                new AbilityScore(Charisma, Ability.Charisma))
-                    .Amount;
-            ArmorClass = 18;
-            AC_CapDexBonus = 1;
-            AC_ProficiencyBonus = 4;
-            AC_ProficiencyLevel = Proficiency.Expert;
-            AC_ItemBonus = 3;
-            UnarmoredProficiency = Proficiency.Trained;
-            LightArmorProficiency = Proficiency.Trained;
-            MediumArmorProficiency = Proficiency.Expert;
-            HeavyArmorProficiency = Proficiency.Expert;
-            ShieldBonus = 1;
-            ShieldMaxHitPoints = 10;
-            ShieldBrokenThreshold = 5;
-            ShieldHardness = 3;
-            ShieldCurrentHitPoints = 3;
         }
     }
 }

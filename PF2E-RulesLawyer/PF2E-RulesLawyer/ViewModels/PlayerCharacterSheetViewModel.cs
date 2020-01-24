@@ -14,13 +14,42 @@ namespace PF2E_RulesLawyer.ViewModels
 
         // metadata
 
-        public String CharacterName { get; set; }
-        public String Ancestry { get; set; }
+        public String CharacterName {
+            get { return PlayerCharacter.Name; }
+            set {
+                PlayerCharacter.Name = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public String Ancestry {
+            get { return PlayerCharacter.Ancestry.Name; }
+            set {
+                ChangeAncestry(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public String PcClass {
+            get { return string.Format("{0} {1}", PlayerCharacter.PcClass, PlayerCharacter.Level.ToString()); }
+            set {
+                PlayerCharacter.PcClass = ChangeClass(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public String SubClass {
+            get { return PlayerCharacter.PcClass.SubClass; }
+            set {
+                PlayerCharacter.PcClass.SetSubClass(value);
+                OnPropertyChanged();
+            }
+        }
+
         public String Heritage { get; set; }
         public String Background { get; set; }
         public int Level { get; set; }
         public String PlayerName { get; set; }
-        public String PcClass { get; set; }
         public String Size { get; set; }
         public String Alignment { get; set; }
         public String Traits { get; set; }
@@ -159,94 +188,16 @@ namespace PF2E_RulesLawyer.ViewModels
         {
             Title = "Character Sheet";
             PlayerCharacter = PC ?? new PlayerCharacter("Salazat");
-            CharacterName = PC.Name;
-            Ancestry = PC.Ancestry.Name;
-            Heritage = PC.Heritage;
-            Background = PC.Background;
-            Level = PC.Level;
-            PlayerName = PC.PlayerName;
-            PcClass = PC.PF2eClass;
-            Size = PC.Ancestry.Size.ToString();
-            Alignment = PC.Alignment;
-            Traits = PC.Traits;
-            Deity = PC.Deity;
-            HeroPoints = PC.HeroPoints;
-            ExperiencePoints = PC.ExperiencePoints;
-            Strength = PC.Strength;
-            StrengthModifier = PC.StrengthModifier;
-            Dexterity = PC.Dexterity;
-            DexterityModifier = PC.DexterityModifier;
-            Constitution = PC.Constitution;
-            ConstitutionModifier = PC.ConstitutionModifier;
-            Intelligence = PC.Intelligence;
-            IntelligenceModifier = PC.IntelligenceModifier;
-            Wisdom = PC.Wisdom;
-            WisdomModifier = PC.WisdomModifier;
-            Charisma = PC.Charisma;
-            CharismaModifier = PC.CharismaModifier;
-            ArmorClass = PC.ArmorClass;
-            AC_CapDexBonus = PC.AC_CapDexBonus;
-            AC_ProficiencyBonus = PC.AC_ProficiencyBonus;
-            AC_ProficiencyLevel = PC.AC_ProficiencyLevel;
-            AC_ItemBonus = PC.AC_ItemBonus;
-            UnarmoredProficiency = PC.UnarmoredProficiency;
-            LightArmorProficiency = PC.LightArmorProficiency;
-            MediumArmorProficiency = PC.MediumArmorProficiency;
-            HeavyArmorProficiency = PC.HeavyArmorProficiency;
-            ShieldBonus = PC.ShieldBonus;
-            ShieldMaxHitPoints = PC.MaxHitPoints;
-            ShieldBrokenThreshold = PC.ShieldBrokenThreshold;
-            ShieldHardness = PC.ShieldHardness;
-            ShieldCurrentHitPoints = PC.ShieldCurrentHitPoints;
-            FortitudeSave = PC.FortitudeSave;
-            ReflexSave = PC.ReflexSave;
-            WillSave = PC.WillSave;
-            FortitudeSaveProficiencyBonus = PC.FortitudeSaveProficiencyBonus;
-            ReflexSaveProficiencyBonus = PC.ReflexSaveProficiencyBonus;
-            WillSaveProficiencyBonus = PC.WillSaveProficiencyBonus;
-            FortitudeItemBonus = PC.FortitudeItemBonus;
-            ReflexItemBonus = PC.ReflexItemBonus;
-            WillItemBonus = PC.WillItemBonus;
-            FortitudeProficiency = PC.FortitudeProficiency;
-            ReflexProficiency = PC.FortitudeProficiency;
-            WillProficiency = PC.WillProficiency;
-            MaxHitPoints = PC.MaxHitPoints;
-            CurrentHitPoints = PC.CurrentHitPoints;
-            TemporaryHitPoints = PC.TemporaryHitPoints;
-            DyingValue = PC.DyingValue;
-            WoundedValue = PC.WoundedValue;
-            foreach (var resistance in PC.Resistances)
-            {
-                Resistances.Add(resistance);
-            }
-            foreach (var immunity in PC.Immunities)
-            {
-                Immunities.Add(immunity);
-            }
-            foreach (var condition in PC.Conditions)
-            {
-                Conditions.Add(condition);
-            }
-            Perception = PC.Perception;
-            PerceptionProficiencyBonus = PC.PerceptionProficiencyBonus;
-            PerceptionItemBonus = PC.PerceptionItemBonus;
-            PerceptionProficiency = PC.PerceptionProficiency;
-            foreach (var sense in PC.Senses)
-            {
-                Senses.Add(sense);
-            }
-            ClassDC = PC.ClassDC;
-            ClassDCKeyAbilityModifier = PC.ClassDCKeyAbilityModifier;
-            ClassProficiency = PC.ClassProficiency;
-            ClassDCItemBonus = PC.ClassDCItemBonus;
-            Speed = PC.Speed;
-            MovementTypes = PC.MovementTypes;
-            MeleeStrikesDetails = PC.MeleeStrikesDetails;
-            RangedStrikesDetails = PC.RangedStrikesDetails;
-            UnarmedProficiency = PC.UnarmedProficiency;
-            SimpleWeaponProficiency = PC.SimpleWeaponProficiency;
-            MartialWeaponProficiency = PC.MartialWeaponProficiency;
-            OtherWeaponProficiency = PC.OtherWeaponProficiency;
+        }
+
+        private void ChangeAncestry(string value)
+        {
+            throw new NotImplementedException();
+        }
+
+        private IPcClass ChangeClass(string value)
+        {
+            throw new NotImplementedException();
         }
     }
 }

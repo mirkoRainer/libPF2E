@@ -28,8 +28,10 @@ namespace PF2E_RulesLawyer.Views
             InitializeComponent();
 
             viewModel = new PlayerCharacterSheetViewModel(
-                new PlayerCharacter("Croft"));
-            viewModel.Title = "Character Sheet";
+                new PlayerCharacter("Croft"))
+            {
+                Title = "Character Sheet"
+            };
             BindingContext = viewModel;
         }
     }

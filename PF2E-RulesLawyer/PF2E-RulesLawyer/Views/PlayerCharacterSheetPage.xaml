@@ -8,6 +8,15 @@
              Title="{Binding Title}">
 
     <StackLayout Spacing="20" Padding="15">
-        <Label Text="{Binding PlayerCharacter.CharacterName}" FontSize="Medium" />
+        <StackLayout Orientation="Horizontal">
+            <Label Text="{Binding CharacterName}" d:Text="Croft" FontSize="Medium" HorizontalOptions="Start" />
+            <Label Text="{Binding Ancestry}" d:Text="Dwarf" FontSize="Medium" HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding PcClass}" d:Text="Rogue 1" FontSize="Medium" HorizontalOptions="End" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="{Binding PlayerName}" d:Text="Gary" FontSize="Medium" HorizontalOptions="Start" />
+            <Label Text="{Binding Heritage}" d:Text="Anvil Dwarf" FontSize="Medium" HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding SubClass}" d:Text="Ruffian" FontSize="Medium" HorizontalOptions="End" />
+        </StackLayout>
     </StackLayout>
 </ContentPage>
