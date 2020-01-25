@@ -21,38 +21,22 @@ namespace PF2E_RulesLawyer.Services
                 new PlayerCharacter ("Croft")
                 {
                     PlayerName = "Mike Snow",
-                    PcClass = "Rogue",
+                    PcClass = new Rogue(),
                     Ancestry = new Dwarf(),
+                    Heritage = new AnvilDwarf(),
+                    Background = new EmancipatedBackground(),
                     Size = new Dwarf().Size,
-                    Alignment = "CG",
-                    Traits = "Dwarven, Humanoid",
+                    Alignment = Alignment.LN,
+                    Traits = new List<Trait> { Trait.Dwarf, Trait.Humanoid },
                     Deity = "Tourag",
                     HeroPoints = 1,
                     ExperiencePoints = 10,
-                    Strength = 18,
-                    StrengthModifier = new AbilityModifier(
-                        new AbilityScore(18, Ability.Strength))
-                            .Amount,
-                    Dexterity = 12,
-                    DexterityModifier = new AbilityModifier(
-                        new AbilityScore(12, Ability.Dexterity))
-                            .Amount,
-                    Constitution = 16,
-                    ConstitutionModifier = new AbilityModifier(
-                        new AbilityScore(16, Ability.Constitution))
-                            .Amount,
-                    Intelligence = 10,
-                    IntelligenceModifier = new AbilityModifier(
-                        new AbilityScore(10, Ability.Intelligence))
-                            .Amount,
-                    Wisdom = 18,
-                    WisdomModifier = new AbilityModifier(
-                        new AbilityScore(18, Ability.Wisdom))
-                            .Amount,
-                    Charisma = 8,
-                    CharismaModifier = new AbilityModifier(
-                        new AbilityScore(8, Ability.Charisma))
-                            .Amount,
+                    Strength = new AbilityScore(18, Ability.Strength),
+                    Dexterity = new AbilityScore(12, Ability.Dexterity),
+                    Constitution = new AbilityScore(16, Ability.Constitution),
+                    Intelligence = new AbilityScore(10, Ability.Intelligence),
+                    Wisdom = new AbilityScore(18, Ability.Wisdom),
+                    Charisma = new AbilityScore(8, Ability.Charisma),
                     ArmorClass = 18,
                     AC_CapDexBonus = 1,
                     AC_ProficiencyBonus = 4,
@@ -68,7 +52,7 @@ namespace PF2E_RulesLawyer.Services
                     ShieldHardness = 3,
                     ShieldCurrentHitPoints = 3,
                 }
-            };
+    };
         }
 
         public async Task<bool> AddItemAsync(PlayerCharacter item)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Text;
 using PF2E_RulesLawyer.Models;
 using PF2E_RulesLawyer.Models.Rules;
 using PF2E_RulesLawyer.Models.Rules.Creature;
@@ -12,7 +13,7 @@ namespace PF2E_RulesLawyer.ViewModels
     {
         public PlayerCharacter PlayerCharacter { get; set; }
 
-        // metadata
+        #region metadataProperties
 
         public String CharacterName {
             get { return PlayerCharacter.Name; }
@@ -31,7 +32,7 @@ namespace PF2E_RulesLawyer.ViewModels
         }
 
         public String PcClass {
-            get { return string.Format("{0} {1}", PlayerCharacter.PcClass, PlayerCharacter.Level.ToString()); }
+            get { return string.Format("{0} {1}", PlayerCharacter.PcClass.Name, PlayerCharacter.Level.ToString()); }
             set {
                 PlayerCharacter.PcClass = ChangeClass(value);
                 OnPropertyChanged();
@@ -46,18 +47,106 @@ namespace PF2E_RulesLawyer.ViewModels
             }
         }
 
-        public String Heritage { get; set; }
-        public String Background { get; set; }
-        public int Level { get; set; }
-        public String PlayerName { get; set; }
-        public String Size { get; set; }
-        public String Alignment { get; set; }
-        public String Traits { get; set; }
-        public String Deity { get; set; }
-        public int HeroPoints { get; set; }
-        public int ExperiencePoints { get; set; }
+        public String Heritage {
+            get { return PlayerCharacter.Heritage.Name; }
+            set {
+                ChangeHeritage(value);
+                OnPropertyChanged();
+            }
+        }
 
-        // Ability Scores
+        public String Background {
+            get { return PlayerCharacter.Background.Name; }
+            set {
+                ChangeBackground(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public int Level {
+            get { return PlayerCharacter.Level; }
+            set {
+                PlayerCharacter.Level = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public String PlayerName {
+            get { return PlayerCharacter.PlayerName; }
+            set {
+                PlayerCharacter.PlayerName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public String Size {
+            get { return PlayerCharacter.Size.ToString().ToCharArray()[0].ToString(); }
+            set {
+                UpdatePCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        private void UpdatePCProperty(string value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public String Alignment {
+            get { return PlayerCharacter.Alignment.ToString(); }
+            set {
+                UpdatePCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public String Traits {
+            get {
+                var traits = new StringBuilder();
+                foreach (var trait in PlayerCharacter.Traits)
+                {
+                    traits.Append(string.Format("{0}, ", trait));
+                }
+                return traits.ToString();
+            }
+            set {
+                UpdatePCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public String Deity {
+            get { return PlayerCharacter.Deity; }
+            set {
+                UpdatePCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public int HeroPoints {
+            get { return PlayerCharacter.HeroPoints; }
+            set {
+                UpdateIntPCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        private void UpdateIntPCProperty(int value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int ExperiencePoints {
+            get { return PlayerCharacter.ExperiencePoints; }
+            set {
+                UpdateIntPCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion metadataProperties
+
+        #region AbilityScores
 
         public int Strength { get; set; }
         public int StrengthModifier { get; set; }
@@ -72,7 +161,9 @@ namespace PF2E_RulesLawyer.ViewModels
         public int Charisma { get; set; }
         public int CharismaModifier { get; set; }
 
-        // Armor Class
+        #endregion AbilityScores
+
+        #region ArmorClass
 
         public int ArmorClass { get; set; }
         public int AC_CapDexBonus { get; set; }
@@ -89,7 +180,9 @@ namespace PF2E_RulesLawyer.ViewModels
         public int ShieldBrokenThreshold { get; set; }
         public int ShieldCurrentHitPoints { get; set; }
 
-        // Saving throws
+        #endregion ArmorClass
+
+        #region SavingThrows
 
         public int FortitudeSave { get; set; }
         public int ReflexSave { get; set; }
@@ -104,7 +197,9 @@ namespace PF2E_RulesLawyer.ViewModels
         public Proficiency ReflexProficiency { get; set; }
         public Proficiency WillProficiency { get; set; }
 
-        // Hit Points
+        #endregion SavingThrows
+
+        #region HitPoints
 
         public int MaxHitPoints { get; set; }
         public int CurrentHitPoints { get; set; }
@@ -114,6 +209,8 @@ namespace PF2E_RulesLawyer.ViewModels
         public ObservableCollection<String> Resistances { get; set; }
         public ObservableCollection<String> Immunities { get; set; }
         public ObservableCollection<String> Conditions { get; set; }
+
+        #endregion HitPoints
 
         // Perception
 
@@ -196,6 +293,16 @@ namespace PF2E_RulesLawyer.ViewModels
         }
 
         private IPcClass ChangeClass(string value)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ChangeHeritage(string value)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ChangeBackground(string value)
         {
             throw new NotImplementedException();
         }

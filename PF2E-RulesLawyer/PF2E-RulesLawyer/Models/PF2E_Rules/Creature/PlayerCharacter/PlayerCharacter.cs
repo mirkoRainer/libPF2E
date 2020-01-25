@@ -18,26 +18,20 @@ namespace PF2E_RulesLawyer.Models
         public string PlayerName { get; set; }
         public IPcClass PcClass { get; set; }
         public Size Size { get; set; }
-        public String Alignment { get; set; }
-        public String Traits { get; set; }
+        public Alignment Alignment { get; set; }
+        public IEnumerable<Trait> Traits { get; set; }
         public String Deity { get; set; }
         public int HeroPoints { get; set; }
         public int ExperiencePoints { get; set; }
 
         // Ability Scores
 
-        public int Strength { get; set; }
-        public int StrengthModifier { get; set; }
-        public int Dexterity { get; set; }
-        public int DexterityModifier { get; set; }
-        public int Constitution { get; set; }
-        public int ConstitutionModifier { get; set; }
-        public int Intelligence { get; set; }
-        public int IntelligenceModifier { get; set; }
-        public int Wisdom { get; set; }
-        public int WisdomModifier { get; set; }
-        public int Charisma { get; set; }
-        public int CharismaModifier { get; set; }
+        public AbilityScore Strength { get; set; }
+        public AbilityScore Dexterity { get; set; }
+        public AbilityScore Constitution { get; set; }
+        public AbilityScore Intelligence { get; set; }
+        public AbilityScore Wisdom { get; set; }
+        public AbilityScore Charisma { get; set; }
 
         // Armor Class
 

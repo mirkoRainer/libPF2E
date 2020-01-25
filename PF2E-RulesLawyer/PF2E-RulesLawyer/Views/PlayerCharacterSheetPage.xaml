@@ -3,20 +3,91 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewmodels="clr-namespace:PF2E_RulesLawyer.ViewModels"
              mc:Ignorable="d"
              x:Class="PF2E_RulesLawyer.Views.PlayerCharacterSheetPage"
              Title="{Binding Title}">
 
-    <StackLayout Spacing="20" Padding="15">
-        <StackLayout Orientation="Horizontal">
-            <Label Text="{Binding CharacterName}" d:Text="Croft" FontSize="Medium" HorizontalOptions="Start" />
-            <Label Text="{Binding Ancestry}" d:Text="Dwarf" FontSize="Medium" HorizontalOptions="CenterAndExpand" />
-            <Label Text="{Binding PcClass}" d:Text="Rogue 1" FontSize="Medium" HorizontalOptions="End" />
+    <ScrollView>
+        <StackLayout Spacing="15" Padding="15">
+            <StackLayout Spacing="5" Padding="10">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding CharacterName}" d:Text="Croft" HorizontalOptions="Start" FontSize="Medium" />
+                    <Label Text="{Binding Ancestry}" d:Text="Dwarf" FontSize="Medium" HorizontalOptions="CenterAndExpand" />
+                    <Label Text="{Binding PcClass}" d:Text="Rogue 1" FontSize="Medium" HorizontalOptions="End" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding PlayerName}" d:Text="Gary" FontSize="Medium" HorizontalOptions="Start" />
+                    <Label Text="{Binding Heritage}" d:Text="Anvil Dwarf" FontSize="Medium" HorizontalOptions="CenterAndExpand" />
+                    <Label Text="{Binding SubClass}" d:Text="Ruffian" FontSize="Medium" HorizontalOptions="End" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding Deity}" d:Text="Irori" FontSize="Medium" HorizontalOptions="StartAndExpand" />
+                    <Label Text="{Binding Background}" d:Text="Emancipated" FontSize="Medium" HorizontalOptions="Center" />
+                    <Label Text="{Binding Size}" d:Text="M" FontSize="Medium" HorizontalOptions="EndAndExpand" />
+                    <Label Text="{Binding Alignment}" d:Text="LN" FontSize="Medium" HorizontalOptions="End" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding ExperiencePoints}" d:Text="100" FontSize="Medium" HorizontalOptions="Start" />
+                    <Label Text="XP" FontSize="Medium" HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start" />
+                    <StackLayout Orientation="Horizontal" Spacing="3">
+                        <Label Text="Hero Points:" HorizontalOptions="Center" />
+                        <Label Text="{Binding HeroPoints}" d:Text="1" FontSize ="Medium" HorizontalOptions="CenterAndExpand" />
+                    </StackLayout>
+                    <Label Text="{Binding Traits}" d:Text="Dwarf, Humanoid" FontSize="Small" HorizontalOptions="End" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" Spacing="3">
+                    <Label Text="{Binding CurrentHitPoints}" d:Text="12" FontSize="Medium" TextColor="Red" />
+                    <Label Text="/" />
+                    <Label Text="{Binding MaxHitPoints}" d:Text="20" FontSize="Medium" />
+                    <Label Text="HP  Temp:" />
+                    <Label Text="{Binding TemporaryHitPoints}" d:Text="5" TextColor="Blue" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Spacing="3">
+                    <Label Text="Dying:" />
+                    <Label Text="{Binding DyingValue}" d:Text="0" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal">
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Strength}" d:Text="18" FontSize="Medium" />
+                            <Label Text="STR" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Dexterity}" d:Text="12" FontSize="Medium" />
+                            <Label Text="DEX" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Constitution}" d:Text="16" FontSize="Medium" />
+                            <Label Text="CON" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Intelligence}" d:Text="10" FontSize="Medium" />
+                            <Label Text="INT" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Wisdom}" d:Text="18" FontSize="Medium" />
+                            <Label Text="WIS" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Charisma}" d:Text="8" FontSize="Medium" />
+                            <Label Text="CHA" />
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="{Binding StrengthModifier}" d:Text="+4" FontSize="Medium" />
+                        <Label Text="{Binding DexterityModifier}" d:Text="+1" FontSize="Medium" />
+                        <Label Text="{Binding ConstitutionModifier}" d:Text="+3" FontSize="Medium" />
+                        <Label Text="{Binding IntelligenceModifier}" d:Text="+0" FontSize="Medium" />
+                        <Label Text="{Binding WisdomModifier}" d:Text="+4" FontSize="Medium" />
+                        <Label Text="{Binding CharismaModifier}" d:Text="-1" FontSize="Medium" />
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
         </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="{Binding PlayerName}" d:Text="Gary" FontSize="Medium" HorizontalOptions="Start" />
-            <Label Text="{Binding Heritage}" d:Text="Anvil Dwarf" FontSize="Medium" HorizontalOptions="CenterAndExpand" />
-            <Label Text="{Binding SubClass}" d:Text="Ruffian" FontSize="Medium" HorizontalOptions="End" />
-        </StackLayout>
-    </StackLayout>
+    </ScrollView>
 </ContentPage>

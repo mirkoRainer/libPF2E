@@ -12,7 +12,7 @@ namespace PF2E_RulesLawyer.Models.Rules
 
         /*        Die Die { set; }
         */
-        AbilityModifier Modifier { get; set; }
+        int AbilityModifier { get; set; }
         IPenalty[] Penalties { get; set; }
     }
 }

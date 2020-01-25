@@ -9,7 +9,7 @@ namespace PF2E_RulesLawyer.Models.Rules.Encounters.Combat
         private List<Trait> Traits { get; set; }
         public IBonus[] Bonuses { get; set; }
         /*        public Die Die { set => new Die(20); }*/
-        public AbilityModifier Modifier { get; set; }
+        public int AbilityModifier { get; set; }
         public IPenalty[] Penalties { get; set; }
     }
 }

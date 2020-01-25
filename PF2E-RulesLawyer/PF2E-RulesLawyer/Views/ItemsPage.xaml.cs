@@ -29,7 +29,7 @@ namespace PF2E_RulesLawyer.Views
 
         private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as PlayerCharacter;
+            PlayerCharacter item = args.SelectedItem as PlayerCharacter;
             if (item == null)
                 return;
 
