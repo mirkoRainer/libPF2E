@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Text;
 using PF2E_RulesLawyer.Models;
-using PF2E_RulesLawyer.Models.Rules;
-using PF2E_RulesLawyer.Models.Rules.Creature;
-using PF2E_RulesLawyer.Models.Rules.Creature.PlayerCharacter;
+using PF2E.Rules;
+using PF2E.Rules.Creature;
+using PF2E.Rules.Creature.PlayerCharacter;
 using Xamarin.Forms.Internals;
 
 namespace PF2E_RulesLawyer.ViewModels
@@ -148,18 +148,101 @@ namespace PF2E_RulesLawyer.ViewModels
 
         #region AbilityScores
 
-        public int Strength { get; set; }
-        public int StrengthModifier { get; set; }
-        public int Dexterity { get; set; }
-        public int DexterityModifier { get; set; }
-        public int Constitution { get; set; }
-        public int ConstitutionModifier { get; set; }
-        public int Intelligence { get; set; }
-        public int IntelligenceModifier { get; set; }
-        public int Wisdom { get; set; }
-        public int WisdomModifier { get; set; }
-        public int Charisma { get; set; }
-        public int CharismaModifier { get; set; }
+        public int Strength {
+            get { return PlayerCharacter.Strength.Score; }
+            set {
+                UpdateIntPCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public int StrengthModifier {
+            get { return PlayerCharacter.Strength.Modifier; }
+            set {
+                UpdateIntPCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public int Dexterity {
+            get { return PlayerCharacter.Dexterity.Score; }
+            set {
+                UpdateIntPCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public int DexterityModifier {
+            get { return PlayerCharacter.Dexterity.Modifier; }
+            set {
+                UpdateIntPCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public int Constitution {
+            get { return PlayerCharacter.Constitution.Score; }
+            set {
+                UpdateIntPCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public int ConstitutionModifier {
+            get { return PlayerCharacter.Constitution.Modifier; }
+            set {
+                UpdateIntPCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public int Intelligence {
+            get { return PlayerCharacter.Intelligence.Score; }
+            set {
+                UpdateIntPCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public int IntelligenceModifier {
+            get { return PlayerCharacter.Intelligence.Modifier; }
+            set {
+                UpdateIntPCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public int Wisdom {
+            get { return PlayerCharacter.Wisdom.Score; }
+            set {
+                UpdateIntPCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public int WisdomModifier {
+            get { return PlayerCharacter.Wisdom.Modifier; }
+            set {
+                UpdateIntPCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public int Charisma {
+            get { return PlayerCharacter.Charisma.Score; }
+            set {
+                UpdateIntPCProperty(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public int CharismaModifier {
+            get { return PlayerCharacter.Charisma.Modifier; }
+            set {
+                UpdateIntPCProperty(value);
+                OnPropertyChanged();
+            }
+        }
 
         #endregion AbilityScores
 

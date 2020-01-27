@@ -1,4 +1,4 @@
-﻿using PF2E_RulesLawyer.Models.Rules.Creature.PlayerCharacter;
+﻿using PF2E.Rules.Creature.PlayerCharacter;
 
 namespace PF2E_RulesLawyer.Services
 {

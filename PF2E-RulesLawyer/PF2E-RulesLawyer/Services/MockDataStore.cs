@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using PF2E_RulesLawyer.Models;
 using PF2E_RulesLawyer.Models.PF2e_Rules.Creature.PlayerCharacter.Ancestries;
-using PF2E_RulesLawyer.Models.Rules;
-using PF2E_RulesLawyer.Models.Rules.Creature;
-using PF2E_RulesLawyer.Models.Rules.Creature.PlayerCharacter;
+using PF2E.Rules;
+using PF2E.Rules.Creature;
+using PF2E.Rules.Creature.PlayerCharacter;
 
 namespace PF2E_RulesLawyer.Services
 {
