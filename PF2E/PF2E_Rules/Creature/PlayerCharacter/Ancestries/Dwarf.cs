@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PF2E_RulesLawyer.Models.PF2e_Rules.Creature.PlayerCharacter.Ancestries
 {
-    internal readonly struct Dwarf : IAncestry
+    public readonly struct Dwarf : IAncestry
     {
         public string Name {
             get {

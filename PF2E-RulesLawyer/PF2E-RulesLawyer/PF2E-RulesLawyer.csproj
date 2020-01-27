@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\PF2E\PF2E.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Views\PlayerCharacterSheetPage.xaml.cs">
       <DependentUpon>PlayerCharacterSheetPage.xaml</DependentUpon>
     </Compile>

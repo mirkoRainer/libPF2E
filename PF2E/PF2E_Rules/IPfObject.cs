@@ -1,4 +1,4 @@
-namespace PF2E_RulesLawyer.Models
+namespace PF2E.Rules
 {
     public interface IPfObject
     {
