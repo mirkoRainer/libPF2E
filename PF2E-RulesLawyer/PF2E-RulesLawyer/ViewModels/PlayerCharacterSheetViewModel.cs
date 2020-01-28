@@ -131,10 +131,6 @@ namespace PF2E_RulesLawyer.ViewModels
             }
         }
 
-        private void UpdateIntPCProperty(int value)
-        {
-            throw new NotImplementedException();
-        }
 
         public int ExperiencePoints {
             get {
@@ -308,11 +304,30 @@ namespace PF2E_RulesLawyer.ViewModels
                 return PlayerCharacter.FortitudeSave.Amount;
             }
         }
+        public int FortitudeSaveProficiencyBonus {
+            get {
+                return PlayerCharacter.FortitudeSave.ProficiencyBonus;
+            }
+        }
+        public int FortitudeItemBonus { get { return PlayerCharacter.FortitudeSave.ItemBonus; } }
+        public ProficiencyViewModel FortitudeProficiency
+        {
+            get { return ConvertProficiencyToViewModel(PlayerCharacter.FortitudeProficiency); }
+        }
 
         public int ReflexSave {
             get {
                 return PlayerCharacter.ReflexSave.Amount;
             }
+        }
+        public int ReflexSaveProficiencyBonus {
+            get {
+                return PlayerCharacter.ReflexSave.ProficiencyBonus;
+            }
+        }
+        public int ReflexItemBonus { get { return PlayerCharacter.ReflexSave.ItemBonus; } }
+        public ProficiencyViewModel ReflexProficiency {
+            get { return ConvertProficiencyToViewModel(PlayerCharacter.ReflexProficiency); }
         }
 
         public int WillSave {
@@ -320,42 +335,58 @@ namespace PF2E_RulesLawyer.ViewModels
                 return PlayerCharacter.WillSave.Amount;
             }
         }
-
-        public int FortitudeSaveProficiencyBonus {
-            get {
-                return PlayerCharacter.FortitudeSave.ProficiencyBonus;
-            }
-        }
-
-        public int ReflexSaveProficiencyBonus {
-            get {
-                return PlayerCharacter.ReflexSave.ProficiencyBonus;
-            }
-        }
-
         public int WillSaveProficiencyBonus {
             get {
-                return PlayerCharacter.FortitudeSave.ProficiencyBonus;
+                return PlayerCharacter.WillSave.ProficiencyBonus;
             }
         }
-
-        public int FortitudeItemBonus { get; set; }
-        public int ReflexItemBonus { get; set; }
-        public int WillItemBonus { get; set; }
-        public ProficiencyViewModel FortitudeProficiency { get; set; }
-        public ProficiencyViewModel ReflexProficiency { get; set; }
-        public ProficiencyViewModel WillProficiency { get; set; }
+        public int WillItemBonus { get { return PlayerCharacter.WillSave.ItemBonus; } }
+        public ProficiencyViewModel WillProficiency {
+            get { return ConvertProficiencyToViewModel(PlayerCharacter.WillProficiency); }
+        }
 
         #endregion SavingThrows
 
         #region HitPoints
 
-        public int MaxHitPoints { get; set; }
-        public int CurrentHitPoints { get; set; }
-        public int TemporaryHitPoints { get; set; }
-        public int DyingValue { get; set; }
-        public int WoundedValue { get; set; }
-        public ObservableCollection<String> Resistances { get; set; }
+        public int MaxHitPoints {
+            get
+            {
+                return PlayerCharacter.MaxHitPoints;
+            }
+        }
+        public int CurrentHitPoints {
+            get { return PlayerCharacter.CurrentHitPoints; }
+            set {
+                PlayerCharacter.CurrentHitPoints = value;
+                OnPropertyChanged();
+            }
+        }
+        public int TemporaryHitPoints {
+            get { return PlayerCharacter.TemporaryHitPoints; }
+            set
+            {
+                PlayerCharacter.TemporaryHitPoints = value;
+                OnPropertyChanged();
+            }
+        }
+        public int DyingValue {
+            get { return PlayerCharacter.DyingValue; }
+            set
+            {
+                PlayerCharacter.DyingValue = value;
+                OnPropertyChanged();
+            }
+        }
+        public int WoundedValue {
+            get { return PlayerCharacter.WoundedValue; }
+            set
+            {
+                PlayerCharacter.WoundedValue = value;
+                OnPropertyChanged();
+            }
+        }
+        public ObservableCollection<String> Resistances { get { return new ObservableCollection<string>(PlayerCharacter.Resistances); } }
         public ObservableCollection<String> Immunities { get; set; }
         public ObservableCollection<String> Conditions { get; set; }
 
@@ -434,6 +465,11 @@ namespace PF2E_RulesLawyer.ViewModels
         {
             Title = "Character Sheet";
             PlayerCharacter = PC ?? new PlayerCharacter("Salazat");
+        }
+
+        private void UpdateIntPCProperty(int value)
+        {
+            throw new NotImplementedException();
         }
 
         private void ChangeAncestry(string value)
