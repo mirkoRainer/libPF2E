@@ -250,13 +250,24 @@ namespace PF2E_RulesLawyer.ViewModels
 
         public int ArmorClass { get { return PlayerCharacter.ArmorClass; } }
         public int AC_CapDexBonus { get { return PlayerCharacter.AC_CapDexBonus; } }
-        public int AC_ProficiencyBonus { get; set; }
-        public Proficiency AC_ProficiencyLevel { get; set; }
-        public int AC_ItemBonus { get; set; }
-        public Proficiency UnarmoredProficiency { get; set; }
-        public Proficiency LightArmorProficiency { get; set; }
-        public Proficiency MediumArmorProficiency { get; set; }
-        public Proficiency HeavyArmorProficiency { get; set; }
+        public int AC_ProficiencyBonus { get { return PlayerCharacter.AC_ProficiencyBonus; } }
+
+        public ProficiencyViewModel AC_ProficiencyLevel {
+            get {
+                return ConvertProficiencyToViewModel(PlayerCharacter.AC_ProficiencyLevel);
+            }
+        }
+
+        private ProficiencyViewModel ConvertProficiencyToViewModel(Proficiency aC_ProficiencyLevel)
+        {
+            return new ProficiencyViewModel(aC_ProficiencyLevel);
+        }
+
+        public int AC_ItemBonus { get { return PlayerCharacter.AC_ItemBonus; } }
+        public int UnarmoredProficiency { get; set; }
+        public int LightArmorProficiency { get; set; }
+        public int MediumArmorProficiency { get; set; }
+        public int HeavyArmorProficiency { get; set; }
         public int ShieldBonus { get; set; }
         public int ShieldHardness { get; set; }
         public int ShieldMaxHitPoints { get; set; }
