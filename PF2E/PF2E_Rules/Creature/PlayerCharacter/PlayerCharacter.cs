@@ -5,7 +5,7 @@ using PF2E.Rules.Creature.PlayerCharacter;
 using System;
 using System.Collections.Generic;
 
-namespace PF2E_RulesLawyer.Models
+namespace PF2E.Rules.Creature.PlayerCharacter
 {
     public class PlayerCharacter
     {
@@ -64,15 +64,9 @@ namespace PF2E_RulesLawyer.Models
 
         // Saving throws
 
-        public int FortitudeSave { get; set; }
-        public int ReflexSave { get; set; }
-        public int WillSave { get; set; }
-        public int FortitudeSaveProficiencyBonus { get; set; }
-        public int ReflexSaveProficiencyBonus { get; set; }
-        public int WillSaveProficiencyBonus { get; set; }
-        public int FortitudeItemBonus { get; set; }
-        public int ReflexItemBonus { get; set; }
-        public int WillItemBonus { get; set; }
+        public Save FortitudeSave { get; set; }
+        public Save ReflexSave { get; set; }
+        public Save WillSave { get; set; }
         public Proficiency FortitudeProficiency { get; set; }
         public Proficiency ReflexProficiency { get; set; }
         public Proficiency WillProficiency { get; set; }

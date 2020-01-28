@@ -6,6 +6,7 @@ using Xamarin.Forms.Xaml;
 using PF2E_RulesLawyer.Models;
 using PF2E_RulesLawyer.ViewModels;
 using PF2E_RulesLawyer.Models.PF2e_Rules.Creature.PlayerCharacter.Ancestries;
+using PF2E.Rules.Creature.PlayerCharacter;
 
 namespace PF2E_RulesLawyer.Views
 {

@@ -7,6 +7,7 @@ using Xamarin.Forms;
 
 using PF2E_RulesLawyer.Models;
 using PF2E_RulesLawyer.Views;
+using PF2E.Rules.Creature.PlayerCharacter;
 
 namespace PF2E_RulesLawyer.ViewModels
 {

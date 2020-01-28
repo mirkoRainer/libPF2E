@@ -137,7 +137,9 @@ namespace PF2E_RulesLawyer.ViewModels
         }
 
         public int ExperiencePoints {
-            get { return PlayerCharacter.ExperiencePoints; }
+            get {
+                return PlayerCharacter.ExperiencePoints;
+            }
             set {
                 UpdateIntPCProperty(value);
                 OnPropertyChanged();
@@ -264,32 +266,85 @@ namespace PF2E_RulesLawyer.ViewModels
         }
 
         public int AC_ItemBonus { get { return PlayerCharacter.AC_ItemBonus; } }
-        public int UnarmoredProficiency { get; set; }
-        public int LightArmorProficiency { get; set; }
-        public int MediumArmorProficiency { get; set; }
-        public int HeavyArmorProficiency { get; set; }
-        public int ShieldBonus { get; set; }
-        public int ShieldHardness { get; set; }
-        public int ShieldMaxHitPoints { get; set; }
-        public int ShieldBrokenThreshold { get; set; }
-        public int ShieldCurrentHitPoints { get; set; }
+
+        public ProficiencyViewModel UnarmoredProficiency {
+            get { return ConvertProficiencyToViewModel(PlayerCharacter.UnarmoredProficiency); }
+        }
+
+        public ProficiencyViewModel LightArmorProficiency {
+            get { return ConvertProficiencyToViewModel(PlayerCharacter.LightArmorProficiency); }
+        }
+
+        public ProficiencyViewModel MediumArmorProficiency {
+            get { return ConvertProficiencyToViewModel(PlayerCharacter.MediumArmorProficiency); }
+        }
+
+        public ProficiencyViewModel HeavyArmorProficiency {
+            get { return ConvertProficiencyToViewModel(PlayerCharacter.HeavyArmorProficiency); }
+        }
+
+        public int ShieldBonus {
+            get { return PlayerCharacter.ShieldBonus; }
+        }
+
+        public int ShieldHardness { get { return PlayerCharacter.ShieldHardness; } }
+        public int ShieldMaxHitPoints { get { return PlayerCharacter.ShieldMaxHitPoints; } }
+        public int ShieldBrokenThreshold { get { return PlayerCharacter.ShieldBrokenThreshold; } }
+
+        public int ShieldCurrentHitPoints {
+            get { return PlayerCharacter.ShieldCurrentHitPoints; }
+            set {
+                PlayerCharacter.ShieldCurrentHitPoints = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion ArmorClass
 
         #region SavingThrows
 
-        public int FortitudeSave { get; set; }
-        public int ReflexSave { get; set; }
-        public int WillSave { get; set; }
-        public int FortitudeSaveProficiencyBonus { get; set; }
-        public int ReflexSaveProficiencyBonus { get; set; }
-        public int WillSaveProficiencyBonus { get; set; }
+        public int FortitudeSave {
+            get {
+                return PlayerCharacter.FortitudeSave.Amount;
+            }
+        }
+
+        public int ReflexSave {
+            get {
+                return PlayerCharacter.ReflexSave.Amount;
+            }
+        }
+
+        public int WillSave {
+            get {
+                return PlayerCharacter.WillSave.Amount;
+            }
+        }
+
+        public int FortitudeSaveProficiencyBonus {
+            get {
+                return PlayerCharacter.FortitudeSave.ProficiencyBonus;
+            }
+        }
+
+        public int ReflexSaveProficiencyBonus {
+            get {
+                return PlayerCharacter.ReflexSave.ProficiencyBonus;
+            }
+        }
+
+        public int WillSaveProficiencyBonus {
+            get {
+                return PlayerCharacter.FortitudeSave.ProficiencyBonus;
+            }
+        }
+
         public int FortitudeItemBonus { get; set; }
         public int ReflexItemBonus { get; set; }
         public int WillItemBonus { get; set; }
-        public Proficiency FortitudeProficiency { get; set; }
-        public Proficiency ReflexProficiency { get; set; }
-        public Proficiency WillProficiency { get; set; }
+        public ProficiencyViewModel FortitudeProficiency { get; set; }
+        public ProficiencyViewModel ReflexProficiency { get; set; }
+        public ProficiencyViewModel WillProficiency { get; set; }
 
         #endregion SavingThrows
 

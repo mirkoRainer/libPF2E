@@ -7,6 +7,7 @@ using Xamarin.Forms;
 
 using PF2E_RulesLawyer.Models;
 using PF2E_RulesLawyer.Services;
+using PF2E.Rules.Creature.PlayerCharacter;
 
 namespace PF2E_RulesLawyer.ViewModels
 {
@@ -14,13 +15,15 @@ namespace PF2E_RulesLawyer.ViewModels
     {
         public IDataStore<PlayerCharacter> DataStore => DependencyService.Get<IDataStore<PlayerCharacter>>();
 
-        bool isBusy = false;
+        private bool isBusy = false;
+
         public bool IsBusy {
             get { return isBusy; }
             set { SetProperty(ref isBusy, value); }
         }
 
-        string title = string.Empty;
+        private string title = string.Empty;
+
         public string Title {
             get { return title; }
             set { SetProperty(ref title, value); }
@@ -40,7 +43,9 @@ namespace PF2E_RulesLawyer.ViewModels
         }
 
         #region INotifyPropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             var changed = PropertyChanged;
@@ -49,6 +54,7 @@ namespace PF2E_RulesLawyer.ViewModels
 
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        #endregion
+
+        #endregion INotifyPropertyChanged
     }
 }
