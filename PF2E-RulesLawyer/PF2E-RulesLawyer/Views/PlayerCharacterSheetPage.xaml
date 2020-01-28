@@ -10,7 +10,7 @@
 
     <ScrollView>
         <StackLayout Spacing="15" Padding="15">
-            <StackLayout Spacing="5" Padding="10">
+            <StackLayout  Spacing="5" Padding="10">
                 <StackLayout Orientation="Horizontal">
                     <Label Text="{Binding CharacterName}" d:Text="Croft" HorizontalOptions="Start" FontSize="Medium" />
                     <Label Text="{Binding Ancestry}" d:Text="Dwarf" FontSize="Medium" HorizontalOptions="CenterAndExpand" />

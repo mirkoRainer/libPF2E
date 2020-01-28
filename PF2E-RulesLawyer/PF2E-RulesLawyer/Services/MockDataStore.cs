@@ -37,8 +37,6 @@ namespace PF2E_RulesLawyer.Services
                     Intelligence = new AbilityScore(10, Ability.Intelligence),
                     Wisdom = new AbilityScore(18, Ability.Wisdom),
                     Charisma = new AbilityScore(8, Ability.Charisma),
-                    ArmorClass = 18,
-                    AC_CapDexBonus = 1,
                     AC_ProficiencyBonus = 4,
                     AC_ProficiencyLevel = Proficiency.Expert,
                     AC_ItemBonus = 3,

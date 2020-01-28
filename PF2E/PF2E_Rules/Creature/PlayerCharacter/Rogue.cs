@@ -3,7 +3,7 @@ using PF2E.Rules.Creature.PlayerCharacter;
 
 namespace PF2E_RulesLawyer.Services
 {
-    internal class Rogue : IPcClass
+    public class Rogue : IPcClass
     {
         public string Name { get { return "Rogue"; } }
         public int HitPoints { get { return 8; } }

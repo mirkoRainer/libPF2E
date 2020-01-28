@@ -249,7 +249,7 @@ namespace PF2E_RulesLawyer.ViewModels
         #region ArmorClass
 
         public int ArmorClass { get { return PlayerCharacter.ArmorClass; } }
-        public int AC_CapDexBonus { get; set; }
+        public int AC_CapDexBonus { get { return PlayerCharacter.AC_CapDexBonus; } }
         public int AC_ProficiencyBonus { get; set; }
         public Proficiency AC_ProficiencyLevel { get; set; }
         public int AC_ItemBonus { get; set; }

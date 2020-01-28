@@ -3,7 +3,7 @@ using PF2E.Rules.Creature.PlayerCharacter;
 
 namespace PF2E_RulesLawyer.Services
 {
-    internal class EmancipatedBackground : IBackground
+    public class EmancipatedBackground : IBackground
     {
         public string Name { get { return "Emancipated"; } }
 

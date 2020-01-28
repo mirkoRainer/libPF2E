@@ -35,8 +35,20 @@ namespace PF2E_RulesLawyer.Models
 
         // Armor Class
 
-        public int ArmorClass { get; set; }
-        public int AC_CapDexBonus { get; set; }
+        public int ArmorClass { get { return CalculateArmorClass(); } }
+
+        private int CalculateArmorClass()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AC_CapDexBonus { get { return DetermineArmorDexterityCap(); } }
+
+        private int DetermineArmorDexterityCap()
+        {
+            throw new NotImplementedException();
+        }
+
         public int AC_ProficiencyBonus { get; set; }
         public Proficiency AC_ProficiencyLevel { get; set; }
         public int AC_ItemBonus { get; set; }
