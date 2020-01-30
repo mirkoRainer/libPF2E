@@ -9,10 +9,10 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         int HitPoints { get; }
         Size Size { get; }
         int Speed { get; }
-        Ability[] AbilityBoosts { get; }
-        Ability[] AbilityFlaws { get; }
-        Language[] Languages { get; }
-        Trait[] Traits { get; }
-        String[] SpecialAbilities { get; }
+        ICollection<Ability> AbilityBoosts { get; }
+        ICollection<Ability> AbilityFlaws { get; }
+        ICollection<Language> Languages { get; }
+        ICollection<Trait> Traits { get; }
+        ICollection<string> SpecialAbilities { get; }
     }
 }

@@ -136,9 +136,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\PF2E-RulesLawyer\PF2E-RulesLawyer.csproj">
+    <ProjectReference Include="..\PF2E-RulesLawyer\PF2E_RulesLawyer.csproj">
       <Project>{E331AA9D-2790-43C2-8F53-4E5A2D2E2495}</Project>
-      <Name>PF2E-RulesLawyer</Name>
+      <Name>PF2E_RulesLawyer</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

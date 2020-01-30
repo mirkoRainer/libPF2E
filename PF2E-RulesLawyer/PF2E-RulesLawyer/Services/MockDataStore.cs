@@ -21,7 +21,8 @@ namespace PF2E_RulesLawyer.Services
                 new PlayerCharacter ("Croft")
                 {
                     PlayerName = "Mike Snow",
-                    PcClass = new Rogue(),
+                    PcClass = new Rogue {SubClass = "Ruffian" },
+                    Level = 1,
                     Ancestry = new Dwarf(),
                     Heritage = new AnvilDwarf(),
                     Background = new EmancipatedBackground(),
@@ -31,6 +32,10 @@ namespace PF2E_RulesLawyer.Services
                     Deity = "Tourag",
                     HeroPoints = 1,
                     ExperiencePoints = 10,
+                    MaxHitPoints = 20,
+                    CurrentHitPoints = 14,
+                    TemporaryHitPoints = 5,
+                    WoundedValue = 1,
                     Strength = new AbilityScore(18, Ability.Strength),
                     Dexterity = new AbilityScore(12, Ability.Dexterity),
                     Constitution = new AbilityScore(16, Ability.Constitution),
@@ -49,6 +54,12 @@ namespace PF2E_RulesLawyer.Services
                     ShieldBrokenThreshold = 5,
                     ShieldHardness = 3,
                     ShieldCurrentHitPoints = 3,
+                    Perception = 6,
+                    PerceptionProficiencyBonus = 5,
+                    PerceptionItemBonus = 0,
+                    PerceptionProficiency = Proficiency.Expert,
+                    Senses = new List<string> {"Sight", "Darkvision"},
+                    ClassDC = 6,
                 }
     };
         }

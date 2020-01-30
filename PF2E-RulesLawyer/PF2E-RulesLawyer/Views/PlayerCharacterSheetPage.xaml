@@ -37,18 +37,37 @@
                     <Label Text="{Binding Traits}" d:Text="Dwarf, Humanoid" FontSize="Small" HorizontalOptions="End" />
                 </StackLayout>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <StackLayout Orientation="Horizontal" Spacing="3">
-                    <Label Text="{Binding CurrentHitPoints}" d:Text="12" FontSize="Medium" TextColor="Red" />
-                    <Label Text="/" />
-                    <Label Text="{Binding MaxHitPoints}" d:Text="20" FontSize="Medium" />
-                    <Label Text="HP  Temp:" />
-                    <Label Text="{Binding TemporaryHitPoints}" d:Text="5" TextColor="Blue" />
+            <StackLayout Orientation="Horizontal" Spacing="20">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="3">
+                        <Label Text="{Binding CurrentHitPoints}" d:Text="12" FontSize="Medium" TextColor="Red" />
+                        <Label Text="/" />
+                        <Label Text="{Binding MaxHitPoints}" d:Text="20" FontSize="Medium" />
+                        <Label Text="HP  Temp:" />
+                        <Label Text="{Binding TemporaryHitPoints}" d:Text="5" TextColor="Blue" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="3">
+                        <Label Text="Dying:" />
+                        <Label Text="{Binding DyingValue}" d:Text="0" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="3">
+                        <Label Text="Wounded: " />
+                        <Label Text="{Binding WoundedValue}" />
+                    </StackLayout>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal" Spacing="3">
-                    <Label Text="Dying:" />
-                    <Label Text="{Binding DyingValue}" d:Text="0" />
+                <StackLayout>
+                    <Label Text="Resistance" FontSize="Small" />
+                    <Label Text="Immunities" FontSize="Small" />
+                    <Label Text="Conditions" FontSize="Small" />
                 </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" Spacing="4">
+                <Label Text="{Binding Perception}" />
+                <Label Text="Perception"/>
+                <Label Text="WIS" />
+                <Label Text="{Binding WisdomModifier}" />
+                <Label Text="Prof" />
+                <Label Text="{Binding PerceptionProficiencyBonus}" />
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <StackLayout Orientation="Horizontal">

@@ -7,11 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PF2E-RulesLawyer.Android", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PF2E-RulesLawyer.iOS", "PF2E-RulesLawyer\PF2E-RulesLawyer.iOS\PF2E-RulesLawyer.iOS.csproj", "{DE01E739-D7A4-4BCA-954B-C17240E74501}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PF2E-RulesLawyer", "PF2E-RulesLawyer\PF2E-RulesLawyer\PF2E-RulesLawyer.csproj", "{E331AA9D-2790-43C2-8F53-4E5A2D2E2495}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PF2E_RulesLawyer", "PF2E-RulesLawyer\PF2E-RulesLawyer\PF2E_RulesLawyer.csproj", "{E331AA9D-2790-43C2-8F53-4E5A2D2E2495}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PF2E", "PF2E\PF2E.csproj", "{88F107A9-4EDC-4FFF-A3E0-50D4D8479AED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PF2E_Tests", "PF2E_Tests\PF2E_Tests.csproj", "{5A31924E-DBE2-4F5A-925C-6C784EDC2E34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PF2E_Tests", "PF2E_Tests\PF2E_Tests.csproj", "{5A31924E-DBE2-4F5A-925C-6C784EDC2E34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

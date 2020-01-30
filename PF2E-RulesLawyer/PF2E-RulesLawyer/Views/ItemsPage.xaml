@@ -41,11 +41,19 @@
                                 LineBreakMode="NoWrap"
                                 Style="{DynamicResource ListItemTextStyle}"
                                 FontSize="16" />
-                            <Label Text="{Binding PcClass}"
-                                d:Text="Item descripton"
+                            <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding PcClass.Name}"
+                                d:Text="Class Name"
                                 LineBreakMode="NoWrap"
                                 Style="{DynamicResource ListItemDetailTextStyle}"
                                 FontSize="13" />
+                            <Label Text="{Binding Level}" 
+                                d:Text="Level"
+                                LineBreakMode="NoWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                FontSize="13"/>
+                                
+                            </StackLayout>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

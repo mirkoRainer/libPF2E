@@ -6,6 +6,8 @@ using PF2E.Rules;
 using PF2E.Rules.Creature;
 using PF2E.Rules.Creature.PlayerCharacter;
 using Xamarin.Forms.Internals;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace PF2E_RulesLawyer.ViewModels
 {
@@ -25,50 +27,26 @@ namespace PF2E_RulesLawyer.ViewModels
 
         public String Ancestry {
             get { return PlayerCharacter.Ancestry.Name; }
-            set {
-                ChangeAncestry(value);
-                OnPropertyChanged();
-            }
         }
 
         public String PcClass {
             get { return string.Format("{0} {1}", PlayerCharacter.PcClass.Name, PlayerCharacter.Level.ToString()); }
-            set {
-                PlayerCharacter.PcClass = ChangeClass(value);
-                OnPropertyChanged();
-            }
         }
 
         public String SubClass {
             get { return PlayerCharacter.PcClass.SubClass; }
-            set {
-                PlayerCharacter.PcClass.SetSubClass(value);
-                OnPropertyChanged();
-            }
         }
 
         public String Heritage {
             get { return PlayerCharacter.Heritage.Name; }
-            set {
-                ChangeHeritage(value);
-                OnPropertyChanged();
-            }
         }
 
         public String Background {
             get { return PlayerCharacter.Background.Name; }
-            set {
-                ChangeBackground(value);
-                OnPropertyChanged();
-            }
         }
 
         public int Level {
             get { return PlayerCharacter.Level; }
-            set {
-                PlayerCharacter.Level = value;
-                OnPropertyChanged();
-            }
         }
 
         public String PlayerName {
@@ -81,22 +59,18 @@ namespace PF2E_RulesLawyer.ViewModels
 
         public String Size {
             get { return PlayerCharacter.Size.ToString().ToCharArray()[0].ToString(); }
+        }
+        private Alignment _selectedAlignment;
+        public Alignment Alignment {
+            get { return PlayerCharacter.Alignment; }
             set {
-                UpdatePCProperty(value);
+                PlayerCharacter.Alignment = value;
                 OnPropertyChanged();
             }
         }
-
-        private void UpdatePCProperty(string value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public String Alignment {
-            get { return PlayerCharacter.Alignment.ToString(); }
-            set {
-                UpdatePCProperty(value);
-                OnPropertyChanged();
+        public List<String> Alignments {
+            get {
+                return Enum.GetNames(typeof(Alignment)).Select(a => a).ToList();
             }
         }
 
@@ -109,16 +83,12 @@ namespace PF2E_RulesLawyer.ViewModels
                 }
                 return traits.ToString();
             }
-            set {
-                UpdatePCProperty(value);
-                OnPropertyChanged();
-            }
         }
 
         public String Deity {
             get { return PlayerCharacter.Deity; }
             set {
-                UpdatePCProperty(value);
+                PlayerCharacter.Deity = value;
                 OnPropertyChanged();
             }
         }
@@ -126,18 +96,17 @@ namespace PF2E_RulesLawyer.ViewModels
         public int HeroPoints {
             get { return PlayerCharacter.HeroPoints; }
             set {
-                UpdateIntPCProperty(value);
+                PlayerCharacter.HeroPoints = value;
                 OnPropertyChanged();
             }
         }
-
 
         public int ExperiencePoints {
             get {
                 return PlayerCharacter.ExperiencePoints;
             }
             set {
-                UpdateIntPCProperty(value);
+                PlayerCharacter.ExperiencePoints = value;
                 OnPropertyChanged();
             }
         }
@@ -149,17 +118,13 @@ namespace PF2E_RulesLawyer.ViewModels
         public int Strength {
             get { return PlayerCharacter.Strength.Score; }
             set {
-                UpdateIntPCProperty(value);
+                PlayerCharacter.Strength = new AbilityScore(value, Ability.Strength); ;
                 OnPropertyChanged();
             }
         }
 
         public int StrengthModifier {
             get { return PlayerCharacter.Strength.Modifier; }
-            set {
-                UpdateIntPCProperty(value);
-                OnPropertyChanged();
-            }
         }
 
         public int Dexterity {
@@ -172,10 +137,6 @@ namespace PF2E_RulesLawyer.ViewModels
 
         public int DexterityModifier {
             get { return PlayerCharacter.Dexterity.Modifier; }
-            set {
-                UpdateIntPCProperty(value);
-                OnPropertyChanged();
-            }
         }
 
         public int Constitution {
@@ -188,10 +149,6 @@ namespace PF2E_RulesLawyer.ViewModels
 
         public int ConstitutionModifier {
             get { return PlayerCharacter.Constitution.Modifier; }
-            set {
-                UpdateIntPCProperty(value);
-                OnPropertyChanged();
-            }
         }
 
         public int Intelligence {
@@ -204,10 +161,6 @@ namespace PF2E_RulesLawyer.ViewModels
 
         public int IntelligenceModifier {
             get { return PlayerCharacter.Intelligence.Modifier; }
-            set {
-                UpdateIntPCProperty(value);
-                OnPropertyChanged();
-            }
         }
 
         public int Wisdom {
@@ -220,10 +173,6 @@ namespace PF2E_RulesLawyer.ViewModels
 
         public int WisdomModifier {
             get { return PlayerCharacter.Wisdom.Modifier; }
-            set {
-                UpdateIntPCProperty(value);
-                OnPropertyChanged();
-            }
         }
 
         public int Charisma {
@@ -236,10 +185,6 @@ namespace PF2E_RulesLawyer.ViewModels
 
         public int CharismaModifier {
             get { return PlayerCharacter.Charisma.Modifier; }
-            set {
-                UpdateIntPCProperty(value);
-                OnPropertyChanged();
-            }
         }
 
         #endregion AbilityScores
@@ -304,14 +249,16 @@ namespace PF2E_RulesLawyer.ViewModels
                 return PlayerCharacter.FortitudeSave.Amount;
             }
         }
+
         public int FortitudeSaveProficiencyBonus {
             get {
                 return PlayerCharacter.FortitudeSave.ProficiencyBonus;
             }
         }
+
         public int FortitudeItemBonus { get { return PlayerCharacter.FortitudeSave.ItemBonus; } }
-        public ProficiencyViewModel FortitudeProficiency
-        {
+
+        public ProficiencyViewModel FortitudeProficiency {
             get { return ConvertProficiencyToViewModel(PlayerCharacter.FortitudeProficiency); }
         }
 
@@ -320,12 +267,15 @@ namespace PF2E_RulesLawyer.ViewModels
                 return PlayerCharacter.ReflexSave.Amount;
             }
         }
+
         public int ReflexSaveProficiencyBonus {
             get {
                 return PlayerCharacter.ReflexSave.ProficiencyBonus;
             }
         }
+
         public int ReflexItemBonus { get { return PlayerCharacter.ReflexSave.ItemBonus; } }
+
         public ProficiencyViewModel ReflexProficiency {
             get { return ConvertProficiencyToViewModel(PlayerCharacter.ReflexProficiency); }
         }
@@ -335,12 +285,15 @@ namespace PF2E_RulesLawyer.ViewModels
                 return PlayerCharacter.WillSave.Amount;
             }
         }
+
         public int WillSaveProficiencyBonus {
             get {
                 return PlayerCharacter.WillSave.ProficiencyBonus;
             }
         }
+
         public int WillItemBonus { get { return PlayerCharacter.WillSave.ItemBonus; } }
+
         public ProficiencyViewModel WillProficiency {
             get { return ConvertProficiencyToViewModel(PlayerCharacter.WillProficiency); }
         }
@@ -350,11 +303,11 @@ namespace PF2E_RulesLawyer.ViewModels
         #region HitPoints
 
         public int MaxHitPoints {
-            get
-            {
+            get {
                 return PlayerCharacter.MaxHitPoints;
             }
         }
+
         public int CurrentHitPoints {
             get { return PlayerCharacter.CurrentHitPoints; }
             set {
@@ -362,52 +315,84 @@ namespace PF2E_RulesLawyer.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public int TemporaryHitPoints {
             get { return PlayerCharacter.TemporaryHitPoints; }
-            set
-            {
+            set {
                 PlayerCharacter.TemporaryHitPoints = value;
                 OnPropertyChanged();
             }
         }
+
         public int DyingValue {
             get { return PlayerCharacter.DyingValue; }
-            set
-            {
+            set {
                 PlayerCharacter.DyingValue = value;
                 OnPropertyChanged();
             }
         }
+
         public int WoundedValue {
             get { return PlayerCharacter.WoundedValue; }
-            set
-            {
+            set {
                 PlayerCharacter.WoundedValue = value;
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<String> Resistances { get { return new ObservableCollection<string>(PlayerCharacter.Resistances); } }
-        public ObservableCollection<String> Immunities { get; set; }
-        public ObservableCollection<String> Conditions { get; set; }
+
+        public ObservableCollection<String> Resistances {
+            get {
+                return new ObservableCollection<string>(PlayerCharacter.Resistances);
+            }
+            set {
+                PlayerCharacter.Resistances = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<String> Immunities {
+            get {
+                return new ObservableCollection<string>(PlayerCharacter.Immunities);
+            }
+            set {
+                PlayerCharacter.Immunities = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<String> Conditions {
+            get {
+                return new ObservableCollection<string>(PlayerCharacter.Conditions);
+            }
+            set {
+                PlayerCharacter.Conditions = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion HitPoints
 
-        // Perception
+        #region Perception
 
-        public int Perception { get; set; }
+        public int Perception {
+            get {
+                return PlayerCharacter.Perception;
+            }
+        }
         public int PerceptionProficiencyBonus { get; set; }
         public Proficiency PerceptionProficiency { get; set; }
         public int PerceptionItemBonus { get; set; }
         public ObservableCollection<String> Senses { get; set; }
+        #endregion Perception
 
         // Class DC
-
+        #region ClassDC
         public int ClassDC { get; set; }
         public int ClassDCKeyAbilityModifier { get; set; }
         public int ClassDCProficiencyBonus { get; set; }
         public Proficiency ClassProficiency { get; set; }
         public int ClassDCItemBonus { get; set; }
-
+        #endregion ClassDC
         // Movement
 
         public int Speed { get; set; }
@@ -453,7 +438,15 @@ namespace PF2E_RulesLawyer.ViewModels
 
         // Languages
 
-        public ObservableCollection<String> Languages { get; set; }
+        public ObservableCollection<String> Languages {
+            get {
+                return new ObservableCollection<string>(PlayerCharacter.Languages);
+            }
+            set {
+                PlayerCharacter.Languages = value;
+                OnPropertyChanged();
+            }
+        }
 
         public PlayerCharacterSheetViewModel()
         {
@@ -467,6 +460,10 @@ namespace PF2E_RulesLawyer.ViewModels
             PlayerCharacter = PC ?? new PlayerCharacter("Salazat");
         }
 
+        private void UpdateStringPCProperty(string value)
+        {
+            throw new NotImplementedException();
+        }
         private void UpdateIntPCProperty(int value)
         {
             throw new NotImplementedException();
