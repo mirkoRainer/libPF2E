@@ -133,7 +133,7 @@ namespace PF2E_RulesLawyer.ViewModels
         public int Dexterity {
             get { return PlayerCharacter.Dexterity.Score; }
             set {
-                UpdateIntPCProperty(value);
+                PlayerCharacter.Dexterity = new AbilityScore(value, Ability.Dexterity);
                 OnPropertyChanged();
             }
         }
@@ -145,7 +145,7 @@ namespace PF2E_RulesLawyer.ViewModels
         public int Constitution {
             get { return PlayerCharacter.Constitution.Score; }
             set {
-                UpdateIntPCProperty(value);
+                PlayerCharacter.Constitution = new AbilityScore(value, Ability.Constitution);
                 OnPropertyChanged();
             }
         }
@@ -157,7 +157,7 @@ namespace PF2E_RulesLawyer.ViewModels
         public int Intelligence {
             get { return PlayerCharacter.Intelligence.Score; }
             set {
-                UpdateIntPCProperty(value);
+                PlayerCharacter.Intelligence = new AbilityScore(value, Ability.Intelligence);
                 OnPropertyChanged();
             }
         }
@@ -169,7 +169,7 @@ namespace PF2E_RulesLawyer.ViewModels
         public int Wisdom {
             get { return PlayerCharacter.Wisdom.Score; }
             set {
-                UpdateIntPCProperty(value);
+                PlayerCharacter.Wisdom = new AbilityScore(value, Ability.Wisdom);
                 OnPropertyChanged();
             }
         }
@@ -468,31 +468,6 @@ namespace PF2E_RulesLawyer.ViewModels
         {
             Title = "Character Sheet";
             PlayerCharacter = PC ?? new PlayerCharacter("Salazat");
-        }
-
-        private void UpdateIntPCProperty(int value)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ChangeAncestry(string value)
-        {
-            throw new NotImplementedException();
-        }
-
-        private IPcClass ChangeClass(string value)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ChangeHeritage(string value)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ChangeBackground(string value)
-        {
-            throw new NotImplementedException();
         }
     }
 }
