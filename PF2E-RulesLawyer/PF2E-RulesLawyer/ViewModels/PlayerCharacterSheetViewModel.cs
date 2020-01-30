@@ -387,47 +387,46 @@ namespace PF2E_RulesLawyer.ViewModels
             }
         }
         public ObservableCollection<String> Resistances { get { return new ObservableCollection<string>(PlayerCharacter.Resistances); } }
-        public ObservableCollection<String> Immunities { get; set; }
-        public ObservableCollection<String> Conditions { get; set; }
+        public ObservableCollection<String> Immunities { get { return new ObservableCollection<string>(PlayerCharacter.Immunities); } }
+        public ObservableCollection<String> Conditions { get { return new ObservableCollection<string>(PlayerCharacter.Conditions); } }
 
         #endregion HitPoints
 
-        // Perception
+        #region Perception
 
-        public int Perception { get; set; }
-        public int PerceptionProficiencyBonus { get; set; }
-        public Proficiency PerceptionProficiency { get; set; }
-        public int PerceptionItemBonus { get; set; }
-        public ObservableCollection<String> Senses { get; set; }
+        public int Perception { get { return PlayerCharacter.Perception; } }
+        public int PerceptionProficiencyBonus { get { return PlayerCharacter.PerceptionProficiencyBonus; } }
+        public ProficiencyViewModel PerceptionProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.WillProficiency); } }
+        public int PerceptionItemBonus { get { return PlayerCharacter.PerceptionItemBonus; } }
+        public ObservableCollection<String> Senses { get { return new ObservableCollection<string>(PlayerCharacter.Senses); } }
+        #endregion Perception
 
-        // Class DC
+        #region ClassDC
 
-        public int ClassDC { get; set; }
-        public int ClassDCKeyAbilityModifier { get; set; }
-        public int ClassDCProficiencyBonus { get; set; }
-        public Proficiency ClassProficiency { get; set; }
-        public int ClassDCItemBonus { get; set; }
+        public int ClassDC { get { return PlayerCharacter.ClassDC; } }
+        public int ClassDCKeyAbilityModifier {
+            get { return PlayerCharacter.ClassDCKeyAbilityModifier; } }
+        public int ClassDCProficiencyBonus {
+            get { return PlayerCharacter.ClassDCProficiencyBonus; } }
+        public ProficiencyViewModel ClassProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.ClassProficiency); } }
+        public int ClassDCItemBonus {
+            get { return PlayerCharacter.ClassDCItemBonus; } }
+        #endregion ClassDC
 
-        // Movement
+        #region movement
+        public int Speed { get { return PlayerCharacter.Speed; } }
+        public String MovementTypes { get { return PlayerCharacter.MovementTypes; } }
+        #endregion movement
 
-        public int Speed { get; set; }
-        public String MovementTypes { get; set; }
+        #region strikes
+        public String MeleeStrikesDetails { get { return PlayerCharacter.MeleeStrikesDetails; } }
+        public String RangedStrikesDetails { get { return PlayerCharacter.RangedStrikesDetails; } }
+        public ProficiencyViewModel UnarmedProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.UnarmedProficiency); } }
+        public ProficiencyViewModel SimpleWeaponProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.SimpleWeaponProficiency); } }
+        public ProficiencyViewModel MartialWeaponProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.MartialWeaponProficiency); } }
+        public ProficiencyViewModel OtherWeaponProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.OtherWeaponProficiency); } }
 
-        // Melee Strikes
-
-        public String MeleeStrikesDetails { get; set; }
-
-        // Range Strikes
-
-        public String RangedStrikesDetails { get; set; }
-
-        // Weapon Proficiencies
-
-        public Proficiency UnarmedProficiency { get; set; }
-        public Proficiency SimpleWeaponProficiency { get; set; }
-        public Proficiency MartialWeaponProficiency { get; set; }
-        public Proficiency OtherWeaponProficiency { get; set; }
-
+        #endregion strikes
         // Skills
 
         public int Acrobatics { get; set; }
