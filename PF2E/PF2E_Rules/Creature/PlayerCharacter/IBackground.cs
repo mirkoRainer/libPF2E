@@ -5,7 +5,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         string Name { get; }
         AbilityScoreBoost[] AbilityBoosts { get; set; }
         IPcFeat SkillFeat { get; set; }
-        ISkill TrainedSkill { get; set; } // one should be Lore
-        ISkill TrainedLoreSkill { get; set; }
+        Skill TrainedSkill { get; set; } // one should be Lore
+        Skill TrainedLoreSkill { get; set; }
     }
 }

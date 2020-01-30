@@ -120,26 +120,24 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         // Skills
 
-        public int Acrobatics { get; set; }
-        public int Arcana { get; set; }
-        public int Athletics { get; set; }
-        public int Crafting { get; set; }
-        public int Deception { get; set; }
-        public int Diplomacy { get; set; }
-        public int Intimidation { get; set; }
-        public int Lore1 { get; set; }
-        public String Lore1Topic { get; set; }
-        public int Lore2 { get; set; }
-        public String Lore2Topic { get; set; }
-        public int Medicine { get; set; }
-        public int Nature { get; set; }
-        public int Occultism { get; set; }
-        public int Performance { get; set; }
-        public int Religion { get; set; }
-        public int Society { get; set; }
-        public int Stealth { get; set; }
-        public int Survival { get; set; }
-        public int Thievery { get; set; }
+        public Skill Acrobatics { get; set; }
+        public Skill Arcana { get; set; }
+        public Skill Athletics { get; set; }
+        public Skill Crafting { get; set; }
+        public Skill Deception { get; set; }
+        public Skill Diplomacy { get; set; }
+        public Skill Intimidation { get; set; }
+        public Skill Lore1 { get; set; }
+        public Skill Lore2 { get; set; }
+        public Skill Medicine { get; set; }
+        public Skill Nature { get; set; }
+        public Skill Occultism { get; set; }
+        public Skill Performance { get; set; }
+        public Skill Religion { get; set; }
+        public Skill Society { get; set; }
+        public Skill Stealth { get; set; }
+        public Skill Survival { get; set; }
+        public Skill Thievery { get; set; }
 
         // Languages
 

@@ -60,7 +60,9 @@ namespace PF2E_RulesLawyer.ViewModels
         public String Size {
             get { return PlayerCharacter.Size.ToString().ToCharArray()[0].ToString(); }
         }
+
         private Alignment _selectedAlignment;
+
         public Alignment Alignment {
             get { return PlayerCharacter.Alignment; }
             set {
@@ -68,6 +70,7 @@ namespace PF2E_RulesLawyer.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public List<String> Alignments {
             get {
                 return Enum.GetNames(typeof(Alignment)).Select(a => a).ToList();
@@ -178,7 +181,7 @@ namespace PF2E_RulesLawyer.ViewModels
         public int Charisma {
             get { return PlayerCharacter.Charisma.Score; }
             set {
-                UpdateIntPCProperty(value);
+                PlayerCharacter.Charisma = new AbilityScore(value, Ability.Charisma);
                 OnPropertyChanged();
             }
         }
@@ -379,26 +382,38 @@ namespace PF2E_RulesLawyer.ViewModels
         public ProficiencyViewModel PerceptionProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.WillProficiency); } }
         public int PerceptionItemBonus { get { return PlayerCharacter.PerceptionItemBonus; } }
         public ObservableCollection<String> Senses { get { return new ObservableCollection<string>(PlayerCharacter.Senses); } }
+
         #endregion Perception
 
         #region ClassDC
 
         public int ClassDC { get { return PlayerCharacter.ClassDC; } }
+
         public int ClassDCKeyAbilityModifier {
-            get { return PlayerCharacter.ClassDCKeyAbilityModifier; } }
+            get { return PlayerCharacter.ClassDCKeyAbilityModifier; }
+        }
+
         public int ClassDCProficiencyBonus {
-            get { return PlayerCharacter.ClassDCProficiencyBonus; } }
+            get { return PlayerCharacter.ClassDCProficiencyBonus; }
+        }
+
         public ProficiencyViewModel ClassProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.ClassProficiency); } }
+
         public int ClassDCItemBonus {
-            get { return PlayerCharacter.ClassDCItemBonus; } }
+            get { return PlayerCharacter.ClassDCItemBonus; }
+        }
+
         #endregion ClassDC
 
         #region movement
+
         public int Speed { get { return PlayerCharacter.Speed; } }
         public String MovementTypes { get { return PlayerCharacter.MovementTypes; } }
+
         #endregion movement
 
         #region strikes
+
         public String MeleeStrikesDetails { get { return PlayerCharacter.MeleeStrikesDetails; } }
         public String RangedStrikesDetails { get { return PlayerCharacter.RangedStrikesDetails; } }
         public ProficiencyViewModel UnarmedProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.UnarmedProficiency); } }
@@ -407,28 +422,29 @@ namespace PF2E_RulesLawyer.ViewModels
         public ProficiencyViewModel OtherWeaponProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.OtherWeaponProficiency); } }
 
         #endregion strikes
-        // Skills
 
-        public int Acrobatics { get; set; }
-        public int Arcana { get; set; }
-        public int Athletics { get; set; }
-        public int Crafting { get; set; }
-        public int Deception { get; set; }
-        public int Diplomacy { get; set; }
-        public int Intimidation { get; set; }
-        public int Lore1 { get; set; }
-        public String Lore1Topic { get; set; }
-        public int Lore2 { get; set; }
-        public String Lore2Topic { get; set; }
-        public int Medicine { get; set; }
-        public int Nature { get; set; }
-        public int Occultism { get; set; }
-        public int Performance { get; set; }
-        public int Religion { get; set; }
-        public int Society { get; set; }
-        public int Stealth { get; set; }
-        public int Survival { get; set; }
-        public int Thievery { get; set; }
+        #region skills
+
+        public SkillViewModel Acrobatics { get { return new SkillViewModel(PlayerCharacter.Acrobatics); } }
+        public SkillViewModel Arcana { get { return new SkillViewModel(PlayerCharacter.Arcana); } }
+        public SkillViewModel Athletics { get { return new SkillViewModel(PlayerCharacter.Athletics); } }
+        public SkillViewModel Crafting { get { return new SkillViewModel(PlayerCharacter.Crafting); } }
+        public SkillViewModel Deception { get { return new SkillViewModel(PlayerCharacter.Deception); } }
+        public SkillViewModel Diplomacy { get { return new SkillViewModel(PlayerCharacter.Diplomacy); } }
+        public SkillViewModel Intimidation { get { return new SkillViewModel(PlayerCharacter.Intimidation); } }
+        public SkillViewModel Lore1 { get { return new SkillViewModel(PlayerCharacter.Lore1); } }
+        public SkillViewModel Lore2 { get { return new SkillViewModel(PlayerCharacter.Lore2); } }
+        public SkillViewModel Medicine { get { return new SkillViewModel(PlayerCharacter.Medicine); } }
+        public SkillViewModel Nature { get { return new SkillViewModel(PlayerCharacter.Nature); } }
+        public SkillViewModel Occultism { get { return new SkillViewModel(PlayerCharacter.Occultism); } }
+        public SkillViewModel Performance { get { return new SkillViewModel(PlayerCharacter.Performance); } }
+        public SkillViewModel Religion { get { return new SkillViewModel(PlayerCharacter.Religion); } }
+        public SkillViewModel Society { get { return new SkillViewModel(PlayerCharacter.Society); } }
+        public SkillViewModel Stealth { get { return new SkillViewModel(PlayerCharacter.Stealth); } }
+        public SkillViewModel Survival { get { return new SkillViewModel(PlayerCharacter.Survival); } }
+        public SkillViewModel Thievery { get { return new SkillViewModel(PlayerCharacter.Thievery); } }
+
+        #endregion skills
 
         // Languages
 
@@ -454,10 +470,6 @@ namespace PF2E_RulesLawyer.ViewModels
             PlayerCharacter = PC ?? new PlayerCharacter("Salazat");
         }
 
-        private void UpdateStringPCProperty(string value)
-        {
-            throw new NotImplementedException();
-        }
         private void UpdateIntPCProperty(int value)
         {
             throw new NotImplementedException();

@@ -9,7 +9,7 @@ namespace PF2E_RulesLawyer.Services
 
         public AbilityScoreBoost[] AbilityBoosts { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
         public IPcFeat SkillFeat { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-        public ISkill TrainedSkill { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-        public ISkill TrainedLoreSkill { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        public Skill TrainedSkill { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        public Skill TrainedLoreSkill { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
     }
 }
