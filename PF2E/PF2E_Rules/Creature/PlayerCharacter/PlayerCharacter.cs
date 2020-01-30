@@ -4,6 +4,7 @@ using PF2E.Rules.Creature;
 using PF2E.Rules.Creature.PlayerCharacter;
 using System;
 using System.Collections.Generic;
+using PF2E.Rules.Equipment;
 
 namespace PF2E.Rules.Creature.PlayerCharacter
 {
@@ -36,22 +37,15 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         // Armor Class
 
         public int ArmorClass { get { return CalculateArmorClass(); } }
+        public Armor Armor { get; set; }
 
         private int CalculateArmorClass()
         {
-            throw new NotImplementedException();
+            return Armor.ACBonus + Math.Min(Armor.DexCap, Dexterity.Modifier) + (int)AC_Proficiency + 10;
         }
 
-        public int AC_CapDexBonus { get { return DetermineArmorDexterityCap(); } }
+        public Proficiency AC_Proficiency { get; }
 
-        private int DetermineArmorDexterityCap()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int AC_ProficiencyBonus { get; set; }
-        public Proficiency AC_ProficiencyLevel { get; set; }
-        public int AC_ItemBonus { get; set; }
         public Proficiency UnarmoredProficiency { get; set; }
         public Proficiency LightArmorProficiency { get; set; }
         public Proficiency MediumArmorProficiency { get; set; }

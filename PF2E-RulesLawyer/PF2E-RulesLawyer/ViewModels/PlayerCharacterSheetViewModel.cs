@@ -200,7 +200,7 @@ namespace PF2E_RulesLawyer.ViewModels
 
         public ProficiencyViewModel AC_ProficiencyLevel {
             get {
-                return ConvertProficiencyToViewModel(PlayerCharacter.AC_ProficiencyLevel);
+                return ConvertProficiencyToViewModel(PlayerCharacter.AC_Proficiency);
             }
         }
 
