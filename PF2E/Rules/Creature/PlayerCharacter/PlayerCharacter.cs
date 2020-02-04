@@ -1,10 +1,8 @@
-﻿using PF2E_RulesLawyer.Models.PF2e_Rules.Creature.PlayerCharacter.Ancestries;
-using PF2E.Rules;
-using PF2E.Rules.Creature;
-using PF2E.Rules.Creature.PlayerCharacter;
+﻿using PF2E.Rules.Equipment;
 using System;
 using System.Collections.Generic;
-using PF2E.Rules.Equipment;
+using System.Linq;
+using System.Reflection;
 
 namespace PF2E.Rules.Creature.PlayerCharacter
 {
@@ -156,16 +154,38 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             Size = Ancestry.Size;
             Traits = Ancestry.Traits;
 
-            var boostsFlaws = new List<AbilityScoreBoostFlaw>();
-            boostsFlaws.AddRange(Ancestry.AbilityBoosts);
-            boostsFlaws.AddRange(Background.AbilityBoosts);
-            boostsFlaws.Add(PcClass.KeyAbilityScore);
-            CalculateAbilityScores(boostsFlaws);
+            var boosts = new List<AbilityScoreBoostFlaw>();
+            boosts.AddRange(Ancestry.AbilityBoosts);
+            boosts.AddRange(Background.AbilityBoosts);
+            boosts.Add(PcClass.KeyAbilityScore);
+            var flaws = new List<AbilityScoreBoostFlaw>();
+            flaws.AddRange(Ancestry.AbilityFlaws);
+            CalculateAbilityScores(boosts, flaws);
         }
 
-        private void CalculateAbilityScores(List<AbilityScoreBoostFlaw> boostsFlaws)
+        private void CalculateAbilityScores(List<AbilityScoreBoostFlaw> boosts, List<AbilityScoreBoostFlaw> flaws)
         {
-            throw new NotImplementedException();
+            var count = boosts.GroupBy(b => b)
+                .Select(g => new
+                {
+                    key = g.Key,
+                    count = g.Select(b => b).Count()
+                })
+                .ToList();
+            Type tClass = this.GetType();
+            PropertyInfo[] pClass = tClass.GetProperties();
+
+            foreach (var property in pClass)
+            {
+                foreach (var boost in count)
+                {
+                    if (property.Name == boost.key.ToString())
+                    {
+                        var increaseAmount = boost.count * 2;
+                        property.SetValue(this, )
+                    }
+                }
+            }
         }
 
         private int CalculateArmorClass()

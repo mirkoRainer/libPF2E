@@ -1,9 +1,6 @@
-﻿using NUnit.Framework;
-using Moq;
-using PF2E.Rules.Creature.PlayerCharacter;
-using System;
+﻿using Moq;
+using NUnit.Framework;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PF2E.Rules.Creature.PlayerCharacter.Tests
 {
@@ -17,7 +14,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter.Tests
         }
 
         [Test()]
-        public void PlayerCharacterTest()
+        public void PlayerCharacterConstructorAbilityScoreCalculationTest()
         {
             var ancestry = new Mock<IAncestry>();
             var background = new Mock<IBackground>();
@@ -32,9 +29,21 @@ namespace PF2E.Rules.Creature.PlayerCharacter.Tests
                     .Returns(new List<AbilityScoreBoostFlaw> { AbilityScoreBoostFlaw.Charisma });
 
             background.Setup(b =>
-                            b.)
+                            b.AbilityBoosts)
+                    .Returns(new List<AbilityScoreBoostFlaw> { AbilityScoreBoostFlaw.Constitution, AbilityScoreBoostFlaw.Strength });
 
-            Assert.Fail();
+            pcClass.Setup(c =>
+                         c.KeyAbilityScore)
+                    .Returns(AbilityScoreBoostFlaw.Dexterity);
+
+            var pc = new PlayerCharacter(ancestry.Object, background.Object, pcClass.Object, 1);
+
+            Assert.That(pc.Strength.Score, Is.EqualTo(14));
+            Assert.That(pc.Dexterity.Score, Is.EqualTo(10));
+            Assert.That(pc.Constitution.Score, Is.EqualTo(12));
+            Assert.That(pc.Intelligence.Score, Is.EqualTo(10));
+            Assert.That(pc.Wisdom.Score, Is.EqualTo(10));
+            Assert.That(pc.Charisma.Score, Is.EqualTo(8));
         }
     }
 }
