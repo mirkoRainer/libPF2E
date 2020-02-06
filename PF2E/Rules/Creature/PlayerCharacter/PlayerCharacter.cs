@@ -24,13 +24,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         public int ExperiencePoints { get; set; }
 
         // Ability Scores
-
-        public AbilityScore Strength { get; set; }
-        public AbilityScore Dexterity { get; set; }
-        public AbilityScore Constitution { get; set; }
-        public AbilityScore Intelligence { get; set; }
-        public AbilityScore Wisdom { get; set; }
-        public AbilityScore Charisma { get; set; }
+        public AbilityScoreArray AbilityScores { get; set; }
 
         // Armor Class
 
@@ -160,37 +154,12 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             boosts.Add(PcClass.KeyAbilityScore);
             var flaws = new List<AbilityScoreBoostFlaw>();
             flaws.AddRange(Ancestry.AbilityFlaws);
-            CalculateAbilityScores(boosts, flaws);
-        }
-
-        private void CalculateAbilityScores(List<AbilityScoreBoostFlaw> boosts, List<AbilityScoreBoostFlaw> flaws)
-        {
-            var count = boosts.GroupBy(b => b)
-                .Select(g => new
-                {
-                    key = g.Key,
-                    count = g.Select(b => b).Count()
-                })
-                .ToList();
-            Type tClass = this.GetType();
-            PropertyInfo[] pClass = tClass.GetProperties();
-
-            foreach (var property in pClass)
-            {
-                foreach (var boost in count)
-                {
-                    if (property.Name == boost.key.ToString())
-                    {
-                        var increaseAmount = boost.count * 2;
-                        property.SetValue(this, )
-                    }
-                }
-            }
+            AbilityScores = new AbilityScoreArray(boosts, flaws);
         }
 
         private int CalculateArmorClass()
         {
-            return Armor.ACBonus + Math.Min(Armor.DexCap, Dexterity.Modifier) + (int)AC_Proficiency + 10;
+            return Armor.ACBonus + Math.Min(Armor.DexCap, AbilityScores.Dexterity.Modifier) + (int)AC_Proficiency + 10;
         }
     }
 }

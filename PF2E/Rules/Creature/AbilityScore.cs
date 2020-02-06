@@ -17,5 +17,21 @@ namespace PF2E.Rules.Creature
             double result = (double)(Score - 10) / 2;
             Modifier = (int)Math.Floor(result);
         }
+
+        public AbilityScore(int score,
+                            string ability)
+        {
+            Score = score;
+            double result = (double)(Score - 10) / 2;
+            Modifier = (int)Math.Floor(result);
+            try
+            {
+                Ability = (Ability)System.Enum.Parse(typeof(Ability), ability);
+            }
+            catch (NullReferenceException)
+            {
+                throw new NullReferenceException("An ability string passed to the AbilityScore constructor was null. ");
+            }
+        }
     }
 }
