@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PF2E_RulesLawyer.Models.PF2e_Rules.Creature.PlayerCharacter.Ancestries
 {
-    public readonly struct Dwarf : IAncestry
+    public readonly struct Dwarf : IAncestry, IAoNItem
     {
         public string Name {
             get {
@@ -21,11 +21,7 @@ namespace PF2E_RulesLawyer.Models.PF2e_Rules.Creature.PlayerCharacter.Ancestries
             }
         }
 
-        public Size Size {
-            get {
-                return Size.Medium;
-            }
-        }
+        public Size Size => Size.Medium;
 
         public int Speed {
             get {
@@ -33,15 +29,15 @@ namespace PF2E_RulesLawyer.Models.PF2e_Rules.Creature.PlayerCharacter.Ancestries
             }
         }
 
-        public ICollection<Ability> AbilityBoosts {
+        public ICollection<AbilityScoreBoostFlaw> AbilityBoosts {
             get {
-                return new Ability[] { Ability.Constitution, Ability.Wisdom };
+                return new AbilityScoreBoostFlaw[] { AbilityScoreBoostFlaw.Constitution, AbilityScoreBoostFlaw.Wisdom, AbilityScoreBoostFlaw.Free };
             }
         }
 
-        public ICollection<Ability> AbilityFlaws {
+        public ICollection<AbilityScoreBoostFlaw> AbilityFlaws {
             get {
-                return new Ability[] { Ability.Charisma };
+                return new AbilityScoreBoostFlaw[] { AbilityScoreBoostFlaw.Charisma };
             }
         }
 
@@ -62,5 +58,7 @@ namespace PF2E_RulesLawyer.Models.PF2e_Rules.Creature.PlayerCharacter.Ancestries
                 return new string[] { "Darkvision", "Clan Dagger" };
             }
         }
+
+        public Uri AoNUri { get { return new Uri("http://2e.aonprd.com/Ancestries.aspx?ID=1"); } }
     }
 }

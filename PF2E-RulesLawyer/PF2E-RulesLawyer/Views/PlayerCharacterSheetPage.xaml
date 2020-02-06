@@ -64,6 +64,7 @@
             <StackLayout Orientation="Horizontal" Spacing="4">
                 <Label Text="{Binding Perception}" d:Text="6"/>
                 <Label Text="Perception"/>
+
                 <Label Text="WIS" />
                 <Label Text="{Binding WisdomModifier}" d:Text="4" />
                 <Label Text="Prof" />

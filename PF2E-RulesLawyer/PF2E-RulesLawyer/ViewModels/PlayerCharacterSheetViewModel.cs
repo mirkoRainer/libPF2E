@@ -30,7 +30,7 @@ namespace PF2E_RulesLawyer.ViewModels
         }
 
         public String PcClass {
-            get { return string.Format("{0} {1}", PlayerCharacter.PcClass.Name, PlayerCharacter.Level.ToString()); }
+            get { return PlayerCharacter.PcClass.Name; }
         }
 
         public String SubClass {
@@ -61,19 +61,11 @@ namespace PF2E_RulesLawyer.ViewModels
             get { return PlayerCharacter.Size.ToString().ToCharArray()[0].ToString(); }
         }
 
-        private Alignment _selectedAlignment;
-
-        public Alignment Alignment {
-            get { return PlayerCharacter.Alignment; }
+        public String Alignment {
+            get { return PlayerCharacter.Alignment.ToString(); }
             set {
-                PlayerCharacter.Alignment = value;
+                PlayerCharacter.SetNewAlignment(value);
                 OnPropertyChanged();
-            }
-        }
-
-        public List<String> Alignments {
-            get {
-                return Enum.GetNames(typeof(Alignment)).Select(a => a).ToList();
             }
         }
 
@@ -194,8 +186,9 @@ namespace PF2E_RulesLawyer.ViewModels
 
         #region ArmorClass
 
-        public int ArmorClass { get { return PlayerCharacter.ArmorClass; } }
-        public int AC_CapDexBonus { get { return PlayerCharacter.Armor.DexCap; } }
+        public int ArmorClass => PlayerCharacter.ArmorClass;
+        public int ACDexCap { get { return PlayerCharacter.Armor.DexCap; } }
+
 
         public ProficiencyViewModel AC_ProficiencyLevel {
             get {
@@ -208,7 +201,8 @@ namespace PF2E_RulesLawyer.ViewModels
             return new ProficiencyViewModel(aC_ProficiencyLevel);
         }
 
-        public int AC_ItemBonus { get { return PlayerCharacter.Armor.; } }
+
+        public int AC_ItemBonus { get { return PlayerCharacter.Armor.ACBonus; } }
 
         public ProficiencyViewModel UnarmoredProficiency {
             get { return ConvertProficiencyToViewModel(PlayerCharacter.UnarmoredProficiency); }

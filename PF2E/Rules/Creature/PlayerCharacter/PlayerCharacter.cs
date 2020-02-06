@@ -1,16 +1,14 @@
-﻿using PF2E_RulesLawyer.Models.PF2e_Rules.Creature.PlayerCharacter.Ancestries;
-using PF2E.Rules;
-using PF2E.Rules.Creature;
-using PF2E.Rules.Creature.PlayerCharacter;
+﻿using PF2E.Rules.Equipment;
 using System;
 using System.Collections.Generic;
-using PF2E.Rules.Equipment;
+using System.Linq;
+using System.Reflection;
 
 namespace PF2E.Rules.Creature.PlayerCharacter
 {
     public class PlayerCharacter
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public IAncestry Ancestry { get; set; }
         public IBackground Background { get; set; }
@@ -26,23 +24,12 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         public int ExperiencePoints { get; set; }
 
         // Ability Scores
-
-        public AbilityScore Strength { get; set; }
-        public AbilityScore Dexterity { get; set; }
-        public AbilityScore Constitution { get; set; }
-        public AbilityScore Intelligence { get; set; }
-        public AbilityScore Wisdom { get; set; }
-        public AbilityScore Charisma { get; set; }
+        public AbilityScoreArray AbilityScores { get; set; }
 
         // Armor Class
 
         public int ArmorClass { get { return CalculateArmorClass(); } }
         public Armor Armor { get; set; }
-
-        private int CalculateArmorClass()
-        {
-            return Armor.ACBonus + Math.Min(Armor.DexCap, Dexterity.Modifier) + (int)AC_Proficiency + 10;
-        }
 
         public Proficiency AC_Proficiency { get; }
 
@@ -50,6 +37,12 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         public Proficiency LightArmorProficiency { get; set; }
         public Proficiency MediumArmorProficiency { get; set; }
         public Proficiency HeavyArmorProficiency { get; set; }
+
+        public void SetNewAlignment(string value)
+        {
+            throw new NotImplementedException();
+        }
+
         public int ShieldBonus { get; set; }
         public int ShieldHardness { get; set; }
         public int ShieldMaxHitPoints { get; set; }
@@ -58,9 +51,9 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         // Saving throws
 
-        public Save FortitudeSave { get; set; }
-        public Save ReflexSave { get; set; }
-        public Save WillSave { get; set; }
+        public SavingThrow FortitudeSave { get; set; }
+        public SavingThrow ReflexSave { get; set; }
+        public SavingThrow WillSave { get; set; }
         public Proficiency FortitudeProficiency { get; set; }
         public Proficiency ReflexProficiency { get; set; }
         public Proficiency WillProficiency { get; set; }
@@ -137,9 +130,36 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         public IEnumerable<String> Languages { get; set; }
 
-        public PlayerCharacter(string name)
+        public PlayerCharacter(
+            IAncestry ancestry,
+            IBackground background,
+            IPcClass pcclass,
+            int level,
+            string name = "Default Name",
+            string playerName = "Player"
+            )
         {
             Name = name;
+            Id = new Guid();
+            Ancestry = ancestry;
+            Background = background;
+            PcClass = pcclass;
+            Level = 1;
+            Size = Ancestry.Size;
+            Traits = Ancestry.Traits;
+
+            var boosts = new List<AbilityScoreBoostFlaw>();
+            boosts.AddRange(Ancestry.AbilityBoosts);
+            boosts.AddRange(Background.AbilityBoosts);
+            boosts.Add(PcClass.KeyAbilityScore);
+            var flaws = new List<AbilityScoreBoostFlaw>();
+            flaws.AddRange(Ancestry.AbilityFlaws);
+            AbilityScores = new AbilityScoreArray(boosts, flaws);
+        }
+
+        private int CalculateArmorClass()
+        {
+            return Armor.ACBonus + Math.Min(Armor.DexCap, AbilityScores.Dexterity.Modifier) + (int)AC_Proficiency + 10;
         }
     }
 }

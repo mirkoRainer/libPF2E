@@ -19,8 +19,8 @@ namespace PF2E_RulesLawyer.Services
             {
                 new PlayerCharacter ("Croft")
                 {
-                    Id = new Guid().ToString(),
-            PlayerName = "Mike Snow",
+                    Id = new Guid(),
+                    PlayerName = "Mike Snow",
                     Ancestry = new Dwarf(),
                     Background = new EmancipatedBackground(),
                     Heritage = new AnvilDwarf(),

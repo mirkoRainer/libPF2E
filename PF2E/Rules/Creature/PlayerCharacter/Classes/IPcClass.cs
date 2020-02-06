@@ -6,6 +6,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         int HitPoints { get; }
         IPcFeat[] ClassFeats { get; set; }
         string SubClass { get; set; }
+        AbilityScoreBoostFlaw KeyAbilityScore { get; }
 
         void SetSubClass(string value);
     }

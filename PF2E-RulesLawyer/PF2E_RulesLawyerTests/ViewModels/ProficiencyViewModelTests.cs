@@ -1,42 +1,43 @@
+﻿using NUnit.Framework;
 using PF2E.Rules;
 using PF2E_RulesLawyer.ViewModels;
 using System;
-using Xunit;
+using System.Collections.Generic;
+using System.Text;
 
-namespace PF2E_Tests
+namespace PF2E_RulesLawyer.ViewModels.Tests
 {
     public class ProficiencyViewModelTests
     {
-        [Theory]
-        [InlineData(
+        [TestCase(
             Proficiency.Untrained,
             true, // untrained
             false, // trained
             false, // expert
             false, // master
             false)] // legendary
-        [InlineData(
+        [TestCase(
             Proficiency.Trained,
             false, // untrained
             true, // trained
             false, // expert
             false, // master
             false)] // legendary
-        [InlineData(
-        Proficiency.Expert,
+        [TestCase(
+            Proficiency.Expert,
             false, // untrained
             true, // trained
             true, // expert
             false, // master
             false)] // legendary
-        [InlineData(
+        [TestCase(
             Proficiency.Master,
             false, // untrained
             true, // trained
             true, // expert
             true, // master
             false)] // legendary
-        [InlineData(
+        [TestCase(
             Proficiency.Legendary,
             false, //untrained
             true, // trained
@@ -52,11 +53,11 @@ namespace PF2E_Tests
             bool legendary)
         {
             var profVm = new ProficiencyViewModel(prof);
-            Assert.Equal(untrained, profVm.IsUntrained);
-            Assert.Equal(trained, profVm.IsTrained);
-            Assert.Equal(expert, profVm.IsExpert);
-            Assert.Equal(master, profVm.IsMaster);
-            Assert.Equal(legendary, profVm.IsLegendary);
+            Assert.That(untrained, Is.EqualTo(profVm.IsUntrained));
+            Assert.That(trained, Is.EqualTo(profVm.IsTrained));
+            Assert.That(expert, Is.EqualTo(profVm.IsExpert));
+            Assert.That(master, Is.EqualTo(profVm.IsMaster));
+            Assert.That(legendary, Is.EqualTo(profVm.IsLegendary));
         }
     }
 }

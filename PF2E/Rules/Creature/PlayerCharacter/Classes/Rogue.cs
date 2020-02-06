@@ -9,6 +9,7 @@ namespace PF2E_RulesLawyer.Services
         public int HitPoints { get { return 8; } }
         public IPcFeat[] ClassFeats { get; set; }
         public string SubClass { get; set; }
+        public AbilityScoreBoostFlaw KeyAbilityScore { get { return AbilityScoreBoostFlaw.Dexterity; } }
 
         public void SetSubClass(string value)
         {

@@ -1,15 +1,16 @@
-using PF2E.Rules;
+﻿using NUnit.Framework;
 using PF2E.Rules.Creature.PlayerCharacter;
-using PF2E_RulesLawyer.ViewModels;
 using System;
-using Xunit;
+using System.Collections.Generic;
+using System.Text;
 
-namespace PF2E_Tests
+namespace PF2E.Rules.Creature.PlayerCharacter.Tests
 {
-    public class SaveTests
+    [TestFixture()]
+    public class SavingThrowTests
     {
-        [Theory]
-        [InlineData(
+        [Test()]
+        [TestCase(
             Proficiency.Trained,
             0, // itemBonus
             1, // Level
@@ -23,8 +24,8 @@ namespace PF2E_Tests
             int modifier,
             int expected)
         {
-            var save = new Save(prof, itemBonus, level, modifier);
-            Assert.Equal(expected, save.Amount);
+            var save = new SavingThrow(prof, itemBonus, level, modifier);
+            Assert.That(expected, Is.EqualTo(save.Amount));
         }
     }
 }
