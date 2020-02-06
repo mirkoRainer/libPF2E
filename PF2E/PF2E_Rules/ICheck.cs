@@ -8,11 +8,11 @@ namespace PF2E.Rules
         // 2. identify modifiers, bonuses, and penalties
         // 3. compare result to DC
         // 4. determine degree of success/failure
-        IBonus[] Bonuses { get; set; }
+        Bonus[] Bonuses { get; set; }
 
         /*        Die Die { set; }
         */
         int AbilityModifier { get; set; }
-        IPenalty[] Penalties { get; set; }
+        Penalty[] Penalties { get; set; }
     }
 }

@@ -3,4 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="PF2E_Rules\ProficiencyBonus.cs" />
+  </ItemGroup>
 </Project>

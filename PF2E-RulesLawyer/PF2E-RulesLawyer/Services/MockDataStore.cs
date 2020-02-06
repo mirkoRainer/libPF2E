@@ -40,8 +40,6 @@ namespace PF2E_RulesLawyer.Services
                     Wisdom = new AbilityScore(18, Ability.Wisdom),
                     Charisma = new AbilityScore(8, Ability.Charisma),
 
-                    AC_Proficiency = Proficiency.Expert,
-                    AC_ItemBonus = 3,
                     UnarmoredProficiency = Proficiency.Trained,
                     LightArmorProficiency = Proficiency.Trained,
                     MediumArmorProficiency = Proficiency.Expert,

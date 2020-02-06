@@ -195,8 +195,7 @@ namespace PF2E_RulesLawyer.ViewModels
         #region ArmorClass
 
         public int ArmorClass { get { return PlayerCharacter.ArmorClass; } }
-        public int AC_CapDexBonus { get { return PlayerCharacter.AC_CapDexBonus; } }
-        public int AC_ProficiencyBonus { get { return PlayerCharacter.AC_ProficiencyBonus; } }
+        public int AC_CapDexBonus { get { return PlayerCharacter.Armor.DexCap; } }
 
         public ProficiencyViewModel AC_ProficiencyLevel {
             get {
@@ -209,7 +208,7 @@ namespace PF2E_RulesLawyer.ViewModels
             return new ProficiencyViewModel(aC_ProficiencyLevel);
         }
 
-        public int AC_ItemBonus { get { return PlayerCharacter.AC_ItemBonus; } }
+        public int AC_ItemBonus { get { return PlayerCharacter.Armor.; } }
 
         public ProficiencyViewModel UnarmoredProficiency {
             get { return ConvertProficiencyToViewModel(PlayerCharacter.UnarmoredProficiency); }

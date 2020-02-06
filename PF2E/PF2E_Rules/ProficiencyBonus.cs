@@ -1,13 +1,7 @@
 namespace PF2E.Rules
 {
-    public class ProficiencyBonus : IBonus
+    public class ProficiencyBonus : Bonus
     {
-        #region IBonus
-
-        public int Amount { get; }
-        public string Type { get; }
-
-        #endregion IBonus
 
         public ProficiencyBonus(int level, Proficiency proficiency)
         {
