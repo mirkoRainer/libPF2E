@@ -144,17 +144,43 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             Ancestry = ancestry;
             Background = background;
             PcClass = pcclass;
-            Level = 1;
+            Level = level;
             Size = Ancestry.Size;
             Traits = Ancestry.Traits;
 
-            var boosts = new List<AbilityScoreBoostFlaw>();
-            boosts.AddRange(Ancestry.AbilityBoosts);
-            boosts.AddRange(Background.AbilityBoosts);
-            boosts.Add(PcClass.KeyAbilityScore);
-            var flaws = new List<AbilityScoreBoostFlaw>();
-            flaws.AddRange(Ancestry.AbilityFlaws);
-            AbilityScores = new AbilityScoreArray(boosts, flaws);
+            var boostsAndFlaws = new List<AbilityScoreBoostFlaw>();
+            boostsAndFlaws.AddRange(Ancestry.AbilityBoosts);
+            boostsAndFlaws.AddRange(Background.AbilityBoosts);
+            boostsAndFlaws.Add(PcClass.KeyAbilityScore);
+            boostsAndFlaws.AddRange(Ancestry.AbilityFlaws);
+            AbilityScores = new AbilityScoreArray(boostsAndFlaws);
+
+            UnarmoredProficiency = PcClass.GetUnarmoredProficiency(Level);
+            LightArmorProficiency = PcClass.GetLightArmorProficiency(Level);
+            MediumArmorProficiency = PcClass.GetMediumArmorProficiency(Level);
+            HeavyArmorProficiency = PcClass.GetHeavyArmorProficiency(Level);
+
+            FortitudeProficiency = PcClass.GetFortitudeProficiency(Level);
+            FortitudeSave = new SavingThrow(
+                FortitudeProficiency,
+                Level,
+                AbilityScores.Constitution.Modifier
+                );
+            ReflexProficiency = PcClass.GetReflexProficiency(Level);
+            ReflexSave = new SavingThrow(
+                ReflexProficiency,
+                Level,
+                AbilityScores.Dexterity.Modifier
+                );
+            WillProficiency = PcClass.GetWillProficiency(Level);
+            WillSave = new SavingThrow(
+                WillProficiency,
+                Level,
+                AbilityScores.Wisdom.Modifier
+                );
+
+            MaxHitPoints = Ancestry.HitPoints + PcClass.HitPoints + AbilityScores.Constitution.Modifier;
+            PerceptionProficiency = PcClass.GetPerceptionProficiency(Level);
         }
 
         private int CalculateArmorClass()

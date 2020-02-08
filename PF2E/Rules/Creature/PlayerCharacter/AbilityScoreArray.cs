@@ -7,13 +7,10 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 {
     public class AbilityScoreArray
     {
-        private List<AbilityScoreBoostFlaw> boosts;
-        private List<AbilityScoreBoostFlaw> flaws;
-
-        public AbilityScoreArray(List<AbilityScoreBoostFlaw> boosts, List<AbilityScoreBoostFlaw> flaws)
+        public AbilityScoreArray(List<AbilityScoreBoostFlaw> boostsAndFlaws)
         {
-            this.boosts = boosts;
-            this.flaws = flaws;
+            propertiesOfThisClass = this.GetType().GetProperties();
+            CalculateAbilityScores(boostsAndFlaws);
         }
 
         public AbilityScore Strength { get; set; }
@@ -23,34 +20,44 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         public AbilityScore Wisdom { get; set; }
         public AbilityScore Charisma { get; set; }
 
-        private void CalculateAbilityScores(List<AbilityScoreBoostFlaw> boostsOrFlaw, bool isBoost)
+        private readonly PropertyInfo[] propertiesOfThisClass;
+
+        public void AddBoosts(List<AbilityScoreBoostFlaw> boosts)
         {
-            var count = boostsOrFlaw.GroupBy(b => b)
-                .Select(g => new
-                {
-                    key = g.Key,
-                    count = g.Select(b => b).Count()
-                })
-                .ToList();
-            Type tClass = this.GetType();
-            PropertyInfo[] pClass = tClass.GetProperties();
-            foreach ((PropertyInfo property, AbilityScore abilityScore) in from PropertyInfo property in pClass
-                                                                           from abilityScore in
-                                                                               from boost in count
-                                                                               where property.Name == boost.key.ToString()
-                                                                               let amount = AddOrSubtract(boost.count, isBoost)
-                                                                               let abilityScore = new AbilityScore(10 + amount, boost.key.ToString())
-                                                                               select abilityScore
-                                                                           select (property, abilityScore))
+            foreach (var property in propertiesOfThisClass)
             {
-                property.SetValue(this, abilityScore);
+                foreach (var boost in boosts)
+                {
+                    if (boost.Ability == property.Name)
+                    {
+                        AbilityScore current = (AbilityScore)property.GetValue(this);
+                        property.SetValue(this, new AbilityScore(current.Score + 2, property.Name));
+                    }
+                }
             }
         }
 
-        private int AddOrSubtract(int count, bool isBoost)
+        private void CalculateAbilityScores(List<AbilityScoreBoostFlaw> boostsAndFlaws)
         {
-            if (isBoost) return count * 2;
-            return -(count * 2);
+            foreach (var property in propertiesOfThisClass)
+            {
+                int total = 10;
+                foreach (var boostFlaw in boostsAndFlaws)
+                {
+                    if (boostFlaw.Ability == property.Name)
+                    {
+                        if (boostFlaw.IsBoost)
+                        {
+                            total += 2;
+                        }
+                        else
+                        {
+                            total -= 2;
+                        }
+                    }
+                }
+                property.SetValue(this, new AbilityScore(total, property.Name));
+            }
         }
     }
 }

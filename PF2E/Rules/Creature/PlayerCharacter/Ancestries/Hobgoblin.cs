@@ -36,13 +36,16 @@ namespace PF2E_RulesLawyer.Models.PF2e_Rules.Creature.PlayerCharacter.Ancestries
 
         public ICollection<AbilityScoreBoostFlaw> AbilityBoosts {
             get {
-                return new AbilityScoreBoostFlaw[] { AbilityScoreBoostFlaw.Constitution, AbilityScoreBoostFlaw.Intelligence, AbilityScoreBoostFlaw.Free };
+                return new AbilityScoreBoostFlaw[] {
+                    new AbilityScoreBoostFlaw(true, Ability.Constitution),
+                    new AbilityScoreBoostFlaw(true, Ability.Intelligence),
+                    new AbilityScoreBoostFlaw(true, Ability.Free) };
             }
         }
 
         public ICollection<AbilityScoreBoostFlaw> AbilityFlaws {
             get {
-                return new AbilityScoreBoostFlaw[] { AbilityScoreBoostFlaw.Wisdom };
+                return new AbilityScoreBoostFlaw[] { new AbilityScoreBoostFlaw(true, Ability.Wisdom) };
             }
         }
 

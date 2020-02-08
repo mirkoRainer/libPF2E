@@ -9,7 +9,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         public int ItemBonus { get; set; }
         public int ProficiencyBonus { get; }
 
-        public SavingThrow(Proficiency proficiency, int itemBonus, int level, int modifierBonus)
+        public SavingThrow(Proficiency proficiency, int level, int modifierBonus, int itemBonus = 0)
         {
             Proficiency = proficiency;
             ItemBonus = itemBonus;

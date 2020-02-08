@@ -36,7 +36,9 @@ namespace PF2E_RulesLawyer.Models.PF2e_Rules.Creature.PlayerCharacter.Ancestries
 
         public ICollection<AbilityScoreBoostFlaw> AbilityBoosts {
             get {
-                return new AbilityScoreBoostFlaw[] { AbilityScoreBoostFlaw.Free, AbilityScoreBoostFlaw.Free };
+                return new AbilityScoreBoostFlaw[] {
+                    new AbilityScoreBoostFlaw(true, Ability.Free),
+                    new AbilityScoreBoostFlaw(true, Ability.Free) };
             }
         }
 

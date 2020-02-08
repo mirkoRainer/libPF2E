@@ -1,13 +1,14 @@
 namespace PF2E.Rules.Creature.PlayerCharacter
 {
-    public enum AbilityScoreBoostFlaw
+    public class AbilityScoreBoostFlaw
     {
-        Free,
-        Strength,
-        Dexterity,
-        Constitution,
-        Intelligence,
-        Wisdom,
-        Charisma
+        public bool IsBoost { get; set; }
+        public string Ability { get; set; }
+
+        public AbilityScoreBoostFlaw(bool isBoost, Ability ability)
+        {
+            IsBoost = isBoost;
+            Ability = ability.ToString();
+        }
     }
 }

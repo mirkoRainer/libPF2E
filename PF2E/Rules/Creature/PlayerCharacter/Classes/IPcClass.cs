@@ -9,5 +9,21 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         AbilityScoreBoostFlaw KeyAbilityScore { get; }
 
         void SetSubClass(string value);
+
+        Proficiency GetFortitudeProficiency(int level);
+
+        Proficiency GetReflexProficiency(int level);
+
+        Proficiency GetWillProficiency(int level);
+
+        Proficiency GetUnarmoredProficiency(int level);
+
+        Proficiency GetLightArmorProficiency(int level);
+
+        Proficiency GetMediumArmorProficiency(int level);
+
+        Proficiency GetHeavyArmorProficiency(int level);
+
+        Proficiency GetPerceptionProficiency(int level);
     }
 }
