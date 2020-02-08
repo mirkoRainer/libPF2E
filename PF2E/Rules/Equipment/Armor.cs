@@ -8,6 +8,7 @@ namespace PF2E.Rules.Equipment
         public ArmorCategory Category { get; set; }
         public int Level { get; set; }
         public Price Price { get; set; }
+        /// <value> The Bonus given by a piece of armor </value>
         public int ACBonus { get; set; }
         public int DexCap { get; set; }
         public Penalty CheckPenalty { get; set; }

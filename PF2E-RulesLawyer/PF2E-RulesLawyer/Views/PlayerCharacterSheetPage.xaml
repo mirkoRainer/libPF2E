@@ -52,7 +52,7 @@
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Spacing="3">
                         <Label Text="Wounded: " />
-                        <Label Text="{Binding WoundedValue}" />
+                        <Label Text="{Binding WoundedValue}" d:Text="1" />
                     </StackLayout>
                 </StackLayout>
                 <StackLayout>
@@ -62,12 +62,13 @@
                 </StackLayout>
             </StackLayout>
             <StackLayout Orientation="Horizontal" Spacing="4">
-                <Label Text="{Binding Perception}" />
-                <Label Text="Perception" />
+                <Label Text="{Binding Perception}" d:Text="6"/>
+                <Label Text="Perception"/>
+
                 <Label Text="WIS" />
-                <Label Text="{Binding WisdomModifier}" />
+                <Label Text="{Binding WisdomModifier}" d:Text="4" />
                 <Label Text="Prof" />
-                <Label Text="{Binding PerceptionProficiencyBonus}" />
+                <Label Text="{Binding PerceptionProficiencyBonus}" d:Text="4"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <StackLayout Orientation="Horizontal">
