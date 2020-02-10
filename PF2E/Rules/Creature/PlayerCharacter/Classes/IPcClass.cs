@@ -1,29 +1,20 @@
+using System.Collections.Generic;
+
 namespace PF2E.Rules.Creature.PlayerCharacter
 {
     public interface IPcClass
     {
+        // pg67 CRB
+
         string Name { get; }
+        string TypicalMembers { get; }
+        string RolePlayingSuggestions { get; }
+        ICollection<AbilityScoreBoostFlaw> KeyAbilityScore { get; }
         int HitPoints { get; }
-        IPcFeat[] ClassFeats { get; set; }
-        string SubClass { get; set; }
-        AbilityScoreBoostFlaw KeyAbilityScore { get; }
+        Dictionary<string, Proficiency> Proficiencies { get; }
+        Dictionary<int, string[]> AdvancementTable { get; }
+        List<IClassFeat> ClassFeats { get; }
 
-        void SetSubClass(string value);
-
-        Proficiency GetFortitudeProficiency(int level);
-
-        Proficiency GetReflexProficiency(int level);
-
-        Proficiency GetWillProficiency(int level);
-
-        Proficiency GetUnarmoredProficiency(int level);
-
-        Proficiency GetLightArmorProficiency(int level);
-
-        Proficiency GetMediumArmorProficiency(int level);
-
-        Proficiency GetHeavyArmorProficiency(int level);
-
-        Proficiency GetPerceptionProficiency(int level);
+        Proficiency GetProficiency(PlayerCharacter.Proficiencies proficiencyWanted, int level);
     }
 }

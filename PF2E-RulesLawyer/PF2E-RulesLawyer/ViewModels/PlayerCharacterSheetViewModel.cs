@@ -15,6 +15,8 @@ namespace PF2E_RulesLawyer.ViewModels
     {
         public PlayerCharacter PlayerCharacter { get; set; }
 
+        #region Page1
+
         #region metadataProperties
 
         public String CharacterName {
@@ -186,13 +188,12 @@ namespace PF2E_RulesLawyer.ViewModels
 
         #region ArmorClass
 
-        public int ArmorClass => PlayerCharacter.ArmorClass;
+        public int ArmorClass => PlayerCharacter.ArmorClass.Amount;
         public int ACDexCap { get { return PlayerCharacter.Armor.DexCap; } }
-
 
         public ProficiencyViewModel AC_ProficiencyLevel {
             get {
-                return ConvertProficiencyToViewModel(PlayerCharacter.AC_Proficiency);
+                return ConvertProficiencyToViewModel(PlayerCharacter.ArmorClass.Proficiency);
             }
         }
 
@@ -200,7 +201,6 @@ namespace PF2E_RulesLawyer.ViewModels
         {
             return new ProficiencyViewModel(aC_ProficiencyLevel);
         }
-
 
         public int AC_ItemBonus { get { return PlayerCharacter.Armor.ACBonus; } }
 
@@ -439,7 +439,7 @@ namespace PF2E_RulesLawyer.ViewModels
 
         #endregion skills
 
-        // Languages
+        #region Languages
 
         public ObservableCollection<String> Languages {
             get {
@@ -450,6 +450,58 @@ namespace PF2E_RulesLawyer.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        #endregion Languages
+
+        #endregion Page1
+
+        #region Page2
+
+        public ObservableCollection<String> AncestryFeatsAndAbilities {
+            get { return new ObservableCollection<String>(PlayerCharacter.AncestryFeatsAndAbilities); }
+        }
+
+        public ObservableCollection<String> SkillFeats {
+            get { return new ObservableCollection<String>(PlayerCharacter.SkillFeats); }
+        }
+
+        public ObservableCollection<String> GeneralFeats {
+            get { return new ObservableCollection<String>(PlayerCharacter.GeneralFeats); }
+        }
+
+        public ObservableCollection<IClassFeat> ClassFeatsAndAbilities {
+            get { return new ObservableCollection<IClassFeat>(PlayerCharacter.ClassFeatsAndAbilities); }
+        }
+
+        public ObservableCollection<String> BonusFeats {
+            get { return new ObservableCollection<String>(PlayerCharacter.BonusFeats); }
+        }
+
+        public ObservableCollection<String> WornItems { get { return new ObservableCollection<string>(PlayerCharacter.WornItems); } }
+        public ObservableCollection<String> ReadiedItems { get { return new ObservableCollection<string>(PlayerCharacter.ReadiedItems); } }
+        public ObservableCollection<String> OtherItems { get { return new ObservableCollection<string>(PlayerCharacter.OtherItems); } }
+        public int TotalBulk { get { return PlayerCharacter.GetTotalBulk(); } }
+        public int EncumberedBulk { get { return PlayerCharacter.GetEncumbered(); } }
+        public int MaxBulk { get { return PlayerCharacter.GetMaxBulk(); } }
+        public int Copper { get { return PlayerCharacter.Coins.Copper; } }
+        public int Silver { get { return PlayerCharacter.Coins.Silver; } }
+        public int Gold { get { return PlayerCharacter.Coins.Gold; } }
+        public int Platinum { get { return PlayerCharacter.Coins.Platinum; } }
+
+        #endregion Page2
+
+        #region Page3
+
+        // lots of metadata with no mechanical benefit
+        // also some actions and such but these will be elsewhere
+
+        #endregion Page3
+
+        #region Page4
+
+        public int SpellAttackRoll { get; set; }
+
+        #endregion Page4
 
         public PlayerCharacterSheetViewModel()
         {

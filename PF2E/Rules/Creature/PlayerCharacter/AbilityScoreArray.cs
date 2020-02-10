@@ -31,7 +31,8 @@ namespace PF2E.Rules.Creature.PlayerCharacter
                     if (boost.Ability == property.Name)
                     {
                         AbilityScore current = (AbilityScore)property.GetValue(this);
-                        property.SetValue(this, new AbilityScore(current.Score + 2, property.Name));
+                        int increaseAmount = current.Score >= 18 ? 1 : 2;
+                        property.SetValue(this, new AbilityScore(current.Score + increaseAmount, property.Name));
                     }
                 }
             }

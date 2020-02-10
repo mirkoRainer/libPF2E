@@ -9,6 +9,9 @@ namespace PF2E.Rules.Creature.PlayerCharacter
     public class PlayerCharacter
     {
         public Guid Id { get; set; }
+
+        #region characterSheetPage1
+
         public string Name { get; set; }
         public IAncestry Ancestry { get; set; }
         public IBackground Background { get; set; }
@@ -28,10 +31,8 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         // Armor Class
 
-        public int ArmorClass { get { return CalculateArmorClass(); } }
+        public ArmorClass ArmorClass { get; set; }
         public Armor Armor { get; set; }
-
-        public Proficiency AC_Proficiency { get; }
 
         public Proficiency UnarmoredProficiency { get; set; }
         public Proficiency LightArmorProficiency { get; set; }
@@ -51,12 +52,9 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         // Saving throws
 
-        public SavingThrow FortitudeSave { get; set; }
-        public SavingThrow ReflexSave { get; set; }
-        public SavingThrow WillSave { get; set; }
-        public Proficiency FortitudeProficiency { get; set; }
-        public Proficiency ReflexProficiency { get; set; }
-        public Proficiency WillProficiency { get; set; }
+        public ProficiencyBasedNumber FortitudeSave { get; set; }
+        public ProficiencyBasedNumber ReflexSave { get; set; }
+        public ProficiencyBasedNumber WillSave { get; set; }
 
         // Hit Points
 
@@ -71,19 +69,12 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         // Perception
 
-        public int Perception { get; set; }
-        public int PerceptionProficiencyBonus { get; set; }
-        public Proficiency PerceptionProficiency { get; set; }
-        public int PerceptionItemBonus { get; set; }
+        public ProficiencyBasedNumber Perception { get; set; }
         public IEnumerable<String> Senses { get; set; }
 
         // Class DC
 
-        public int ClassDC { get; set; }
-        public int ClassDCKeyAbilityModifier { get; set; }
-        public int ClassDCProficiencyBonus { get; set; }
-        public Proficiency ClassProficiency { get; set; }
-        public int ClassDCItemBonus { get; set; }
+        public ProficiencyBasedNumber ClassDC { get; set; }
 
         // Movement
 
@@ -107,6 +98,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         // Skills
 
+        public int SkillPoints { get; set; } // for tracking number of skills allowed at a level
         public Skill Acrobatics { get; set; }
         public Skill Arcana { get; set; }
         public Skill Athletics { get; set; }
@@ -114,8 +106,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         public Skill Deception { get; set; }
         public Skill Diplomacy { get; set; }
         public Skill Intimidation { get; set; }
-        public Skill Lore1 { get; set; }
-        public Skill Lore2 { get; set; }
+        public List<Skill> Lore { get; set; }
         public Skill Medicine { get; set; }
         public Skill Nature { get; set; }
         public Skill Occultism { get; set; }
@@ -130,11 +121,42 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         public IEnumerable<String> Languages { get; set; }
 
+        #endregion characterSheetPage1
+
+        #region characterSheetPage2
+
+        public List<string> AncestryFeatsAndAbilities { get; set; }
+        public List<string> SkillFeats { get; set; }
+        public List<string> GeneralFeats { get; set; }
+        public List<IClassFeat> ClassFeatsAndAbilities { get; set; }
+        public List<string> BonusFeats { get; set; }
+        public List<string> WornItems { get; set; }
+        public List<string> ReadiedItems { get; set; }
+        public List<string> OtherItems { get; set; }
+        public Coins Coins { get; set; }
+
+        public int GetTotalBulk()
+        {
+            // for each item get bulk and add
+            throw new NotImplementedException();
+        }
+
+        public int GetEncumbered()
+        {
+            return 5 + AbilityScores.Strength.Modifier;
+        }
+
+        public int GetMaxBulk()
+        {
+            return 10 + AbilityScores.Strength.Modifier;
+        }
+
+        #endregion characterSheetPage2
+
         public PlayerCharacter(
             IAncestry ancestry,
             IBackground background,
             IPcClass pcclass,
-            int level,
             string name = "Default Name",
             string playerName = "Player"
             )
@@ -144,48 +166,41 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             Ancestry = ancestry;
             Background = background;
             PcClass = pcclass;
-            Level = level;
-            Size = Ancestry.Size;
-            Traits = Ancestry.Traits;
-
-            var boostsAndFlaws = new List<AbilityScoreBoostFlaw>();
-            boostsAndFlaws.AddRange(Ancestry.AbilityBoosts);
-            boostsAndFlaws.AddRange(Background.AbilityBoosts);
-            boostsAndFlaws.Add(PcClass.KeyAbilityScore);
-            boostsAndFlaws.AddRange(Ancestry.AbilityFlaws);
-            AbilityScores = new AbilityScoreArray(boostsAndFlaws);
-
-            UnarmoredProficiency = PcClass.GetUnarmoredProficiency(Level);
-            LightArmorProficiency = PcClass.GetLightArmorProficiency(Level);
-            MediumArmorProficiency = PcClass.GetMediumArmorProficiency(Level);
-            HeavyArmorProficiency = PcClass.GetHeavyArmorProficiency(Level);
-
-            FortitudeProficiency = PcClass.GetFortitudeProficiency(Level);
-            FortitudeSave = new SavingThrow(
-                FortitudeProficiency,
-                Level,
-                AbilityScores.Constitution.Modifier
-                );
-            ReflexProficiency = PcClass.GetReflexProficiency(Level);
-            ReflexSave = new SavingThrow(
-                ReflexProficiency,
-                Level,
-                AbilityScores.Dexterity.Modifier
-                );
-            WillProficiency = PcClass.GetWillProficiency(Level);
-            WillSave = new SavingThrow(
-                WillProficiency,
-                Level,
-                AbilityScores.Wisdom.Modifier
-                );
-
-            MaxHitPoints = Ancestry.HitPoints + PcClass.HitPoints + AbilityScores.Constitution.Modifier;
-            PerceptionProficiency = PcClass.GetPerceptionProficiency(Level);
+            Level = 1;
         }
 
-        private int CalculateArmorClass()
+        public enum Proficiencies
         {
-            return Armor.ACBonus + Math.Min(Armor.DexCap, AbilityScores.Dexterity.Modifier) + (int)AC_Proficiency + 10;
+            Unarmed,
+            SimpleWeapon,
+            MartialWeapon,
+            OtherWeapon,
+            Class,
+            Perception,
+            Will,
+            Reflex,
+            Fortitude,
+            HeavyArmor,
+            MediumArmor,
+            LightArmor,
+            Unarmored,
+            Acrobatics,
+            Arcana,
+            Athletics,
+            Crafting,
+            Deception,
+            Diplomacy,
+            Intimidation,
+            Lore,
+            Medicine,
+            Nature,
+            Occultism,
+            Performance,
+            Religion,
+            Society,
+            Stealth,
+            Survival,
+            Thievery
         }
     }
 }
