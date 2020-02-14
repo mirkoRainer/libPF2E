@@ -30,7 +30,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             var boostsAndFlaws = new List<AbilityScoreBoostFlaw>();
             boostsAndFlaws.AddRange(PlayerCharacter.Ancestry.AbilityBoosts);
             boostsAndFlaws.AddRange(PlayerCharacter.Background.AbilityBoosts);
-            boostsAndFlaws.Add(PlayerCharacter.PcClass.KeyAbilityScore);
+            boostsAndFlaws.AddRange(PlayerCharacter.PcClass.KeyAbilityScore);
             boostsAndFlaws.AddRange(PlayerCharacter.Ancestry.AbilityFlaws);
             PlayerCharacter.AbilityScores = new AbilityScoreArray(boostsAndFlaws);
 
@@ -47,7 +47,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             );
 
             PlayerCharacter.FortitudeSave = new ProficiencyBasedNumber(
-                pcClass.GetProficiency(PlayerCharacter.Proficiencies.Fortitude, PlayerCharacter.PlayerCharacter.Level),
+                pcClass.GetProficiency(PlayerCharacter.Proficiencies.Fortitude, PlayerCharacter.Level),
                 PlayerCharacter.Level,
                 PlayerCharacter.AbilityScores.Constitution.Modifier
             );

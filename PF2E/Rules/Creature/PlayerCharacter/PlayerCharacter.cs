@@ -1,6 +1,7 @@
 ﻿using PF2E.Rules.Equipment;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 
@@ -134,6 +135,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         public List<string> ReadiedItems { get; set; }
         public List<string> OtherItems { get; set; }
         public Coins Coins { get; set; }
+        public string SubClass { get; set; }
 
         public int GetTotalBulk()
         {
@@ -201,6 +203,66 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             Stealth,
             Survival,
             Thievery
+        }
+
+        public int GetSpellAttackRoll()
+        {
+            return 0;
+        }
+
+        public int GetSpellKeyAbilityModifier()
+        {
+            return 0;
+        }
+
+        public Proficiency GetSpellAttackProficiency()
+        {
+            return Proficiency.Untrained;
+        }
+
+        public int GetSpellDCModifier()
+        {
+            return 0;
+        }
+
+        public int GetSpellDC()
+        {
+            return 0;
+        }
+
+        public Proficiency GetSpellDCProficiency()
+        {
+            return Proficiency.Untrained;
+        }
+
+        public int GetCantripLevel()
+        {
+            return 0;
+        }
+
+        public int[] GetDailySpellSlot()
+        {
+            return new int[] { 0, 0 };
+        }
+
+        public List<string> GetCantrip()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string> GetInnateSpells()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string> GetSpells()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string> GetFocusSpells()
+        {
+            throw new NotImplementedException();
         }
     }
 }

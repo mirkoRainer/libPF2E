@@ -16,5 +16,8 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         List<IClassFeat> ClassFeats { get; }
 
         Proficiency GetProficiency(PlayerCharacter.Proficiencies proficiencyWanted, int level);
+
+        int GetKeyAbilityScore();
+        int GetKeyAbilityScoreModifier();
     }
 }
