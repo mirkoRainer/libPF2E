@@ -1,9 +1,7 @@
 ﻿using PF2E_RulesLawyer.Models;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace PF2E_RulesLawyer.Views
 {

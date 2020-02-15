@@ -1,5 +1,3 @@
-using PF2E.PF2E_Rules;
-using System;
 using System.Collections.Generic;
 
 namespace PF2E.Rules.Creature.PlayerCharacter

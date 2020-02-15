@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PF2E_RulesLawyer.Models
+﻿namespace PF2E_RulesLawyer.Models
 {
     public enum MenuItemType
     {

@@ -1,9 +1,5 @@
 ﻿using NUnit.Framework;
 using PF2E.Rules;
-using PF2E_RulesLawyer.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PF2E_RulesLawyer.ViewModels.Tests
 {

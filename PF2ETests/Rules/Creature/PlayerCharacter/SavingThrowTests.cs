@@ -1,8 +1,4 @@
 ﻿using NUnit.Framework;
-using PF2E.Rules.Creature.PlayerCharacter;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PF2E.Rules.Creature.PlayerCharacter.Tests
 {

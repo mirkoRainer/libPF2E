@@ -1,5 +1,3 @@
-using PF2E.Rules.Creature;
-
 namespace PF2E.Rules
 {
     internal interface ICheck

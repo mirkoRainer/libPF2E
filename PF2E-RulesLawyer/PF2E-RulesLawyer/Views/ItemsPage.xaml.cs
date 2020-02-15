@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-using PF2E_RulesLawyer.Models;
-using PF2E_RulesLawyer.Views;
 using PF2E_RulesLawyer.ViewModels;
 using PF2E.Rules.Creature.PlayerCharacter;
 
@@ -30,8 +22,7 @@ namespace PF2E_RulesLawyer.Views
 
         private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            PlayerCharacter item = args.SelectedItem as PlayerCharacter;
-            if (item == null)
+            if (!(args.SelectedItem is PlayerCharacter item))
                 return;
 
             await Navigation.PushAsync(new PlayerCharacterSheetPage(new PlayerCharacterSheetViewModel(item)));

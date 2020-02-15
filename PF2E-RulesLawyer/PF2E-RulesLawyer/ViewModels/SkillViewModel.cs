@@ -11,7 +11,7 @@ namespace PF2E_RulesLawyer.ViewModels
         public SkillViewModel(Skill skill)
         {
             Proficiency = new ProficiencyViewModel(skill.Proficiency);
-            Modifier = skill.KeyAbilityModifier;
+            Modifier = skill.ModifierBonus;
             Descriptor = string.IsNullOrWhiteSpace(skill.Descriptor) ? "" : skill.Descriptor;
         }
     }

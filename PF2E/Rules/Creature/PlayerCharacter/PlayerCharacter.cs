@@ -1,9 +1,6 @@
 ﻿using PF2E.Rules.Equipment;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection;
 
 namespace PF2E.Rules.Creature.PlayerCharacter
 {

@@ -12,7 +12,8 @@ namespace PF2E.Rules.Creature
             int level,
             int modifierBonus,
             Armor armor,
-            int itemBonus = 0) : base(proficiency, level, modifierBonus, itemBonus)
+            bool isDC = false,
+            int itemBonus = 0) : base(proficiency, level, modifierBonus, isDC)
         {
             Total = armor.ACBonus +
                 Math.Min(armor.DexCap, modifierBonus) +

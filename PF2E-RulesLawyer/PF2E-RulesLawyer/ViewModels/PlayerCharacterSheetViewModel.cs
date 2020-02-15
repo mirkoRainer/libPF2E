@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Text;
-using PF2E_RulesLawyer.Models;
 using PF2E.Rules;
 using PF2E.Rules.Creature;
 using PF2E.Rules.Creature.PlayerCharacter;
-using Xamarin.Forms.Internals;
 using System.Linq;
-using System.Collections.Generic;
 using PF2E_RulesLawyer.Services;
-using PF2E.Rules.Creature.PlayerCharacter.Backgrounds;
-using PF2E_RulesLawyer.Models.PF2e_Rules.Creature.PlayerCharacter.Ancestries;
 
 namespace PF2E_RulesLawyer.ViewModels
 {
@@ -521,13 +516,13 @@ namespace PF2E_RulesLawyer.ViewModels
         {
             Title = "New Adventurer";
             CharacterName = "New Adventurer";
-            PlayerCharacter = new PlayerCharacter(new Dwarf(), new EmancipatedBackground(), new Rogue(), CharacterName);
+            PlayerCharacter = new PlayerCharacter(Ancestries.Dwarf, new EmancipatedBackground(), new Rogue(), CharacterName);
         }
 
         public PlayerCharacterSheetViewModel(PlayerCharacter PC)
         {
             Title = "Character Sheet";
-            PlayerCharacter = PC ?? new PlayerCharacter(new Dwarf(), new EmancipatedBackground(), new Rogue(), "Salazat");
+            PlayerCharacter = PC ?? new PlayerCharacter(Ancestries.Dwarf, new EmancipatedBackground(), new Rogue(), "Salazat");
         }
     }
 }

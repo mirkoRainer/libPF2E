@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Moq;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using PF2E.Rules.Creature;
 using PF2E.Rules.Creature.PlayerCharacter;

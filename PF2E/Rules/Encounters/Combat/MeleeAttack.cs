@@ -1,4 +1,3 @@
-using PF2E.Rules.Creature;
 using System.Collections.Generic;
 
 namespace PF2E.Rules.Encounters.Combat

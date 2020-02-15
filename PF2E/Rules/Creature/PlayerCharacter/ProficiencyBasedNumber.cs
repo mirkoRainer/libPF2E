@@ -1,11 +1,10 @@
-﻿using System;
-
-namespace PF2E.Rules.Creature.PlayerCharacter
+﻿namespace PF2E.Rules.Creature.PlayerCharacter
 {
     public class ProficiencyBasedNumber
     {
         public int Amount { get; }
         public Proficiency Proficiency { get; set; }
+        public int ModifierBonus { get; set; }
         public int ItemBonus { get; set; }
         public int ProficiencyBonus { get; }
 

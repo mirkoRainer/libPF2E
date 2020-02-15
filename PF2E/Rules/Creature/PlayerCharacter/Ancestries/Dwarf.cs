@@ -1,11 +1,7 @@
-﻿using PF2E.Rules;
-using PF2E.Rules.Creature;
-using PF2E.Rules.Creature.PlayerCharacter;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace PF2E_RulesLawyer.Models.PF2e_Rules.Creature.PlayerCharacter.Ancestries
+namespace PF2E.Rules.Creature.PlayerCharacter
 {
     public readonly struct Dwarf : IAncestry, IAoNItem
     {

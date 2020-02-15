@@ -4,8 +4,6 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 using Xamarin.Forms;
-
-using PF2E_RulesLawyer.Models;
 using PF2E_RulesLawyer.Services;
 using PF2E.Rules.Creature.PlayerCharacter;
 

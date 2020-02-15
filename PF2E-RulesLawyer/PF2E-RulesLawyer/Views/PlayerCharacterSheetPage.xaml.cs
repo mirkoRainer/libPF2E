@@ -1,11 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-using PF2E_RulesLawyer.Models;
 using PF2E_RulesLawyer.ViewModels;
-using PF2E_RulesLawyer.Models.PF2e_Rules.Creature.PlayerCharacter.Ancestries;
 using PF2E.Rules.Creature.PlayerCharacter;
 
 namespace PF2E_RulesLawyer.Views
@@ -29,7 +24,7 @@ namespace PF2E_RulesLawyer.Views
             InitializeComponent();
 
             viewModel = new PlayerCharacterSheetViewModel(
-                new PlayerCharacter("Croft"))
+                new PlayerCharacter(Ancestries.Dwarf, CharacterBackgrounds.Emancipated, PcClasses.Rogue))
             {
                 Title = "Character Sheet"
             };

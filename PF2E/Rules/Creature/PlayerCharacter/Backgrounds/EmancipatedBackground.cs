@@ -1,8 +1,6 @@
-﻿using PF2E.Rules.Creature;
-using PF2E.Rules.Creature.PlayerCharacter;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace PF2E.Rules.Creature.PlayerCharacter.Backgrounds
+namespace PF2E.Rules.Creature.PlayerCharacter
 {
     public class EmancipatedBackground : IBackground
     {

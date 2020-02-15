@@ -1,6 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 using PF2E_RulesLawyer.Services;
 using PF2E_RulesLawyer.Views;
 

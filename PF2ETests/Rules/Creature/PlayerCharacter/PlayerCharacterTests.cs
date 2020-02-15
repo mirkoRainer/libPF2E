@@ -1,6 +1,4 @@
-﻿using Moq;
-using NUnit.Framework;
-using System.Collections.Generic;
+﻿using NUnit.Framework;
 
 namespace PF2E.Rules.Creature.PlayerCharacter.Tests
 {

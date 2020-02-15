@@ -11,4 +11,3 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         string TrainedLoreSkill { get; }
     }
 }
-}

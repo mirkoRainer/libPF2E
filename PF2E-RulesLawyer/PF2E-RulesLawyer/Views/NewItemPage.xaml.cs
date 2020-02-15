@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-using PF2E_RulesLawyer.Models;
 using PF2E.Rules.Creature.PlayerCharacter;
 
 namespace PF2E_RulesLawyer.Views
 {
     // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
+    // by visiting https://aka.ms/xamarinforms-previewerSsSSssS
     [DesignTimeVisible(false)]
     public partial class NewItemPage : ContentPage
     {
@@ -20,7 +16,9 @@ namespace PF2E_RulesLawyer.Views
         {
             InitializeComponent();
 
-            Item = new PlayerCharacter("PC Name");
+            Item = new PlayerCharacter(Ancestries.Dwarf,
+                                       CharacterBackgrounds.Emancipated,
+                                       PcClasses.Rogue);
 
             BindingContext = this;
         }
