@@ -20,7 +20,7 @@ namespace PF2E_RulesLawyer.ViewModels
             Items = new ObservableCollection<PlayerCharacter>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            MessagingCenter.Subscribe<NewItemPage, PlayerCharacter>(this, "AddItem", async (obj, item) =>
+            MessagingCenter.Subscribe<PlayerCharacterSheetPage, PlayerCharacter>(this, "AddItem", async (obj, item) =>
             {
                 var newItem = item as PlayerCharacter;
                 Items.Add(newItem);

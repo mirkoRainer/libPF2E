@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using PF2E_RulesLawyer.ViewModels;
 using PF2E.Rules.Creature.PlayerCharacter;
+using PF2E_RulesLawyer.Services;
 
 namespace PF2E_RulesLawyer.Views
 {
@@ -23,8 +24,7 @@ namespace PF2E_RulesLawyer.Views
         {
             InitializeComponent();
 
-            viewModel = new PlayerCharacterSheetViewModel(
-                new PlayerCharacter(Ancestries.Dwarf, CharacterBackgrounds.Emancipated, PcClasses.Rogue))
+            viewModel = new PlayerCharacterSheetViewModel()
             {
                 Title = "Character Sheet"
             };
