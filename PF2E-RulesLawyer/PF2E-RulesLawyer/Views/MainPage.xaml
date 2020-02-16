@@ -19,7 +19,7 @@
                 </OnPlatform>
             </NavigationPage.Icon>
             <x:Arguments>
-                <views:ItemsPage />
+                <views:CharactersPage />
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>

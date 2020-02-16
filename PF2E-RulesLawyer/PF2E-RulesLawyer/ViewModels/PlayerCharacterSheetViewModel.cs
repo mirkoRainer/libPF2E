@@ -516,13 +516,15 @@ namespace PF2E_RulesLawyer.ViewModels
         {
             Title = "New Adventurer";
             CharacterName = "New Adventurer";
-            PlayerCharacter = new PlayerCharacter(Ancestries.Dwarf, new EmancipatedBackground(), new Rogue(), CharacterName);
+            PlayerCharacter = new PlayerCharacter(Ancestries.Dwarf, CharacterBackgrounds.Emancipated, PcClasses.Rogue);
+            PlayerCharacter.Name = CharacterName;
         }
 
         public PlayerCharacterSheetViewModel(PlayerCharacter PC)
         {
             Title = "Character Sheet";
-            PlayerCharacter = PC ?? new PlayerCharacter(Ancestries.Dwarf, new EmancipatedBackground(), new Rogue(), "Salazat");
+            PlayerCharacter = PC ?? new PlayerCharacter(Ancestries.Dwarf, new EmancipatedBackground(), new Rogue());
+            PlayerCharacter.Name = "Salazat";
         }
     }
 }

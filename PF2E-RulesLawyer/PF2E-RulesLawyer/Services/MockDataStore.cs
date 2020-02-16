@@ -53,7 +53,7 @@ namespace PF2E_RulesLawyer.Services
             return await Task.FromResult(CreatedCharacters.FirstOrDefault(s => s.Id.ToString() == id));
         }
 
-        public async Task<IEnumerable<PlayerCharacter>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<PlayerCharacter>> GetCharactersAsync(bool forceRefresh = false)
         {
             return await Task.FromResult(CreatedCharacters);
         }
