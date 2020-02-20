@@ -18,7 +18,9 @@ namespace PF2E_RulesLawyer.ViewModels
         #region metadataProperties
 
         public String CharacterName {
-            get { return PlayerCharacter.Name; }
+            get {
+                return CheckNullOrEmptyString(PlayerCharacter.Name);
+            }
             set {
                 PlayerCharacter.Name = value;
                 OnPropertyChanged();
@@ -26,31 +28,31 @@ namespace PF2E_RulesLawyer.ViewModels
         }
 
         public String Ancestry {
-            get { return PlayerCharacter.Ancestry.Name; }
+            get { return CheckNullOrEmptyString(PlayerCharacter.Ancestry.Name); }
         }
 
         public String PcClass {
-            get { return PlayerCharacter.PcClass.Name; }
+            get { return CheckNullOrEmptyString(PlayerCharacter.PcClass.Name); }
         }
 
         public String SubClass {
-            get { return PlayerCharacter.SubClass; }
+            get { return CheckNullOrEmptyString(PlayerCharacter.SubClass); }
         }
 
         public String Heritage {
-            get { return PlayerCharacter.Heritage.Name; }
+            get { return CheckNullOrEmptyString(PlayerCharacter.Heritage.Name); }
         }
 
         public String Background {
-            get { return PlayerCharacter.Background.Name; }
+            get { return CheckNullOrEmptyString(PlayerCharacter.Background.Name); }
         }
 
         public int Level {
-            get { return PlayerCharacter.Level; }
+            get { return PlayerCharacter.Level > 0 ? PlayerCharacter.Level : 1; }
         }
 
         public String PlayerName {
-            get { return PlayerCharacter.PlayerName; }
+            get { return CheckNullOrEmptyString(PlayerCharacter.PlayerName); }
             set {
                 PlayerCharacter.PlayerName = value;
                 OnPropertyChanged();
@@ -58,11 +60,11 @@ namespace PF2E_RulesLawyer.ViewModels
         }
 
         public String Size {
-            get { return PlayerCharacter.Size.ToString().ToCharArray()[0].ToString(); }
+            get { return CheckNullOrEmptyString(PlayerCharacter.Size.ToString()); }
         }
 
         public String Alignment {
-            get { return PlayerCharacter.Alignment.ToString(); }
+            get { return CheckNullOrEmptyString(PlayerCharacter.Alignment.ToString()); }
             set {
                 PlayerCharacter.SetNewAlignment(value);
                 OnPropertyChanged();
@@ -76,12 +78,12 @@ namespace PF2E_RulesLawyer.ViewModels
                 {
                     traits.Append(string.Format("{0}, ", trait));
                 }
-                return traits.ToString();
+                return CheckNullOrEmptyString(traits.ToString());
             }
         }
 
         public String Deity {
-            get { return PlayerCharacter.Deity; }
+            get { return CheckNullOrEmptyString(PlayerCharacter.Deity); }
             set {
                 PlayerCharacter.Deity = value;
                 OnPropertyChanged();
@@ -191,8 +193,14 @@ namespace PF2E_RulesLawyer.ViewModels
 
         public ProficiencyViewModel AC_ProficiencyLevel {
             get {
+                var prof = ProficiencyNullCheck(PlayerCharacter.ArmorClass.Proficiency);
                 return ConvertProficiencyToViewModel(PlayerCharacter.ArmorClass.Proficiency);
             }
+        }
+
+        private Proficiency ProficiencyNullCheck(Proficiency proficiency)
+        {
+            throw new NotImplementedException();
         }
 
         private ProficiencyViewModel ConvertProficiencyToViewModel(Proficiency aC_ProficiencyLevel)
@@ -525,6 +533,11 @@ namespace PF2E_RulesLawyer.ViewModels
             Title = "Character Sheet";
             PlayerCharacter = PC ?? new PlayerCharacter(Ancestries.Dwarf, new EmancipatedBackground(), new Rogue());
             PlayerCharacter.Name = "Salazat";
+        }
+
+        private string CheckNullOrEmptyString(string value)
+        {
+            return string.IsNullOrEmpty(value) ? "" : value;
         }
     }
 }
