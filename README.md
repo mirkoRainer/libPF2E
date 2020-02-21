@@ -23,4 +23,4 @@ var goblin = new Creature(Goblins.Warrior);
 player.Strike(goblin, player.melee[0]);
 ```
 
-This is a very rough example but using DDD I hope to make the external API very friendly to Parhfinder 2E players. 
+This is a very rough example but using language specific to PF2e I hope to make the external API very friendly to Parhfinder 2E players. 
