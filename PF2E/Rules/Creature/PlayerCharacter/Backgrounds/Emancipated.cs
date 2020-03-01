@@ -2,9 +2,9 @@
 
 namespace PF2E.Rules.Creature.PlayerCharacter
 {
-    public class EmancipatedBackground : IBackground
+    public class Emancipated : IBackground
     {
-        public string Name { get { return "Emancipated"; } }
+        public string Name => this.GetType().Name;
 
         public ICollection<AbilityScoreBoostFlaw> AbilityBoosts { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
         public string SkillFeat { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }

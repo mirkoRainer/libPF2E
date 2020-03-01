@@ -10,5 +10,7 @@
         public static HalfOrc HalfOrc = new HalfOrc();
         public static Halfling Halfling = new Halfling();
         public static Human Human = new Human();
+        public static Hobgoblin Hobgoblin = new Hobgoblin();
+        public static Leshy Leshy = new Leshy();
     }
 }

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PF2E-RulesLawyer\PF2E-RulesLawyer\PF2E_RulesLawyer.csproj" />
     <ProjectReference Include="..\PF2E\PF2E.csproj" />
   </ItemGroup>
 

@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Text;
+using PF2E;
 using PF2E.Rules;
 using PF2E.Rules.Creature;
 using PF2E.Rules.Creature.PlayerCharacter;
 using System.Linq;
 using PF2E_RulesLawyer.Services;
+using Xamarin.Forms;
+using System.Collections.Generic;
 
 namespace PF2E_RulesLawyer.ViewModels
 {
     public class PlayerCharacterSheetViewModel : BaseViewModel
     {
-        public PlayerCharacter PlayerCharacter { get; set; }
+        private PlayerCharacter playerCharacter { get; set; }
 
         #region Page1
 
@@ -19,91 +22,130 @@ namespace PF2E_RulesLawyer.ViewModels
 
         public String CharacterName {
             get {
-                return CheckNullOrEmptyString(PlayerCharacter.Name);
+                return CheckNullString(playerCharacter.Name);
             }
             set {
-                PlayerCharacter.Name = value;
+                if (playerCharacter != null)
+                {
+                    playerCharacter.Name = CheckNullString(value);
+                    OnPropertyChanged();
+                }
+                return;
+            }
+        }
+
+        public List<String> AncestriesList {
+            get {
+                return PF2eCoreUtils.GetListOfAncestries();
+            }
+        }
+
+        private String ancestry;
+
+        public String Ancestry {
+            get { return CheckNullString(playerCharacter.Ancestry.Name); }
+            set {
+                ancestry = value;
+                playerCharacter.SetAncestry(value);
                 OnPropertyChanged();
             }
         }
 
-        public String Ancestry {
-            get { return CheckNullOrEmptyString(PlayerCharacter.Ancestry.Name); }
+        public List<String> BackgroundsList {
+            get {
+                return PF2eCoreUtils.GetListOfBackgrounds();
+            }
         }
 
+        private String background;
+
+        public String Background {
+            get { return CheckNullString(playerCharacter.Background.Name); }
+            set {
+                background = value;
+                playerCharacter.SetBackground(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public List<String> ClassList {
+            get {
+                return PF2eCoreUtils.GetListOfClasses();
+            }
+        }
+
+        private String pcClass;
+
         public String PcClass {
-            get { return CheckNullOrEmptyString(PlayerCharacter.PcClass.Name); }
+            get { return CheckNullString(playerCharacter.PcClass.Name); }
+            set {
+                pcClass = value;
+                playerCharacter.SetClass(value);
+                OnPropertyChanged();
+            }
         }
 
         public String SubClass {
-            get { return CheckNullOrEmptyString(PlayerCharacter.SubClass); }
+            get { return CheckNullString(playerCharacter.SubClass); }
         }
 
         public String Heritage {
-            get { return CheckNullOrEmptyString(PlayerCharacter.Heritage.Name); }
-        }
-
-        public String Background {
-            get { return CheckNullOrEmptyString(PlayerCharacter.Background.Name); }
+            get { return CheckNullString(playerCharacter.Heritage.Name); }
         }
 
         public int Level {
-            get { return PlayerCharacter.Level > 0 ? PlayerCharacter.Level : 1; }
+            get { return playerCharacter.Level > 0 ? playerCharacter.Level : 1; }
         }
 
+        private string playerName;
+
         public String PlayerName {
-            get { return CheckNullOrEmptyString(PlayerCharacter.PlayerName); }
+            get => playerName;
             set {
-                PlayerCharacter.PlayerName = value;
+                playerName = CheckNullString(value);
+                playerCharacter.PlayerName = CheckNullString(value);
                 OnPropertyChanged();
             }
         }
 
+        public Command SaveCharacterCommand { get; }
+
         public String Size {
-            get { return CheckNullOrEmptyString(PlayerCharacter.Size.ToString()); }
+            get { return CheckNullString(playerCharacter.Size.ToString()); }
         }
 
         public String Alignment {
-            get { return CheckNullOrEmptyString(PlayerCharacter.Alignment.ToString()); }
+            get { return CheckNullString(playerCharacter.Alignment.ToString()); }
             set {
-                PlayerCharacter.SetNewAlignment(value);
+                playerCharacter.SetNewAlignment(value);
                 OnPropertyChanged();
             }
         }
 
-        public String Traits {
-            get {
-                var traits = new StringBuilder();
-                foreach (var trait in PlayerCharacter.Traits)
-                {
-                    traits.Append(string.Format("{0}, ", trait));
-                }
-                return CheckNullOrEmptyString(traits.ToString());
-            }
-        }
+        public ObservableCollection<Trait> Traits { get; set; }
 
         public String Deity {
-            get { return CheckNullOrEmptyString(PlayerCharacter.Deity); }
+            get { return CheckNullString(playerCharacter.Deity); }
             set {
-                PlayerCharacter.Deity = value;
+                playerCharacter.Deity = value;
                 OnPropertyChanged();
             }
         }
 
         public int HeroPoints {
-            get { return PlayerCharacter.HeroPoints; }
+            get { return playerCharacter.HeroPoints; }
             set {
-                PlayerCharacter.HeroPoints = value;
+                playerCharacter.HeroPoints = value;
                 OnPropertyChanged();
             }
         }
 
         public int ExperiencePoints {
             get {
-                return PlayerCharacter.ExperiencePoints;
+                return playerCharacter.ExperiencePoints;
             }
             set {
-                PlayerCharacter.ExperiencePoints = value;
+                playerCharacter.ExperiencePoints = value;
                 OnPropertyChanged();
             }
         }
@@ -112,89 +154,107 @@ namespace PF2E_RulesLawyer.ViewModels
 
         #region AbilityScores
 
+        private string CreateAbilityModifierString(int modifier)
+        {
+            if (modifier == 0)
+            {
+                return $"{modifier}";
+            }
+            else if (modifier < 0)
+            {
+                return $"-{modifier}";
+            }
+            else
+            {
+                return $"+{modifier}";
+            }
+        }
+
         public int Strength {
-            get { return PlayerCharacter.AbilityScores.Strength.Score; }
+            get { return playerCharacter.AbilityScores.Strength.Score; }
             set {
-                PlayerCharacter.AbilityScores.Strength = new AbilityScore(value, Ability.Strength); ;
+                playerCharacter.AbilityScores.Strength = new AbilityScore(value, Ability.Strength); ;
                 OnPropertyChanged();
             }
         }
 
-        public int StrengthModifier {
-            get { return PlayerCharacter.AbilityScores.Strength.Modifier; }
+        public string StrengthModifier {
+            get {
+                return CreateAbilityModifierString(playerCharacter.AbilityScores.Strength.Modifier);
+            }
         }
 
         public int Dexterity {
-            get { return PlayerCharacter.AbilityScores.Dexterity.Score; }
+            get { return playerCharacter.AbilityScores.Dexterity.Score; }
             set {
-                PlayerCharacter.AbilityScores.Dexterity = new AbilityScore(value, Ability.Dexterity);
+                playerCharacter.AbilityScores.Dexterity = new AbilityScore(value, Ability.Dexterity);
                 OnPropertyChanged();
             }
         }
 
         public int DexterityModifier {
-            get { return PlayerCharacter.AbilityScores.Dexterity.Modifier; }
+            get { return playerCharacter.AbilityScores.Dexterity.Modifier; }
         }
 
         public int Constitution {
-            get { return PlayerCharacter.AbilityScores.Constitution.Score; }
+            get { return playerCharacter.AbilityScores.Constitution.Score; }
             set {
-                PlayerCharacter.AbilityScores.Constitution = new AbilityScore(value, Ability.Constitution);
+                playerCharacter.AbilityScores.Constitution = new AbilityScore(value, Ability.Constitution);
                 OnPropertyChanged();
             }
         }
 
         public int ConstitutionModifier {
-            get { return PlayerCharacter.AbilityScores.Constitution.Modifier; }
+            get { return playerCharacter.AbilityScores.Constitution.Modifier; }
         }
 
         public int Intelligence {
-            get { return PlayerCharacter.AbilityScores.Intelligence.Score; }
+            get { return playerCharacter.AbilityScores.Intelligence.Score; }
             set {
-                PlayerCharacter.AbilityScores.Intelligence = new AbilityScore(value, Ability.Intelligence);
+                playerCharacter.AbilityScores.Intelligence = new AbilityScore(value, Ability.Intelligence);
                 OnPropertyChanged();
             }
         }
 
         public int IntelligenceModifier {
-            get { return PlayerCharacter.AbilityScores.Intelligence.Modifier; }
+            get { return playerCharacter.AbilityScores.Intelligence.Modifier; }
         }
 
         public int Wisdom {
-            get { return PlayerCharacter.AbilityScores.Wisdom.Score; }
+            get { return playerCharacter.AbilityScores.Wisdom.Score; }
             set {
-                PlayerCharacter.AbilityScores.Wisdom = new AbilityScore(value, Ability.Wisdom);
+                playerCharacter.AbilityScores.Wisdom = new AbilityScore(value, Ability.Wisdom);
                 OnPropertyChanged();
             }
         }
 
         public int WisdomModifier {
-            get { return PlayerCharacter.AbilityScores.Wisdom.Modifier; }
+            get { return playerCharacter.AbilityScores.Wisdom.Modifier; }
         }
 
         public int Charisma {
-            get { return PlayerCharacter.AbilityScores.Charisma.Score; }
+            get { return playerCharacter.AbilityScores.Charisma.Score; }
             set {
-                PlayerCharacter.AbilityScores.Charisma = new AbilityScore(value, Ability.Charisma);
+                playerCharacter.AbilityScores.Charisma = new AbilityScore(value, Ability.Charisma);
                 OnPropertyChanged();
             }
         }
 
         public int CharismaModifier {
-            get { return PlayerCharacter.AbilityScores.Charisma.Modifier; }
+            get { return playerCharacter.AbilityScores.Charisma.Modifier; }
         }
 
         #endregion AbilityScores
 
         #region ArmorClass
 
-        public int ArmorClass => PlayerCharacter.ArmorClass.Amount;
-        public int ACDexCap { get { return PlayerCharacter.Armor.DexCap; } }
+        public int ArmorClass => playerCharacter.ArmorClass.Amount;
+        public int ACDexCap { get { return playerCharacter.Armor.DexCap; } }
 
         public ProficiencyViewModel AC_ProficiencyLevel {
             get {
-                var prof = ProficiencyNullCheck(PlayerCharacter.ArmorClass.Proficiency);
-                return ConvertProficiencyToViewModel(PlayerCharacter.ArmorClass.Proficiency);
+                var prof = ProficiencyNullCheck(playerCharacter.ArmorClass.Proficiency);
+                return ConvertProficiencyToViewModel(playerCharacter.ArmorClass.Proficiency);
             }
         }
 
@@ -208,36 +268,36 @@ namespace PF2E_RulesLawyer.ViewModels
             return new ProficiencyViewModel(aC_ProficiencyLevel);
         }
 
-        public int AC_ItemBonus { get { return PlayerCharacter.Armor.ACBonus; } }
+        public int AC_ItemBonus { get { return playerCharacter.Armor.ACBonus; } }
 
         public ProficiencyViewModel UnarmoredProficiency {
-            get { return ConvertProficiencyToViewModel(PlayerCharacter.UnarmoredProficiency); }
+            get { return ConvertProficiencyToViewModel(playerCharacter.UnarmoredProficiency); }
         }
 
         public ProficiencyViewModel LightArmorProficiency {
-            get { return ConvertProficiencyToViewModel(PlayerCharacter.LightArmorProficiency); }
+            get { return ConvertProficiencyToViewModel(playerCharacter.LightArmorProficiency); }
         }
 
         public ProficiencyViewModel MediumArmorProficiency {
-            get { return ConvertProficiencyToViewModel(PlayerCharacter.MediumArmorProficiency); }
+            get { return ConvertProficiencyToViewModel(playerCharacter.MediumArmorProficiency); }
         }
 
         public ProficiencyViewModel HeavyArmorProficiency {
-            get { return ConvertProficiencyToViewModel(PlayerCharacter.HeavyArmorProficiency); }
+            get { return ConvertProficiencyToViewModel(playerCharacter.HeavyArmorProficiency); }
         }
 
         public int ShieldBonus {
-            get { return PlayerCharacter.ShieldBonus; }
+            get { return playerCharacter.ShieldBonus; }
         }
 
-        public int ShieldHardness { get { return PlayerCharacter.ShieldHardness; } }
-        public int ShieldMaxHitPoints { get { return PlayerCharacter.ShieldMaxHitPoints; } }
-        public int ShieldBrokenThreshold { get { return PlayerCharacter.ShieldBrokenThreshold; } }
+        public int ShieldHardness { get { return playerCharacter.ShieldHardness; } }
+        public int ShieldMaxHitPoints { get { return playerCharacter.ShieldMaxHitPoints; } }
+        public int ShieldBrokenThreshold { get { return playerCharacter.ShieldBrokenThreshold; } }
 
         public int ShieldCurrentHitPoints {
-            get { return PlayerCharacter.ShieldCurrentHitPoints; }
+            get { return playerCharacter.ShieldCurrentHitPoints; }
             set {
-                PlayerCharacter.ShieldCurrentHitPoints = value;
+                playerCharacter.ShieldCurrentHitPoints = value;
                 OnPropertyChanged();
             }
         }
@@ -248,56 +308,56 @@ namespace PF2E_RulesLawyer.ViewModels
 
         public int FortitudeSave {
             get {
-                return PlayerCharacter.FortitudeSave.Amount;
+                return playerCharacter.FortitudeSave.Amount;
             }
         }
 
         public int FortitudeSaveProficiencyBonus {
             get {
-                return PlayerCharacter.FortitudeSave.ProficiencyBonus;
+                return playerCharacter.FortitudeSave.ProficiencyBonus;
             }
         }
 
-        public int FortitudeItemBonus { get { return PlayerCharacter.FortitudeSave.ItemBonus; } }
+        public int FortitudeItemBonus { get { return playerCharacter.FortitudeSave.ItemBonus; } }
 
         public ProficiencyViewModel FortitudeProficiency {
-            get { return ConvertProficiencyToViewModel(PlayerCharacter.FortitudeSave.Proficiency); }
+            get { return ConvertProficiencyToViewModel(playerCharacter.FortitudeSave.Proficiency); }
         }
 
         public int ReflexSave {
             get {
-                return PlayerCharacter.ReflexSave.Amount;
+                return playerCharacter.ReflexSave.Amount;
             }
         }
 
         public int ReflexSaveProficiencyBonus {
             get {
-                return PlayerCharacter.ReflexSave.ProficiencyBonus;
+                return playerCharacter.ReflexSave.ProficiencyBonus;
             }
         }
 
-        public int ReflexItemBonus { get { return PlayerCharacter.ReflexSave.ItemBonus; } }
+        public int ReflexItemBonus { get { return playerCharacter.ReflexSave.ItemBonus; } }
 
         public ProficiencyViewModel ReflexProficiency {
-            get { return ConvertProficiencyToViewModel(PlayerCharacter.ReflexSave.Proficiency); }
+            get { return ConvertProficiencyToViewModel(playerCharacter.ReflexSave.Proficiency); }
         }
 
         public int WillSave {
             get {
-                return PlayerCharacter.WillSave.Amount;
+                return playerCharacter.WillSave.Amount;
             }
         }
 
         public int WillSaveProficiencyBonus {
             get {
-                return PlayerCharacter.WillSave.ProficiencyBonus;
+                return playerCharacter.WillSave.ProficiencyBonus;
             }
         }
 
-        public int WillItemBonus { get { return PlayerCharacter.WillSave.ItemBonus; } }
+        public int WillItemBonus { get { return playerCharacter.WillSave.ItemBonus; } }
 
         public ProficiencyViewModel WillProficiency {
-            get { return ConvertProficiencyToViewModel(PlayerCharacter.WillSave.Proficiency); }
+            get { return ConvertProficiencyToViewModel(playerCharacter.WillSave.Proficiency); }
         }
 
         #endregion SavingThrows
@@ -306,68 +366,68 @@ namespace PF2E_RulesLawyer.ViewModels
 
         public int MaxHitPoints {
             get {
-                return PlayerCharacter.MaxHitPoints;
+                return playerCharacter.MaxHitPoints;
             }
         }
 
         public int CurrentHitPoints {
-            get { return PlayerCharacter.CurrentHitPoints; }
+            get { return playerCharacter.CurrentHitPoints; }
             set {
-                PlayerCharacter.CurrentHitPoints = value;
+                playerCharacter.CurrentHitPoints = value;
                 OnPropertyChanged();
             }
         }
 
         public int TemporaryHitPoints {
-            get { return PlayerCharacter.TemporaryHitPoints; }
+            get { return playerCharacter.TemporaryHitPoints; }
             set {
-                PlayerCharacter.TemporaryHitPoints = value;
+                playerCharacter.TemporaryHitPoints = value;
                 OnPropertyChanged();
             }
         }
 
         public int DyingValue {
-            get { return PlayerCharacter.DyingValue; }
+            get { return playerCharacter.DyingValue; }
             set {
-                PlayerCharacter.DyingValue = value;
+                playerCharacter.DyingValue = value;
                 OnPropertyChanged();
             }
         }
 
         public int WoundedValue {
-            get { return PlayerCharacter.WoundedValue; }
+            get { return playerCharacter.WoundedValue; }
             set {
-                PlayerCharacter.WoundedValue = value;
+                playerCharacter.WoundedValue = value;
                 OnPropertyChanged();
             }
         }
 
         public ObservableCollection<String> Resistances {
             get {
-                return new ObservableCollection<string>(PlayerCharacter.Resistances);
+                return new ObservableCollection<string>(playerCharacter.Resistances);
             }
             set {
-                PlayerCharacter.Resistances = value;
+                playerCharacter.Resistances = value;
                 OnPropertyChanged();
             }
         }
 
         public ObservableCollection<String> Immunities {
             get {
-                return new ObservableCollection<string>(PlayerCharacter.Immunities);
+                return new ObservableCollection<string>(playerCharacter.Immunities);
             }
             set {
-                PlayerCharacter.Immunities = value;
+                playerCharacter.Immunities = value;
                 OnPropertyChanged();
             }
         }
 
         public ObservableCollection<String> Conditions {
             get {
-                return new ObservableCollection<string>(PlayerCharacter.Conditions);
+                return new ObservableCollection<string>(playerCharacter.Conditions);
             }
             set {
-                PlayerCharacter.Conditions = value;
+                playerCharacter.Conditions = value;
                 OnPropertyChanged();
             }
         }
@@ -376,72 +436,72 @@ namespace PF2E_RulesLawyer.ViewModels
 
         #region Perception
 
-        public int Perception { get { return PlayerCharacter.Perception.Amount; } }
-        public int PerceptionProficiencyBonus { get { return PlayerCharacter.Perception.ProficiencyBonus; } }
-        public ProficiencyViewModel PerceptionProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.Perception.Proficiency); } }
-        public int PerceptionItemBonus { get { return PlayerCharacter.Perception.ItemBonus; } }
-        public ObservableCollection<String> Senses { get { return new ObservableCollection<string>(PlayerCharacter.Senses); } }
+        public int Perception { get { return playerCharacter.Perception.Amount; } }
+        public int PerceptionProficiencyBonus { get { return playerCharacter.Perception.ProficiencyBonus; } }
+        public ProficiencyViewModel PerceptionProficiency { get { return ConvertProficiencyToViewModel(playerCharacter.Perception.Proficiency); } }
+        public int PerceptionItemBonus { get { return playerCharacter.Perception.ItemBonus; } }
+        public ObservableCollection<String> Senses { get { return new ObservableCollection<string>(playerCharacter.Senses); } }
 
         #endregion Perception
 
         #region ClassDC
 
-        public int ClassDC { get { return PlayerCharacter.ClassDC.Amount; } }
+        public int ClassDC { get { return playerCharacter.ClassDC.Amount; } }
 
         public int ClassDCKeyAbilityModifier {
-            get { return PlayerCharacter.PcClass.GetKeyAbilityScoreModifier(); }
+            get { return playerCharacter.PcClass.GetKeyAbilityScoreModifier(); }
         }
 
         public int ClassDCProficiencyBonus {
-            get { return PlayerCharacter.ClassDC.ProficiencyBonus; }
+            get { return playerCharacter.ClassDC.ProficiencyBonus; }
         }
 
-        public ProficiencyViewModel ClassProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.ClassDC.Proficiency); } }
+        public ProficiencyViewModel ClassProficiency { get { return ConvertProficiencyToViewModel(playerCharacter.ClassDC.Proficiency); } }
 
         public int ClassDCItemBonus {
-            get { return PlayerCharacter.ClassDC.ItemBonus; }
+            get { return playerCharacter.ClassDC.ItemBonus; }
         }
 
         #endregion ClassDC
 
         #region movement
 
-        public int Speed { get { return PlayerCharacter.Speed; } }
-        public String MovementTypes { get { return PlayerCharacter.MovementTypes; } }
+        public int Speed { get { return playerCharacter.Speed; } }
+        public String MovementTypes { get { return playerCharacter.MovementTypes; } }
 
         #endregion movement
 
         #region strikes
 
-        public String MeleeStrikesDetails { get { return PlayerCharacter.MeleeStrikesDetails; } }
-        public String RangedStrikesDetails { get { return PlayerCharacter.RangedStrikesDetails; } }
-        public ProficiencyViewModel UnarmedProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.UnarmedProficiency); } }
-        public ProficiencyViewModel SimpleWeaponProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.SimpleWeaponProficiency); } }
-        public ProficiencyViewModel MartialWeaponProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.MartialWeaponProficiency); } }
-        public ProficiencyViewModel OtherWeaponProficiency { get { return ConvertProficiencyToViewModel(PlayerCharacter.OtherWeaponProficiency); } }
+        public String MeleeStrikesDetails { get { return playerCharacter.MeleeStrikesDetails; } }
+        public String RangedStrikesDetails { get { return playerCharacter.RangedStrikesDetails; } }
+        public ProficiencyViewModel UnarmedProficiency { get { return ConvertProficiencyToViewModel(playerCharacter.UnarmedProficiency); } }
+        public ProficiencyViewModel SimpleWeaponProficiency { get { return ConvertProficiencyToViewModel(playerCharacter.SimpleWeaponProficiency); } }
+        public ProficiencyViewModel MartialWeaponProficiency { get { return ConvertProficiencyToViewModel(playerCharacter.MartialWeaponProficiency); } }
+        public ProficiencyViewModel OtherWeaponProficiency { get { return ConvertProficiencyToViewModel(playerCharacter.OtherWeaponProficiency); } }
 
         #endregion strikes
 
         #region skills
 
-        public SkillViewModel Acrobatics { get { return new SkillViewModel(PlayerCharacter.Acrobatics); } }
-        public SkillViewModel Arcana { get { return new SkillViewModel(PlayerCharacter.Arcana); } }
-        public SkillViewModel Athletics { get { return new SkillViewModel(PlayerCharacter.Athletics); } }
-        public SkillViewModel Crafting { get { return new SkillViewModel(PlayerCharacter.Crafting); } }
-        public SkillViewModel Deception { get { return new SkillViewModel(PlayerCharacter.Deception); } }
-        public SkillViewModel Diplomacy { get { return new SkillViewModel(PlayerCharacter.Diplomacy); } }
-        public SkillViewModel Intimidation { get { return new SkillViewModel(PlayerCharacter.Intimidation); } }
-        public SkillViewModel Lore1 { get { return new SkillViewModel(PlayerCharacter.Lore.First<Skill>()); } }
-        public SkillViewModel Lore2 { get { return new SkillViewModel(PlayerCharacter.Lore.Last<Skill>()); } }
-        public SkillViewModel Medicine { get { return new SkillViewModel(PlayerCharacter.Medicine); } }
-        public SkillViewModel Nature { get { return new SkillViewModel(PlayerCharacter.Nature); } }
-        public SkillViewModel Occultism { get { return new SkillViewModel(PlayerCharacter.Occultism); } }
-        public SkillViewModel Performance { get { return new SkillViewModel(PlayerCharacter.Performance); } }
-        public SkillViewModel Religion { get { return new SkillViewModel(PlayerCharacter.Religion); } }
-        public SkillViewModel Society { get { return new SkillViewModel(PlayerCharacter.Society); } }
-        public SkillViewModel Stealth { get { return new SkillViewModel(PlayerCharacter.Stealth); } }
-        public SkillViewModel Survival { get { return new SkillViewModel(PlayerCharacter.Survival); } }
-        public SkillViewModel Thievery { get { return new SkillViewModel(PlayerCharacter.Thievery); } }
+        public SkillViewModel Acrobatics { get { return new SkillViewModel(playerCharacter.Acrobatics); } }
+        public SkillViewModel Arcana { get { return new SkillViewModel(playerCharacter.Arcana); } }
+        public SkillViewModel Athletics { get { return new SkillViewModel(playerCharacter.Athletics); } }
+        public SkillViewModel Crafting { get { return new SkillViewModel(playerCharacter.Crafting); } }
+        public SkillViewModel Deception { get { return new SkillViewModel(playerCharacter.Deception); } }
+        public SkillViewModel Diplomacy { get { return new SkillViewModel(playerCharacter.Diplomacy); } }
+        public SkillViewModel Intimidation { get { return new SkillViewModel(playerCharacter.Intimidation); } }
+        public SkillViewModel Lore1 { get { return new SkillViewModel(playerCharacter.Lore.First<Skill>()); } }
+        public SkillViewModel Lore2 { get { return new SkillViewModel(playerCharacter.Lore.Last<Skill>()); } }
+        public SkillViewModel Medicine { get { return new SkillViewModel(playerCharacter.Medicine); } }
+        public SkillViewModel Nature { get { return new SkillViewModel(playerCharacter.Nature); } }
+        public SkillViewModel Occultism { get { return new SkillViewModel(playerCharacter.Occultism); } }
+        public SkillViewModel Performance { get { return new SkillViewModel(playerCharacter.Performance); } }
+        public SkillViewModel Religion { get { return new SkillViewModel(playerCharacter.Religion); } }
+        public SkillViewModel Society { get { return new SkillViewModel(playerCharacter.Society); } }
+        public SkillViewModel Stealth { get { return new SkillViewModel(playerCharacter.Stealth); } }
+        public SkillViewModel Survival { get { return new SkillViewModel(playerCharacter.Survival); } }
+        public SkillViewModel Thievery { get { return new SkillViewModel(playerCharacter.Thievery); } }
 
         #endregion skills
 
@@ -449,10 +509,10 @@ namespace PF2E_RulesLawyer.ViewModels
 
         public ObservableCollection<String> Languages {
             get {
-                return new ObservableCollection<string>(PlayerCharacter.Languages);
+                return new ObservableCollection<string>(playerCharacter.Languages);
             }
             set {
-                PlayerCharacter.Languages = value;
+                playerCharacter.Languages = value;
                 OnPropertyChanged();
             }
         }
@@ -464,35 +524,35 @@ namespace PF2E_RulesLawyer.ViewModels
         #region Page2
 
         public ObservableCollection<String> AncestryFeatsAndAbilities {
-            get { return new ObservableCollection<String>(PlayerCharacter.AncestryFeatsAndAbilities); }
+            get { return new ObservableCollection<String>(playerCharacter.AncestryFeatsAndAbilities); }
         }
 
         public ObservableCollection<String> SkillFeats {
-            get { return new ObservableCollection<String>(PlayerCharacter.SkillFeats); }
+            get { return new ObservableCollection<String>(playerCharacter.SkillFeats); }
         }
 
         public ObservableCollection<String> GeneralFeats {
-            get { return new ObservableCollection<String>(PlayerCharacter.GeneralFeats); }
+            get { return new ObservableCollection<String>(playerCharacter.GeneralFeats); }
         }
 
         public ObservableCollection<IClassFeat> ClassFeatsAndAbilities {
-            get { return new ObservableCollection<IClassFeat>(PlayerCharacter.ClassFeatsAndAbilities); }
+            get { return new ObservableCollection<IClassFeat>(playerCharacter.ClassFeatsAndAbilities); }
         }
 
         public ObservableCollection<String> BonusFeats {
-            get { return new ObservableCollection<String>(PlayerCharacter.BonusFeats); }
+            get { return new ObservableCollection<String>(playerCharacter.BonusFeats); }
         }
 
-        public ObservableCollection<String> WornItems { get { return new ObservableCollection<string>(PlayerCharacter.WornItems); } }
-        public ObservableCollection<String> ReadiedItems { get { return new ObservableCollection<string>(PlayerCharacter.ReadiedItems); } }
-        public ObservableCollection<String> OtherItems { get { return new ObservableCollection<string>(PlayerCharacter.OtherItems); } }
-        public int TotalBulk { get { return PlayerCharacter.GetTotalBulk(); } }
-        public int EncumberedBulk { get { return PlayerCharacter.GetEncumbered(); } }
-        public int MaxBulk { get { return PlayerCharacter.GetMaxBulk(); } }
-        public int Copper { get { return PlayerCharacter.Coins.Copper; } }
-        public int Silver { get { return PlayerCharacter.Coins.Silver; } }
-        public int Gold { get { return PlayerCharacter.Coins.Gold; } }
-        public int Platinum { get { return PlayerCharacter.Coins.Platinum; } }
+        public ObservableCollection<String> WornItems { get { return new ObservableCollection<string>(playerCharacter.WornItems); } }
+        public ObservableCollection<String> ReadiedItems { get { return new ObservableCollection<string>(playerCharacter.ReadiedItems); } }
+        public ObservableCollection<String> OtherItems { get { return new ObservableCollection<string>(playerCharacter.OtherItems); } }
+        public int TotalBulk { get { return playerCharacter.GetTotalBulk(); } }
+        public int EncumberedBulk { get { return playerCharacter.GetEncumbered(); } }
+        public int MaxBulk { get { return playerCharacter.GetMaxBulk(); } }
+        public int Copper { get { return playerCharacter.Coins.Copper; } }
+        public int Silver { get { return playerCharacter.Coins.Silver; } }
+        public int Gold { get { return playerCharacter.Coins.Gold; } }
+        public int Platinum { get { return playerCharacter.Coins.Platinum; } }
 
         #endregion Page2
 
@@ -505,18 +565,18 @@ namespace PF2E_RulesLawyer.ViewModels
 
         #region Page4
 
-        public int SpellAttackRoll { get { return PlayerCharacter.GetSpellAttackRoll(); } }
-        public int SpellKeyAbilityModifier { get { return PlayerCharacter.GetSpellKeyAbilityModifier(); } }
-        public ProficiencyViewModel SpellAttackProficiency { get { return new ProficiencyViewModel(PlayerCharacter.GetSpellAttackProficiency()); } }
-        public int SpellDC { get { return PlayerCharacter.GetSpellDC(); } }
-        public int SpellDCModifier { get { return PlayerCharacter.GetSpellDCModifier(); } }
-        public ProficiencyViewModel SpellDCProficiency { get { return new ProficiencyViewModel(PlayerCharacter.GetSpellDCProficiency()); } }
-        public int CantripLevel { get { return PlayerCharacter.GetCantripLevel(); } }
-        public int[] SpellSlotsPerDay { get { return PlayerCharacter.GetDailySpellSlot(); } }
-        public ObservableCollection<string> Cantrips { get { return new ObservableCollection<string>(PlayerCharacter.GetCantrip()); } }
-        public ObservableCollection<string> InnateSpells { get { return new ObservableCollection<string>(PlayerCharacter.GetInnateSpells()); } }
-        public ObservableCollection<string> Spells { get { return new ObservableCollection<string>(PlayerCharacter.GetSpells()); } }
-        public ObservableCollection<string> FocusSpells { get { return new ObservableCollection<string>(PlayerCharacter.GetFocusSpells()); } }
+        public int SpellAttackRoll { get { return playerCharacter.GetSpellAttackRoll(); } }
+        public int SpellKeyAbilityModifier { get { return playerCharacter.GetSpellKeyAbilityModifier(); } }
+        public ProficiencyViewModel SpellAttackProficiency { get { return new ProficiencyViewModel(playerCharacter.GetSpellAttackProficiency()); } }
+        public int SpellDC { get { return playerCharacter.GetSpellDC(); } }
+        public int SpellDCModifier { get { return playerCharacter.GetSpellDCModifier(); } }
+        public ProficiencyViewModel SpellDCProficiency { get { return new ProficiencyViewModel(playerCharacter.GetSpellDCProficiency()); } }
+        public int CantripLevel { get { return playerCharacter.GetCantripLevel(); } }
+        public int[] SpellSlotsPerDay { get { return playerCharacter.GetDailySpellSlot(); } }
+        public ObservableCollection<string> Cantrips { get { return new ObservableCollection<string>(playerCharacter.GetCantrip()); } }
+        public ObservableCollection<string> InnateSpells { get { return new ObservableCollection<string>(playerCharacter.GetInnateSpells()); } }
+        public ObservableCollection<string> Spells { get { return new ObservableCollection<string>(playerCharacter.GetSpells()); } }
+        public ObservableCollection<string> FocusSpells { get { return new ObservableCollection<string>(playerCharacter.GetFocusSpells()); } }
 
         #endregion Page4
 
@@ -524,18 +584,18 @@ namespace PF2E_RulesLawyer.ViewModels
         {
             Title = "New Adventurer";
             CharacterName = "New Adventurer";
-            PlayerCharacter = new PlayerCharacter(Ancestries.Dwarf, CharacterBackgrounds.Emancipated, PcClasses.Rogue);
-            PlayerCharacter.Name = CharacterName;
+            playerCharacter = new PlayerCharacter(Ancestries.Dwarf, CharacterBackgrounds.Emancipated, PcClasses.Rogue);
+            playerCharacter.Name = CharacterName;
         }
 
         public PlayerCharacterSheetViewModel(PlayerCharacter PC)
         {
             Title = "Character Sheet";
-            PlayerCharacter = PC ?? new PlayerCharacter(Ancestries.Dwarf, new EmancipatedBackground(), new Rogue());
-            PlayerCharacter.Name = "Salazat";
+            playerCharacter = PC ?? new PlayerCharacter(Ancestries.Dwarf, new Emancipated(), new Rogue());
+            playerCharacter.Name = "Salazat";
         }
 
-        private string CheckNullOrEmptyString(string value)
+        private string CheckNullString(string value)
         {
             return string.IsNullOrEmpty(value) ? "" : value;
         }

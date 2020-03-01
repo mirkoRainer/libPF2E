@@ -22,11 +22,6 @@
   <ItemGroup>
     <Compile Remove="Views\NewItemPage.xaml.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Views\PlayerCharacterSheetPage.xaml.cs">
-      <DependentUpon>PlayerCharacterSheetPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="Views\NewItemPage.xaml" />

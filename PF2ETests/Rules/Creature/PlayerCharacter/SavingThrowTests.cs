@@ -20,7 +20,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter.Tests
             int modifier,
             int expected)
         {
-            var save = new ProficiencyBasedNumber(prof, itemBonus, level, modifier);
+            var save = new ProficiencyBasedNumber(prof, level, modifier, false, itemBonus);
             Assert.That(expected, Is.EqualTo(save.Amount));
         }
     }

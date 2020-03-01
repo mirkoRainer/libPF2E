@@ -1,5 +1,4 @@
-﻿using PF2E.Rules;
-using PF2E.Rules.Creature;
+﻿using PF2E;
 using PF2E.Rules.Creature.PlayerCharacter;
 using System;
 using System.Collections.Generic;

@@ -7,7 +7,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
     {
         public string Name {
             get {
-                return "Half-Elf";
+                return "HalfElf";
             }
         }
 

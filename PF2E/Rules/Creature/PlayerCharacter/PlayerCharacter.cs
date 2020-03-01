@@ -1,6 +1,7 @@
 ﻿using PF2E.Rules.Equipment;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace PF2E.Rules.Creature.PlayerCharacter
 {
@@ -11,15 +12,69 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         #region characterSheetPage1
 
         public string Name { get; set; }
-        public IAncestry Ancestry { get; set; }
+        public IAncestry Ancestry { get; private set; }
+
+        public void SetAncestry(string value)
+        {
+            try
+            {
+                var ancestriesType = typeof(Ancestries);
+                var ancestry = (IAncestry)ancestriesType.GetField(value).GetValue(null);
+                Ancestry = ancestry;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Check the Ancestries.cs file to see if {value} has a property there. Could not assign {value} as an Ancestry. Invalid Ancestry name or String.  {e.Message}");
+            }
+        }
+
         public IBackground Background { get; set; }
+
+        public void SetBackground(string value)
+        {
+            try
+            {
+                var backgroundTypes = typeof(CharacterBackgrounds);
+                var background = (IBackground)backgroundTypes.GetField(value).GetValue(null);
+                Background = background;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Check to make sure {value} exists in the CharacterBackgrounds.cs file. Could not assign {value} as an Background. Invalid Background name or String. {e.Message}");
+            }
+        }
+
         public IHeritage Heritage { get; set; }
         public int Level { get; set; }
-        public string PlayerName { get; set; }
+
         public IPcClass PcClass { get; set; }
+
+        public void SetClass(string value)
+        {
+            try
+            {
+                var classTypes = typeof(PcClasses);
+                var pcClass = (IPcClass)classTypes.GetField(value).GetValue(null);
+                PcClass = pcClass;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($" Make sure {value} has an entry in the PcClasses.cs file. Could not assign {value} as an PcClass. Invalid PcClass name or String. {e.Message}");
+            }
+        }
+
+        public string PlayerName {
+            get;
+            set;
+        }
+
         public Size Size { get; set; }
         public Alignment Alignment { get; set; }
-        public IEnumerable<Trait> Traits { get; set; }
+
+        public List<Trait> Traits {
+            get; set;
+        }
+
         public String Deity { get; set; }
         public int HeroPoints { get; set; }
         public int ExperiencePoints { get; set; }
@@ -156,7 +211,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             IAncestry ancestry,
             IBackground background,
             IPcClass pcclass,
-            string name = "Default Name",
+            string name = "",
             string playerName = "Player"
             )
         {
@@ -166,6 +221,9 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             Background = background;
             PcClass = pcclass;
             Level = 1;
+            Traits = new List<Trait>();
+            Traits.AddRange(ancestry.Traits);
+            PlayerName = playerName;
         }
 
         public enum Proficiencies

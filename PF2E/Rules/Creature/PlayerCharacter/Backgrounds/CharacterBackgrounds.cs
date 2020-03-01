@@ -2,6 +2,7 @@
 {
     public static class CharacterBackgrounds
     {
-        public static EmancipatedBackground Emancipated = new EmancipatedBackground();
+        public static Emancipated Emancipated = new Emancipated();
+        public static Scholar Scholar = new Scholar();
     }
 }

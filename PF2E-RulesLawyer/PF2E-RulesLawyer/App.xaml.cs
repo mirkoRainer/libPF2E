@@ -6,13 +6,12 @@ namespace PF2E_RulesLawyer
 {
     public partial class App : Application
     {
-
         public App()
         {
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new MainPage();
+            MainPage = new PlayerCharacterSheetManualEditPage();
         }
 
         protected override void OnStart()
