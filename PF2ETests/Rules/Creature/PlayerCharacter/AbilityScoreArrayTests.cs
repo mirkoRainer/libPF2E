@@ -21,14 +21,21 @@ namespace PF2ETests.Rules.Creature.PlayerCharacter
         [Test()]
         public void CalculationTest()
         {
-            var asa = new AbilityScoreArray(boostsAndFlaws);
+            var abilityScoreArray = new AbilityScoreArray(boostsAndFlaws);
 
-            Assert.That(asa.Strength.Score, Is.EqualTo(14));
-            Assert.That(asa.Dexterity.Score, Is.EqualTo(12));
-            Assert.That(asa.Constitution.Score, Is.EqualTo(12));
-            Assert.That(asa.Intelligence.Score, Is.EqualTo(10));
-            Assert.That(asa.Wisdom.Score, Is.EqualTo(10));
-            Assert.That(asa.Charisma.Score, Is.EqualTo(8));
+            Assert.That(abilityScoreArray.Strength.Score, Is.EqualTo(14));
+            Assert.That(abilityScoreArray.Dexterity.Score, Is.EqualTo(12));
+            Assert.That(abilityScoreArray.Constitution.Score, Is.EqualTo(12));
+            Assert.That(abilityScoreArray.Intelligence.Score, Is.EqualTo(10));
+            Assert.That(abilityScoreArray.Wisdom.Score, Is.EqualTo(10));
+            Assert.That(abilityScoreArray.Charisma.Score, Is.EqualTo(8));
+        }
+
+        [Test()]
+        public void FreeBoostsAreCounted()
+        {
+            var abilityScoreArray = new AbilityScoreArray(boostsAndFlaws);
+            Assert.That(abilityScoreArray.FreeBoostsAvailable, Is.EqualTo(1));
         }
 
         [Test()]
@@ -41,7 +48,7 @@ namespace PF2ETests.Rules.Creature.PlayerCharacter
                 new AbilityScoreBoostFlaw(true, Ability.Dexterity),
                 new AbilityScoreBoostFlaw(true, Ability.Constitution)
             };
-            var asa = new AbilityScoreArray(new List<AbilityScoreBoostFlaw>())
+            var abilityScoreArray = new AbilityScoreArray(new List<AbilityScoreBoostFlaw>())
             {
                 Strength = new AbilityScore(14, Ability.Strength),
                 Dexterity = new AbilityScore(14, Ability.Dexterity),
@@ -50,14 +57,14 @@ namespace PF2ETests.Rules.Creature.PlayerCharacter
                 Wisdom = new AbilityScore(10, Ability.Wisdom),
                 Charisma = new AbilityScore(10, Ability.Charisma)
             };
-            asa.AddBoosts(boosts);
+            abilityScoreArray.AddBoosts(boosts);
 
-            Assert.That(asa.Strength.Score, Is.EqualTo(16));
-            Assert.That(asa.Dexterity.Score, Is.EqualTo(16));
-            Assert.That(asa.Constitution.Score, Is.EqualTo(16));
-            Assert.That(asa.Intelligence.Score, Is.EqualTo(10));
-            Assert.That(asa.Wisdom.Score, Is.EqualTo(10));
-            Assert.That(asa.Charisma.Score, Is.EqualTo(12));
+            Assert.That(abilityScoreArray.Strength.Score, Is.EqualTo(16));
+            Assert.That(abilityScoreArray.Dexterity.Score, Is.EqualTo(16));
+            Assert.That(abilityScoreArray.Constitution.Score, Is.EqualTo(16));
+            Assert.That(abilityScoreArray.Intelligence.Score, Is.EqualTo(10));
+            Assert.That(abilityScoreArray.Wisdom.Score, Is.EqualTo(10));
+            Assert.That(abilityScoreArray.Charisma.Score, Is.EqualTo(12));
         }
     }
 }

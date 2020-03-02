@@ -224,6 +224,12 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             Traits = new List<Trait>();
             Traits.AddRange(ancestry.Traits);
             PlayerName = playerName;
+            var boostsFlaws = new List<AbilityScoreBoostFlaw>();
+            boostsFlaws.AddRange(ancestry.AbilityBoosts);
+            boostsFlaws.AddRange(ancestry.AbilityFlaws);
+            boostsFlaws.AddRange(background.AbilityBoosts);
+            boostsFlaws.Add(pcclass.KeyAbilityScore);
+            AbilityScores = new AbilityScoreArray(boostsFlaws);
         }
 
         public enum Proficiencies

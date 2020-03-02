@@ -17,6 +17,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         public AbilityScore Intelligence { get; set; }
         public AbilityScore Wisdom { get; set; }
         public AbilityScore Charisma { get; set; }
+        public int FreeBoostsAvailable { get; set; }
 
         private readonly PropertyInfo[] propertiesOfThisClass;
 
@@ -24,8 +25,14 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         {
             foreach (var property in propertiesOfThisClass)
             {
+                if(property.Name == "FreeBoostsAvailable") continue; // TODO: Make this better!
                 foreach (var boost in boosts)
                 {
+                    if (boost.Ability == Ability.Free.ToString())
+                    {
+                        FreeBoostsAvailable++;
+                        continue;
+                    }
                     if (boost.Ability == property.Name)
                     {
                         AbilityScore current = (AbilityScore)property.GetValue(this);
@@ -40,9 +47,15 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         {
             foreach (var property in propertiesOfThisClass)
             {
+                if (property.Name == "FreeBoostsAvailable") continue;
                 int total = 10;
                 foreach (var boostFlaw in boostsAndFlaws)
                 {
+                    if (boostFlaw.Ability == Ability.Free.ToString())
+                    {
+                        FreeBoostsAvailable++;
+                        continue;
+                    }
                     if (boostFlaw.Ability == property.Name)
                     {
                         if (boostFlaw.IsBoost)

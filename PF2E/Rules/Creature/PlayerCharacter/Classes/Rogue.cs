@@ -10,6 +10,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         public int HitPoints { get { return 8; } }
         public string SubClass { get; set; }
         public AbilityScoreBoostFlaw KeyAbilityScore { get { return new AbilityScoreBoostFlaw(true, Ability.Dexterity); } }
+        public AbilityScoreBoostFlaw AlternateKeyAbilityScore {  get { return new AbilityScoreBoostFlaw(true, Ability.Strength); } }
 
         public string TypicalMembers => throw new System.NotImplementedException();
 
@@ -18,8 +19,6 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         public Dictionary<string, Proficiency> Proficiencies => throw new System.NotImplementedException();
 
         public Dictionary<int, string[]> AdvancementTable => throw new System.NotImplementedException();
-
-        ICollection<AbilityScoreBoostFlaw> IPcClass.KeyAbilityScore => throw new System.NotImplementedException();
 
         List<IClassFeat> IPcClass.ClassFeats => throw new System.NotImplementedException();
 

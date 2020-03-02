@@ -9,7 +9,8 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         string Name { get; }
         string TypicalMembers { get; }
         string RolePlayingSuggestions { get; }
-        ICollection<AbilityScoreBoostFlaw> KeyAbilityScore { get; }
+        AbilityScoreBoostFlaw KeyAbilityScore { get; }
+        AbilityScoreBoostFlaw AlternateKeyAbilityScore { get; }
         int HitPoints { get; }
         Dictionary<string, Proficiency> Proficiencies { get; }
         Dictionary<int, string[]> AdvancementTable { get; }
