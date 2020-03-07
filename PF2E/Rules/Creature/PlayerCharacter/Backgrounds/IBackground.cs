@@ -4,10 +4,11 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 {
     public interface IBackground
     {
-        string Name { get; }
-        ICollection<AbilityScoreBoostFlaw> AbilityBoosts { get; }
-        string SkillFeat { get; }
-        string TrainedSkill { get; }
-        string TrainedLoreSkill { get; }
+        public string Name { get; }
+        public List<AbilityScoreBoostFlaw> AbilityBoostOptions { get; }
+        public AbilityScoreBoostFlaw AbilityScoreBoost { get; }
+        public string SkillFeat { get; }
+        public string TrainedSkill { get; }
+        public string TrainedLoreSkill { get; }
     }
 }

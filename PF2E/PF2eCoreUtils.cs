@@ -31,5 +31,10 @@ namespace PF2E
                          select t.Name as string;
             return result.ToList();
         }
+
+        public static List<int> GetAbilityScoreRange()
+        {
+            return Enumerable.Range(1, 40).ToList();
+        }
     }
 }

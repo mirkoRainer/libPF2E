@@ -11,7 +11,7 @@ namespace PF2E_RulesLawyer
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new PlayerCharacterSheetManualEditPage();
+            MainPage = new PlayerCharacterEditorPage();
         }
 
         protected override void OnStart()

@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PF2E_RulesLawyer.Views.PlayerCharacterEditorPage"
+             xmlns:vm="clr-namespace:PF2E_RulesLawyer.ViewModels"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <vm:PlayerCharacterSheetViewModel />
+    </ContentPage.BindingContext>
+    <ScrollView Orientation="Both">
+        <StackLayout
+                Margin="20"
+                VerticalOptions="StartAndExpand">
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="End">
+                <Label Text="Editing:"
+                       FontSize="Micro"
+                       VerticalOptions="Center" />
+                <Switch
+                    IsToggled="{Binding IsEditing, Mode=TwoWay}"
+                    HorizontalOptions="End"
+                    Scale=".5" />
+            </StackLayout>
+            <Label Text="Player Name:"
+                       TextColor="Black" />
+            <Label Text="{Binding PlayerName}"
+                       FontSize="Small" />
+            <Editor Placeholder="Player Name"
+                        BackgroundColor="White"
+                        Margin="5"
+                        Text="{Binding PlayerName, Mode=TwoWay}"
+                        MaxLength="100"
+                        IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+
+            <Label Text="Character Name:"
+                       TextColor="Black" />
+            <Label Text="{Binding CharacterName}"
+                       FontSize="Small" />
+            <Editor Placeholder="Character Name"
+                        BackgroundColor="White"
+                        Margin="5"
+                        Text="{Binding CharacterName, Mode=TwoWay}"
+                        MaxLength="100"
+                        IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+
+            <Label Text="Ancestry:" />
+            <Label Text="{Binding Ancestry}" />
+            <Picker Title="Select an Ancestry"
+                        ItemsSource="{Binding AncestriesList}"
+                        SelectedItem="{Binding Ancestry, Mode=TwoWay}"
+                        IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+
+            <Label Text="Background:" />
+            <Label Text="{Binding Background}" />
+            <Label Text="{Binding BackgroundAbilityChoice}" />
+            <Picker Title="Select an Background"
+                        ItemsSource="{Binding BackgroundsList}"
+                        SelectedItem="{Binding Background}"
+                        IsVisible="{Binding IsEditing, Mode=TwoWay}"
+                        x:Name="BackgroundsList" />
+            <Picker Title="Choose Background Ability"
+                        ItemsSource="{Binding BackgroundAbilityChoices, Mode=TwoWay}"
+                        SelectedItem="{Binding BackgroundAbilityChoice}"
+                        IsVisible="{Binding IsEditing, Mode=TwoWay}"
+                        x:Name="BackgroundAbilityChoices" />
+            <Label Text="Class:" />
+            <Label Text="{Binding PcClass}" />
+            <Picker Title="Select a Class"
+                    ItemsSource="{Binding ClassList}"
+                    SelectedItem="{Binding PcClass}"
+                    IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+            <Label
+                Text="Ability Scores"
+                Margin="0, 20, 0, 5"
+                HorizontalTextAlignment="Center"
+                FontSize="Header" />
+            <StackLayout
+                Orientation="Horizontal"
+                Spacing="5"
+                HorizontalOptions="CenterAndExpand">
+                <Label
+                    BackgroundColor="AntiqueWhite"
+                    Text="{Binding StrengthModifierString}"
+                    VerticalOptions="Center" />
+                <Label Text="Modifier"
+                       FontSize="Micro"
+                       VerticalOptions="Center" />
+                <Label Text="STR"
+                       VerticalOptions="Center" />
+                <Label Text="Score"
+                       FontSize="Micro"
+                       VerticalOptions="Center" />
+                <Label
+                    BackgroundColor="AntiqueWhite"
+                    Text="{Binding StrengthScore}"
+                    VerticalOptions="Center" />
+                <Picker
+                    Title="STR"
+                    ItemsSource="{Binding AbilityScoreRange}"
+                    SelectedItem="{Binding StrengthScore, Mode=TwoWay}"
+                    IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+            </StackLayout>
+            <StackLayout
+                Orientation="Horizontal"
+                Spacing="5"
+                HorizontalOptions="CenterAndExpand">
+                <Label
+                    BackgroundColor="AntiqueWhite"
+                    Text="{Binding DexterityModifierString}"
+                    VerticalOptions="Center" />
+                <Label Text="Modifier"
+                       FontSize="Micro"
+                       VerticalOptions="Center" />
+                <Label Text="DEX"
+                       VerticalOptions="Center" />
+                <Label Text="Score"
+                       FontSize="Micro"
+                       VerticalOptions="Center" />
+                <Label
+                    BackgroundColor="AntiqueWhite"
+                    Text="{Binding DexterityScore}"
+                    VerticalOptions="Center" />
+                <Picker
+                    Title="DEX"
+                    ItemsSource="{Binding AbilityScoreRange}"
+                    SelectedItem="{Binding DexterityScore, Mode=TwoWay}"
+                    IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+            </StackLayout>
+            <StackLayout
+                Orientation="Horizontal"
+                Spacing="5"
+                HorizontalOptions="CenterAndExpand">
+                <Label
+                    BackgroundColor="AntiqueWhite"
+                    Text="{Binding ConstitutionModifierString}"
+                    VerticalOptions="Center" />
+                <Label Text="Modifier"
+                       FontSize="Micro"
+                       VerticalOptions="Center" />
+                <Label Text="CON"
+                       VerticalOptions="Center" />
+                <Label Text="Score"
+                       FontSize="Micro"
+                       VerticalOptions="Center" />
+                <Label
+                    BackgroundColor="AntiqueWhite"
+                    Text="{Binding ConstitutionScore}"
+                    VerticalOptions="Center" />
+                <Picker
+                    Title="CON"
+                    ItemsSource="{Binding AbilityScoreRange}"
+                    SelectedItem="{Binding ConstitutionScore, Mode=TwoWay}"
+                    IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+            </StackLayout>
+            <StackLayout
+                Orientation="Horizontal"
+                Spacing="5"
+                HorizontalOptions="CenterAndExpand">
+                <Label
+                    BackgroundColor="AntiqueWhite"
+                    Text="{Binding IntelligenceModifierString}"
+                    VerticalOptions="Center" />
+                <Label Text="Modifier"
+                       FontSize="Micro"
+                       VerticalOptions="Center" />
+                <Label Text="INT"
+                       VerticalOptions="Center" />
+                <Label Text="Score"
+                       FontSize="Micro"
+                       VerticalOptions="Center" />
+                <Label
+                    BackgroundColor="AntiqueWhite"
+                    Text="{Binding IntelligenceScore}"
+                    VerticalOptions="Center" />
+                <Picker
+                    Title="INT"
+                    ItemsSource="{Binding AbilityScoreRange}"
+                    SelectedItem="{Binding IntelligenceScore, Mode=TwoWay}"
+                    IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+            </StackLayout>
+            <StackLayout
+                Orientation="Horizontal"
+                Spacing="5"
+                HorizontalOptions="CenterAndExpand">
+                <Label
+                    BackgroundColor="AntiqueWhite"
+                    Text="{Binding WisdomModifierString}"
+                    VerticalOptions="Center" />
+                <Label Text="Modifier"
+                       FontSize="Micro"
+                       VerticalOptions="Center" />
+                <Label Text="WIS"
+                       VerticalOptions="Center" />
+                <Label Text="Score"
+                       FontSize="Micro"
+                       VerticalOptions="Center" />
+                <Label
+                    BackgroundColor="AntiqueWhite"
+                    Text="{Binding WisdomScore}"
+                    VerticalOptions="Center" />
+                <Picker
+                    Title="WIS"
+                    ItemsSource="{Binding AbilityScoreRange}"
+                    SelectedItem="{Binding WisdomScore, Mode=TwoWay}"
+                    IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+            </StackLayout>
+            <StackLayout
+                Orientation="Horizontal"
+                Spacing="5"
+                HorizontalOptions="CenterAndExpand">
+                <Label
+                    BackgroundColor="AntiqueWhite"
+                    Text="{Binding CharismaModifierString}"
+                    VerticalOptions="Center" />
+                <Label Text="Modifier"
+                       FontSize="Micro"
+                       VerticalOptions="Center" />
+                <Label Text="CHA"
+                       VerticalOptions="Center" />
+                <Label Text="Score"
+                       FontSize="Micro"
+                       VerticalOptions="Center" />
+                <Label
+                    BackgroundColor="AntiqueWhite"
+                    Text="{Binding CharismaScore}"
+                    VerticalOptions="Center" />
+                <Picker
+                    Title="CHA"
+                    ItemsSource="{Binding AbilityScoreRange}"
+                    SelectedItem="{Binding CharismaScore, Mode=TwoWay}"
+                    IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

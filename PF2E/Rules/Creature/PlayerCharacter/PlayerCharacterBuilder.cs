@@ -30,7 +30,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
             var boostsAndFlaws = new List<AbilityScoreBoostFlaw>();
             boostsAndFlaws.AddRange(PlayerCharacter.Ancestry.AbilityBoosts);
-            boostsAndFlaws.AddRange(PlayerCharacter.Background.AbilityBoosts);
+            boostsAndFlaws.AddRange(PlayerCharacter.Background.AbilityBoostOptions);
             boostsAndFlaws.Add(PlayerCharacter.PcClass.KeyAbilityScore);
             boostsAndFlaws.AddRange(PlayerCharacter.Ancestry.AbilityFlaws);
 

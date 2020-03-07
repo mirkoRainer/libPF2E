@@ -29,7 +29,7 @@ namespace PF2E_RulesLawyer.Views
                 switch (id)
                 {
                     case (int)MenuItemType.Browse:
-                        MenuPages.Add(id, new NavigationPage(new CharactersPage()));
+                        MenuPages.Add(id, new NavigationPage(new PlayerCharacterEditorPage()));
                         break;
                     case (int)MenuItemType.About:
                         MenuPages.Add(id, new NavigationPage(new AboutPage()));

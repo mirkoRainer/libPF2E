@@ -7,7 +7,15 @@ namespace PF2E.Rules.Creature.PlayerCharacter
     {
         public string Name => this.GetType().Name;
 
-        ICollection<AbilityScoreBoostFlaw> IBackground.AbilityBoosts => throw new NotImplementedException();
+        public List<AbilityScoreBoostFlaw> AbilityBoostOptions {
+            get => new List<AbilityScoreBoostFlaw>
+                                                                                {
+                                                                                    new AbilityScoreBoostFlaw(true, Ability.Intelligence),
+                                                                                    new AbilityScoreBoostFlaw(true, Ability.Wisdom)
+                                                                                };
+        }
+
+        public AbilityScoreBoostFlaw AbilityScoreBoost => new AbilityScoreBoostFlaw(true, Ability.Free);
         public string SkillFeat => throw new NotImplementedException();
         public string TrainedSkill => throw new NotImplementedException();
         public string TrainedLoreSkill => throw new NotImplementedException();

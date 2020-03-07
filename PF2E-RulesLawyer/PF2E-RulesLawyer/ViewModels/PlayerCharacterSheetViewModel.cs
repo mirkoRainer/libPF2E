@@ -9,6 +9,7 @@ using System.Linq;
 using PF2E_RulesLawyer.Services;
 using Xamarin.Forms;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace PF2E_RulesLawyer.ViewModels
 {
@@ -16,72 +17,91 @@ namespace PF2E_RulesLawyer.ViewModels
     {
         private PlayerCharacter playerCharacter { get; set; }
 
+        private bool isEditing = true;
+        public bool IsEditing { get => isEditing; set => SetProperty<bool>(ref isEditing, value); }
+
         #region Page1
 
         #region metadataProperties
 
+        private String characterName = String.Empty;
+
         public String CharacterName {
-            get {
-                return CheckNullString(playerCharacter.Name);
-            }
+            get => characterName;
             set {
-                if (playerCharacter != null)
-                {
-                    playerCharacter.Name = CheckNullString(value);
-                    OnPropertyChanged();
-                }
-                return;
+                playerCharacter.Name = value;
+                SetProperty<String>(ref characterName, value);
             }
         }
 
-        public List<String> AncestriesList {
-            get {
-                return PF2eCoreUtils.GetListOfAncestries();
-            }
+        private List<String> ancestriesList = PF2eCoreUtils.GetListOfAncestries();
+
+        public ObservableCollection<String> AncestriesList {
+            get => new ObservableCollection<String>(ancestriesList);
         }
 
-        private String ancestry;
+        private string ancestry = String.Empty;
 
-        public String Ancestry {
-            get { return CheckNullString(playerCharacter.Ancestry.Name); }
+        public string Ancestry {
+            get => ancestry;
             set {
-                ancestry = value;
                 playerCharacter.SetAncestry(value);
-                OnPropertyChanged();
+                SetProperty<string>(ref ancestry, value);
             }
         }
 
-        public List<String> BackgroundsList {
-            get {
-                return PF2eCoreUtils.GetListOfBackgrounds();
-            }
+        private List<String> backgroundsList = PF2eCoreUtils.GetListOfBackgrounds();
+
+        public ObservableCollection<String> BackgroundsList {
+            get => new ObservableCollection<string>(backgroundsList);
         }
 
-        private String background;
+        private String background = String.Empty;
 
         public String Background {
-            get { return CheckNullString(playerCharacter.Background.Name); }
+            get => background;
             set {
-                background = value;
+                SetProperty<String>(ref background, value);
                 playerCharacter.SetBackground(value);
-                OnPropertyChanged();
+                backgroundAbilityChoices = playerCharacter.GetBackgroundAbilityChoices();
+                OnPropertyChanged(nameof(BackgroundAbilityChoices));
             }
         }
 
-        public List<String> ClassList {
+        private List<string> backgroundAbilityChoices = new List<string>();
+
+        public ObservableCollection<String> BackgroundAbilityChoices {
             get {
-                return PF2eCoreUtils.GetListOfClasses();
+                return new ObservableCollection<string>(backgroundAbilityChoices);
+            }
+            set {
+                SetProperty<List<string>>(ref backgroundAbilityChoices, value.ToList());
+            }
+        }
+
+        private String backgroundAbilityChoice;
+
+        public String BackgroundAbilityChoice {
+            get => backgroundAbilityChoice;
+            set {
+                playerCharacter.SetBackgroundAbility(value);
+                SetProperty<string>(ref backgroundAbilityChoice, value);
+            }
+        }
+
+        public ObservableCollection<String> ClassList {
+            get {
+                return new ObservableCollection<string>(PF2eCoreUtils.GetListOfClasses());
             }
         }
 
         private String pcClass;
 
         public String PcClass {
-            get { return CheckNullString(playerCharacter.PcClass.Name); }
+            get => pcClass;
             set {
-                pcClass = value;
+                SetProperty<String>(ref pcClass, value);
                 playerCharacter.SetClass(value);
-                OnPropertyChanged();
             }
         }
 
@@ -154,15 +174,13 @@ namespace PF2E_RulesLawyer.ViewModels
 
         #region AbilityScores
 
+        public List<int> AbilityScoreRange { get => PF2eCoreUtils.GetAbilityScoreRange(); }
+
         private string CreateAbilityModifierString(int modifier)
         {
-            if (modifier == 0)
+            if (modifier <= 0)
             {
                 return $"{modifier}";
-            }
-            else if (modifier < 0)
-            {
-                return $"-{modifier}";
             }
             else
             {
@@ -170,78 +188,166 @@ namespace PF2E_RulesLawyer.ViewModels
             }
         }
 
-        public int Strength {
-            get { return playerCharacter.AbilityScores.Strength.Score; }
-            set {
-                playerCharacter.AbilityScores.Strength = new AbilityScore(value, Ability.Strength); ;
-                OnPropertyChanged();
-            }
-        }
+        private int strengthScore = 0;
 
-        public string StrengthModifier {
+        public int StrengthScore {
             get {
-                return CreateAbilityModifierString(playerCharacter.AbilityScores.Strength.Modifier);
+                if (playerCharacter.AbilityScores.Strength == null)
+                {
+                    return 10;
+                }
+                strengthScore = playerCharacter.AbilityScores.Strength.Score;
+                return strengthScore;
+            }
+            set {
+                playerCharacter.AbilityScores.Strength = new AbilityScore(value, Ability.Strength);
+                strengthModifier = playerCharacter.AbilityScores.Strength.Modifier;
+                SetProperty<int>(ref strengthScore, value);
+                OnPropertyChanged(nameof(StrengthModifierString));
             }
         }
 
-        public int Dexterity {
-            get { return playerCharacter.AbilityScores.Dexterity.Score; }
+        private int strengthModifier { get; set; }
+
+        public string StrengthModifierString {
+            get {
+                return CreateAbilityModifierString(modifier: strengthModifier);
+            }
+        }
+
+        private int dexterityScore = 0;
+
+        public int DexterityScore {
+            get {
+                if (playerCharacter.AbilityScores.Dexterity == null)
+                {
+                    return 10;
+                }
+                dexterityScore = playerCharacter.AbilityScores.Dexterity.Score;
+                return dexterityScore;
+            }
             set {
                 playerCharacter.AbilityScores.Dexterity = new AbilityScore(value, Ability.Dexterity);
-                OnPropertyChanged();
+                dexterityModifier = playerCharacter.AbilityScores.Dexterity.Modifier;
+                SetProperty<int>(ref dexterityScore, value);
+                OnPropertyChanged(nameof(DexterityModifierString));
             }
         }
 
-        public int DexterityModifier {
-            get { return playerCharacter.AbilityScores.Dexterity.Modifier; }
+        private int dexterityModifier { get; set; }
+
+        public string DexterityModifierString {
+            get {
+                return CreateAbilityModifierString(modifier: dexterityModifier);
+            }
         }
 
-        public int Constitution {
-            get { return playerCharacter.AbilityScores.Constitution.Score; }
+        private int constitutionScore = 0;
+
+        public int ConstitutionScore {
+            get {
+                if (playerCharacter.AbilityScores.Constitution == null)
+                {
+                    return 10;
+                }
+                constitutionScore = playerCharacter.AbilityScores.Constitution.Score;
+                return constitutionScore;
+            }
             set {
                 playerCharacter.AbilityScores.Constitution = new AbilityScore(value, Ability.Constitution);
-                OnPropertyChanged();
+                constitutionModifier = playerCharacter.AbilityScores.Constitution.Modifier;
+                SetProperty<int>(ref constitutionScore, value);
+                OnPropertyChanged(nameof(ConstitutionModifierString));
             }
         }
 
-        public int ConstitutionModifier {
-            get { return playerCharacter.AbilityScores.Constitution.Modifier; }
+        private int constitutionModifier { get; set; }
+
+        public string ConstitutionModifierString {
+            get {
+                return CreateAbilityModifierString(modifier: constitutionModifier);
+            }
         }
 
-        public int Intelligence {
-            get { return playerCharacter.AbilityScores.Intelligence.Score; }
+        private int intelligenceScore = 0;
+
+        public int IntelligenceScore {
+            get {
+                if (playerCharacter.AbilityScores.Intelligence == null)
+                {
+                    return 10;
+                }
+                intelligenceScore = playerCharacter.AbilityScores.Intelligence.Score;
+                return intelligenceScore;
+            }
             set {
                 playerCharacter.AbilityScores.Intelligence = new AbilityScore(value, Ability.Intelligence);
-                OnPropertyChanged();
+                intelligenceModifier = playerCharacter.AbilityScores.Intelligence.Modifier;
+                SetProperty<int>(ref intelligenceScore, value);
+                OnPropertyChanged(nameof(IntelligenceModifierString));
             }
         }
 
-        public int IntelligenceModifier {
-            get { return playerCharacter.AbilityScores.Intelligence.Modifier; }
+        private int intelligenceModifier { get; set; }
+
+        public string IntelligenceModifierString {
+            get {
+                return CreateAbilityModifierString(modifier: intelligenceModifier);
+            }
         }
 
-        public int Wisdom {
-            get { return playerCharacter.AbilityScores.Wisdom.Score; }
+        private int wisdomScore = 0;
+
+        public int WisdomScore {
+            get {
+                if (playerCharacter.AbilityScores.Wisdom == null)
+                {
+                    return 10;
+                }
+                wisdomScore = playerCharacter.AbilityScores.Wisdom.Score;
+                return wisdomScore;
+            }
             set {
                 playerCharacter.AbilityScores.Wisdom = new AbilityScore(value, Ability.Wisdom);
-                OnPropertyChanged();
+                wisdomModifier = playerCharacter.AbilityScores.Wisdom.Modifier;
+                SetProperty<int>(ref wisdomScore, value);
+                OnPropertyChanged(nameof(WisdomModifierString));
             }
         }
 
-        public int WisdomModifier {
-            get { return playerCharacter.AbilityScores.Wisdom.Modifier; }
+        private int wisdomModifier { get; set; }
+
+        public string WisdomModifierString {
+            get {
+                return CreateAbilityModifierString(modifier: wisdomModifier);
+            }
         }
 
-        public int Charisma {
-            get { return playerCharacter.AbilityScores.Charisma.Score; }
+        private int charismaScore = 0;
+
+        public int CharismaScore {
+            get {
+                if (playerCharacter.AbilityScores.Charisma == null)
+                {
+                    return 10;
+                }
+                charismaScore = playerCharacter.AbilityScores.Charisma.Score;
+                return charismaScore;
+            }
             set {
                 playerCharacter.AbilityScores.Charisma = new AbilityScore(value, Ability.Charisma);
-                OnPropertyChanged();
+                charismaModifier = playerCharacter.AbilityScores.Charisma.Modifier;
+                SetProperty<int>(ref charismaScore, value);
+                OnPropertyChanged(nameof(CharismaModifierString));
             }
         }
 
-        public int CharismaModifier {
-            get { return playerCharacter.AbilityScores.Charisma.Modifier; }
+        private int charismaModifier { get; set; }
+
+        public string CharismaModifierString {
+            get {
+                return CreateAbilityModifierString(modifier: charismaModifier);
+            }
         }
 
         #endregion AbilityScores
@@ -583,16 +689,15 @@ namespace PF2E_RulesLawyer.ViewModels
         public PlayerCharacterSheetViewModel()
         {
             Title = "New Adventurer";
-            CharacterName = "New Adventurer";
             playerCharacter = new PlayerCharacter(Ancestries.Dwarf, CharacterBackgrounds.Emancipated, PcClasses.Rogue);
-            playerCharacter.Name = CharacterName;
+            IsEditing = true;
         }
 
         public PlayerCharacterSheetViewModel(PlayerCharacter PC)
         {
             Title = "Character Sheet";
             playerCharacter = PC ?? new PlayerCharacter(Ancestries.Dwarf, new Emancipated(), new Rogue());
-            playerCharacter.Name = "Salazat";
+            IsEditing = true;
         }
 
         private string CheckNullString(string value)

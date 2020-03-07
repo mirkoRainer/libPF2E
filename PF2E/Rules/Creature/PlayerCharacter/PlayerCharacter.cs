@@ -1,6 +1,7 @@
 ﻿using PF2E.Rules.Equipment;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace PF2E.Rules.Creature.PlayerCharacter
@@ -16,6 +17,10 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         public void SetAncestry(string value)
         {
+            if (String.IsNullOrEmpty(value))
+            {
+                value = PF2eCoreUtils.GetListOfAncestries().First();
+            }
             try
             {
                 var ancestriesType = typeof(Ancestries);
@@ -32,16 +37,44 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         public void SetBackground(string value)
         {
+            if (String.IsNullOrEmpty(value))
+            {
+                value = PF2eCoreUtils.GetListOfBackgrounds().First();
+            }
             try
             {
                 var backgroundTypes = typeof(CharacterBackgrounds);
                 var background = (IBackground)backgroundTypes.GetField(value).GetValue(null);
                 Background = background;
+                BackgroundAbilityChoice = background.AbilityBoostOptions.First();
             }
             catch (Exception e)
             {
                 throw new Exception($"Check to make sure {value} exists in the CharacterBackgrounds.cs file. Could not assign {value} as an Background. Invalid Background name or String. {e.Message}");
             }
+        }
+
+        public AbilityScoreBoostFlaw BackgroundAbilityChoice { get; private set; }
+
+        public void SetBackgroundAbility(string value)
+        {
+            if (String.IsNullOrEmpty(value))
+            {
+                BackgroundAbilityChoice = new AbilityScoreBoostFlaw(true, Ability.Strength);
+            }
+            else
+            {
+                var ability = (Ability)Enum.Parse(typeof(Ability), value);
+                BackgroundAbilityChoice = new AbilityScoreBoostFlaw(true, ability);
+            }
+        }
+
+        public List<string> GetBackgroundAbilityChoices()
+        {
+            var choices = Background.AbilityBoostOptions;
+            var choicesStrings = from choice in choices
+                                 select choice.Ability;
+            return choicesStrings.ToList();
         }
 
         public IHeritage Heritage { get; set; }
@@ -227,9 +260,11 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             var boostsFlaws = new List<AbilityScoreBoostFlaw>();
             boostsFlaws.AddRange(ancestry.AbilityBoosts);
             boostsFlaws.AddRange(ancestry.AbilityFlaws);
-            boostsFlaws.AddRange(background.AbilityBoosts);
+            boostsFlaws.AddRange(background.AbilityBoostOptions);
             boostsFlaws.Add(pcclass.KeyAbilityScore);
             AbilityScores = new AbilityScoreArray(boostsFlaws);
+            var backgroundAbilityChoices = background.AbilityBoostOptions;
+            BackgroundAbilityChoice = backgroundAbilityChoices.First();
         }
 
         public enum Proficiencies
