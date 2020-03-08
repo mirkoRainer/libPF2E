@@ -15,18 +15,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             string playerName = "Player"
             )
         {
-            PlayerCharacter = new PlayerCharacter
-            (
-                ancestry,
-                background,
-                pcClass,
-                name,
-                playerName
-            )
-            {
-                Size = ancestry.Size,
-                Traits = new List<Trait>()
-            };
+            PlayerCharacter = new PlayerCharacter();
 
             var boostsAndFlaws = new List<AbilityScoreBoostFlaw>();
             boostsAndFlaws.AddRange(PlayerCharacter.Ancestry.AbilityBoosts);

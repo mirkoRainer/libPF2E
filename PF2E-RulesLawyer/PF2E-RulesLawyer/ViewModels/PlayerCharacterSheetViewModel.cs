@@ -106,8 +106,7 @@ namespace PF2E_RulesLawyer.ViewModels
         }
 
         public String SubClassPickerTitle {
-            get
-            {
+            get {
                 if (playerCharacter.PcClass == null)
                 {
                     return "-";
@@ -115,10 +114,9 @@ namespace PF2E_RulesLawyer.ViewModels
                 return playerCharacter.PcClass.NameOfSubClass;
             }
         }
-        public ObservableCollection<String> SubClassList
-        {
-            get
-            {
+
+        public ObservableCollection<String> SubClassList {
+            get {
                 if (playerCharacter.PcClass == null)
                 {
                     return new ObservableCollection<string>(new List<string>());
@@ -127,12 +125,11 @@ namespace PF2E_RulesLawyer.ViewModels
             }
         }
 
-        
         private string subClass = string.Empty;
+
         public String SubClass {
             get => subClass;
-            set
-            {
+            set {
                 playerCharacter.PcClass.SetSubClass(value);
                 SetProperty<string>(ref subClass, value);
             }
@@ -717,14 +714,14 @@ namespace PF2E_RulesLawyer.ViewModels
         public PlayerCharacterSheetViewModel()
         {
             Title = "New Adventurer";
-            playerCharacter = new PlayerCharacter(Ancestries.Dwarf, CharacterBackgrounds.Emancipated, PcClasses.Rogue);
+            playerCharacter = new PlayerCharacter();
             IsEditing = true;
         }
 
         public PlayerCharacterSheetViewModel(PlayerCharacter PC)
         {
             Title = "Character Sheet";
-            playerCharacter = PC ?? new PlayerCharacter(Ancestries.Dwarf, new Emancipated(), new Rogue());
+            playerCharacter = PC ?? new PlayerCharacter();
             IsEditing = true;
         }
 

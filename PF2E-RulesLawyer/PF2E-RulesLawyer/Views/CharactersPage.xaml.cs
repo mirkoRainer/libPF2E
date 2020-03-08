@@ -25,7 +25,7 @@ namespace PF2E_RulesLawyer.Views
             if (!(args.SelectedItem is PlayerCharacter character))
                 return;
 
-            await Navigation.PushAsync(new PlayerCharacterSheetManualEditPage(new PlayerCharacterSheetViewModel(character)));
+            await Navigation.PushAsync(new PlayerCharacterEditorPage(new PlayerCharacterSheetViewModel(character)));
 
             // Manually deselect item.
             CharactersListView.SelectedItem = null;
@@ -33,7 +33,7 @@ namespace PF2E_RulesLawyer.Views
 
         private async void AddCharacter_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new PlayerCharacterSheetManualEditPage(new PlayerCharacterSheetViewModel())));
+            await Navigation.PushModalAsync(new NavigationPage(new PlayerCharacterEditorPage(new PlayerCharacterSheetViewModel())));
         }
 
         protected override void OnAppearing()

@@ -14,10 +14,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter.Tests
             var mockBackground = new Mock<IBackground>();
             var mockPcClass = new Mock<IPcClass>();
             mockAncestry.Setup(x => x.Traits).Returns(new List<Trait>());
-            return new PlayerCharacter(
-                mockAncestry.Object,
-                mockBackground.Object,
-                mockPcClass.Object);
+            return new PlayerCharacter();
         }
 
         [Test()]

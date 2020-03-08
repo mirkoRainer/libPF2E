@@ -74,12 +74,11 @@
                     ItemsSource="{Binding SubClassList}"
                     SelectedItem="{Binding SubClass, Mode=TwoWay}"
                     IsVisible="{Binding IsEditing}" />
-            <Label
-                Text="Ability Scores"
+            <Label Text="Ability Scores"
                 Margin="0, 20, 0, 5"
                 HorizontalTextAlignment="Center"
                 FontSize="Header" />
-            <StackLayout
+            <StackLayout AutomationId="StrengthStackLayout"
                 Orientation="Horizontal"
                 Spacing="5"
                 HorizontalOptions="CenterAndExpand">

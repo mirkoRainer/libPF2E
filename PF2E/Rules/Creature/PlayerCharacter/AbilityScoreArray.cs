@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace PF2E.Rules.Creature.PlayerCharacter
@@ -25,7 +26,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         {
             foreach (var property in propertiesOfThisClass)
             {
-                if(property.Name == "FreeBoostsAvailable") continue; // TODO: Make this better!
+                if (property.Name == "FreeBoostsAvailable") continue; // TODO: Make this better!
                 foreach (var boost in boosts)
                 {
                     if (boost.Ability == Ability.Free.ToString())
@@ -45,15 +46,14 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         private void CalculateAbilityScores(List<AbilityScoreBoostFlaw> boostsAndFlaws)
         {
-            foreach (var property in propertiesOfThisClass)
+            foreach (var boostFlaw in boostsAndFlaws)
             {
-                if (property.Name == "FreeBoostsAvailable") continue;
-                int total = 10;
-                foreach (var boostFlaw in boostsAndFlaws)
+                foreach (var property in propertiesOfThisClass)
                 {
+                    if (property.Name == "FreeBoostsAvailable") continue;
+                    int total = 10;
                     if (boostFlaw.Ability == Ability.Free.ToString())
                     {
-                        FreeBoostsAvailable++;
                         continue;
                     }
                     if (boostFlaw.Ability == property.Name)
@@ -67,8 +67,10 @@ namespace PF2E.Rules.Creature.PlayerCharacter
                             total -= 2;
                         }
                     }
+                    property.SetValue(this, new AbilityScore(total, property.Name));
                 }
-                property.SetValue(this, new AbilityScore(total, property.Name));
+                if (boostFlaw.Ability == "Free")
+                    FreeBoostsAvailable++;
             }
         }
     }

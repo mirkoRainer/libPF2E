@@ -33,7 +33,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             }
         }
 
-        public IBackground Background { get; set; }
+        public IBackground Background { get; private set; }
 
         public void SetBackground(string value)
         {
@@ -71,16 +71,29 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         public List<string> GetBackgroundAbilityChoices()
         {
+            if (Background == null)
+                return new List<string>();
             var choices = Background.AbilityBoostOptions;
             var choicesStrings = from choice in choices
                                  select choice.Ability;
             return choicesStrings.ToList();
         }
 
-        public IHeritage Heritage { get; set; }
-        public int Level { get; set; }
+        public IHeritage Heritage { get; private set; }
 
-        public IPcClass PcClass { get; set; }
+        public void SetHeritage(string value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Level { get; private set; }
+
+        public void SetLevel(int newLevel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPcClass PcClass { get; private set; }
 
         public void SetClass(string value)
         {
@@ -103,8 +116,8 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             set;
         }
 
-        public Size Size { get; set; }
-        public Alignment Alignment { get; set; }
+        public Size Size { get; private set; }
+        public Alignment Alignment { get; private set; }
 
         public List<Trait> Traits {
             get; set;
@@ -241,20 +254,14 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         #endregion characterSheetPage2
 
-        public PlayerCharacter(
-            IAncestry ancestry,
-            IBackground background,
-            IPcClass pcclass,
-            string name = "",
-            string playerName = "Player"
-            )
+        public PlayerCharacter()
         {
-            Name = name;
             Id = new Guid();
+            Level = 1;
+            /*Name = name;
             Ancestry = ancestry;
             Background = background;
             PcClass = pcclass;
-            Level = 1;
             Traits = new List<Trait>();
             Traits.AddRange(ancestry.Traits);
             PlayerName = playerName;
@@ -265,7 +272,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             boostsFlaws.Add(pcclass.KeyAbilityScore);
             AbilityScores = new AbilityScoreArray(boostsFlaws);
             var backgroundAbilityChoices = background.AbilityBoostOptions;
-            BackgroundAbilityChoice = backgroundAbilityChoices.First();
+            BackgroundAbilityChoice = backgroundAbilityChoices.First();*/
         }
 
         public enum Proficiencies

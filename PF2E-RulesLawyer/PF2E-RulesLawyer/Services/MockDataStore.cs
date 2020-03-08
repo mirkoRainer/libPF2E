@@ -15,10 +15,10 @@ namespace PF2E_RulesLawyer.Services
         {
             CreatedCharacters = new List<PlayerCharacter>()
             {
-                new PlayerCharacter (Ancestries.Dwarf, CharacterBackgrounds.Emancipated, PcClasses.Rogue)
+                new PlayerCharacter ()
                 {
                     Id = new Guid(),
-                    PlayerName = "Mike Snow"
+                    PlayerName = "Mike Snow",
                 }
     };
         }
