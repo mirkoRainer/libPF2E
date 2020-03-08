@@ -15,10 +15,14 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         Dictionary<string, Proficiency> Proficiencies { get; }
         Dictionary<int, string[]> AdvancementTable { get; }
         List<IClassFeat> ClassFeats { get; }
+        string NameOfSubClass { get; }
+        string SubClass { get; }
+        List<string> SubClasses { get; }
 
         Proficiency GetProficiency(PlayerCharacter.Proficiencies proficiencyWanted, int level);
 
         int GetKeyAbilityScore();
         int GetKeyAbilityScoreModifier();
+        void SetSubClass(string value);
     }
 }

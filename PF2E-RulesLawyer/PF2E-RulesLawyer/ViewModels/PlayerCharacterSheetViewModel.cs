@@ -95,7 +95,7 @@ namespace PF2E_RulesLawyer.ViewModels
             }
         }
 
-        private String pcClass;
+        private String pcClass = string.Empty;
 
         public String PcClass {
             get => pcClass;
@@ -105,8 +105,37 @@ namespace PF2E_RulesLawyer.ViewModels
             }
         }
 
+        public String SubClassPickerTitle {
+            get
+            {
+                if (playerCharacter.PcClass == null)
+                {
+                    return "-";
+                }
+                return playerCharacter.PcClass.NameOfSubClass;
+            }
+        }
+        public ObservableCollection<String> SubClassList
+        {
+            get
+            {
+                if (playerCharacter.PcClass == null)
+                {
+                    return new ObservableCollection<string>(new List<string>());
+                }
+                return new ObservableCollection<string>(playerCharacter.PcClass.SubClasses);
+            }
+        }
+
+        
+        private string subClass = string.Empty;
         public String SubClass {
-            get { return CheckNullString(playerCharacter.SubClass); }
+            get => subClass;
+            set
+            {
+                playerCharacter.PcClass.SetSubClass(value);
+                SetProperty<string>(ref subClass, value);
+            }
         }
 
         public String Heritage {
@@ -117,14 +146,13 @@ namespace PF2E_RulesLawyer.ViewModels
             get { return playerCharacter.Level > 0 ? playerCharacter.Level : 1; }
         }
 
-        private string playerName;
+        private string playerName = String.Empty;
 
         public String PlayerName {
             get => playerName;
             set {
-                playerName = CheckNullString(value);
-                playerCharacter.PlayerName = CheckNullString(value);
-                OnPropertyChanged();
+                playerCharacter.PlayerName = value;
+                SetProperty<String>(ref playerName, value);
             }
         }
 

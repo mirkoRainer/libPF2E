@@ -34,7 +34,7 @@
                         Margin="5"
                         Text="{Binding PlayerName, Mode=TwoWay}"
                         MaxLength="100"
-                        IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+                        IsVisible="{Binding IsEditing}" />
 
             <Label Text="Character Name:"
                        TextColor="Black" />
@@ -45,34 +45,39 @@
                         Margin="5"
                         Text="{Binding CharacterName, Mode=TwoWay}"
                         MaxLength="100"
-                        IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+                        IsVisible="{Binding IsEditing}" />
 
             <Label Text="Ancestry:" />
             <Label Text="{Binding Ancestry}" />
             <Picker Title="Select an Ancestry"
                         ItemsSource="{Binding AncestriesList}"
                         SelectedItem="{Binding Ancestry, Mode=TwoWay}"
-                        IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+                        IsVisible="{Binding IsEditing}" />
 
             <Label Text="Background:" />
             <Label Text="{Binding Background}" />
             <Label Text="{Binding BackgroundAbilityChoice}" />
             <Picker Title="Select an Background"
                         ItemsSource="{Binding BackgroundsList}"
-                        SelectedItem="{Binding Background}"
-                        IsVisible="{Binding IsEditing, Mode=TwoWay}"
+                        SelectedItem="{Binding Background, Mode=TwoWay}"
+                        IsVisible="{Binding IsEditing}"
                         x:Name="BackgroundsList" />
             <Picker Title="Choose Background Ability"
                         ItemsSource="{Binding BackgroundAbilityChoices, Mode=TwoWay}"
-                        SelectedItem="{Binding BackgroundAbilityChoice}"
-                        IsVisible="{Binding IsEditing, Mode=TwoWay}"
+                        SelectedItem="{Binding BackgroundAbilityChoice, Mode=TwoWay}"
+                        IsVisible="{Binding IsEditing}"
                         x:Name="BackgroundAbilityChoices" />
             <Label Text="Class:" />
             <Label Text="{Binding PcClass}" />
+            <Label Text="{Binding SubClass}"/>
             <Picker Title="Select a Class"
                     ItemsSource="{Binding ClassList}"
-                    SelectedItem="{Binding PcClass}"
-                    IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+                    SelectedItem="{Binding PcClass, Mode=TwoWay}"
+                    IsVisible="{Binding IsEditing}" />
+            <Picker Title="{Binding SubClassPickerTitle}"
+                    ItemsSource="{Binding SubClassList}"
+                    SelectedItem="{Binding SubClass, Mode=TwoWay}"
+                    IsVisible="{Binding IsEditing}"/>
             <Label
                 Text="Ability Scores"
                 Margin="0, 20, 0, 5"
@@ -102,7 +107,7 @@
                     Title="STR"
                     ItemsSource="{Binding AbilityScoreRange}"
                     SelectedItem="{Binding StrengthScore, Mode=TwoWay}"
-                    IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+                    IsVisible="{Binding IsEditing}" />
             </StackLayout>
             <StackLayout
                 Orientation="Horizontal"
@@ -128,7 +133,7 @@
                     Title="DEX"
                     ItemsSource="{Binding AbilityScoreRange}"
                     SelectedItem="{Binding DexterityScore, Mode=TwoWay}"
-                    IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+                    IsVisible="{Binding IsEditing}" />
             </StackLayout>
             <StackLayout
                 Orientation="Horizontal"
@@ -154,7 +159,7 @@
                     Title="CON"
                     ItemsSource="{Binding AbilityScoreRange}"
                     SelectedItem="{Binding ConstitutionScore, Mode=TwoWay}"
-                    IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+                    IsVisible="{Binding IsEditing}" />
             </StackLayout>
             <StackLayout
                 Orientation="Horizontal"
@@ -180,7 +185,7 @@
                     Title="INT"
                     ItemsSource="{Binding AbilityScoreRange}"
                     SelectedItem="{Binding IntelligenceScore, Mode=TwoWay}"
-                    IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+                    IsVisible="{Binding IsEditing}" />
             </StackLayout>
             <StackLayout
                 Orientation="Horizontal"
@@ -206,7 +211,7 @@
                     Title="WIS"
                     ItemsSource="{Binding AbilityScoreRange}"
                     SelectedItem="{Binding WisdomScore, Mode=TwoWay}"
-                    IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+                    IsVisible="{Binding IsEditing}" />
             </StackLayout>
             <StackLayout
                 Orientation="Horizontal"
@@ -232,7 +237,7 @@
                     Title="CHA"
                     ItemsSource="{Binding AbilityScoreRange}"
                     SelectedItem="{Binding CharismaScore, Mode=TwoWay}"
-                    IsVisible="{Binding IsEditing, Mode=TwoWay}" />
+                    IsVisible="{Binding IsEditing}" />
             </StackLayout>
         </StackLayout>
     </ScrollView>

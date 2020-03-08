@@ -19,7 +19,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         {
             if (String.IsNullOrEmpty(value))
             {
-                value = PF2eCoreUtils.GetListOfAncestries().First();
+                return;
             }
             try
             {
@@ -39,7 +39,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         {
             if (String.IsNullOrEmpty(value))
             {
-                value = PF2eCoreUtils.GetListOfBackgrounds().First();
+                return;
             }
             try
             {
@@ -60,7 +60,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         {
             if (String.IsNullOrEmpty(value))
             {
-                BackgroundAbilityChoice = new AbilityScoreBoostFlaw(true, Ability.Strength);
+                return;
             }
             else
             {
@@ -84,6 +84,8 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         public void SetClass(string value)
         {
+            if (String.IsNullOrEmpty(value))
+                return;
             try
             {
                 var classTypes = typeof(PcClasses);
@@ -220,7 +222,6 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         public List<string> ReadiedItems { get; set; }
         public List<string> OtherItems { get; set; }
         public Coins Coins { get; set; }
-        public string SubClass { get; set; }
 
         public int GetTotalBulk()
         {
