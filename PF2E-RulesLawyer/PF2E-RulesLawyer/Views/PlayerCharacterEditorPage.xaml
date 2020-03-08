@@ -30,7 +30,6 @@
             <Label Text="{Binding PlayerName}"
                        FontSize="Small" />
             <Editor Placeholder="Player Name"
-                        BackgroundColor="White"
                         Margin="5"
                         Text="{Binding PlayerName, Mode=TwoWay}"
                         MaxLength="100"
@@ -41,7 +40,6 @@
             <Label Text="{Binding CharacterName}"
                        FontSize="Small" />
             <Editor Placeholder="Character Name"
-                        BackgroundColor="White"
                         Margin="5"
                         Text="{Binding CharacterName, Mode=TwoWay}"
                         MaxLength="100"
@@ -60,14 +58,14 @@
             <Picker Title="Select an Background"
                         ItemsSource="{Binding BackgroundsList}"
                         SelectedItem="{Binding Background, Mode=TwoWay}"
-                        IsVisible="{Binding IsEditing}"/>
+                        IsVisible="{Binding IsEditing}" />
             <Picker Title="Choose Background Ability"
                         ItemsSource="{Binding BackgroundAbilityChoices, Mode=TwoWay}"
                         SelectedItem="{Binding BackgroundAbilityChoice, Mode=TwoWay}"
-                        IsVisible="{Binding IsEditing}"/>
+                        IsVisible="{Binding IsEditing}" />
             <Label Text="Class:" />
             <Label Text="{Binding PcClass}" />
-            <Label Text="{Binding SubClass}"/>
+            <Label Text="{Binding SubClass}" />
             <Picker Title="Select a Class"
                     ItemsSource="{Binding ClassList}"
                     SelectedItem="{Binding PcClass, Mode=TwoWay}"
@@ -75,7 +73,7 @@
             <Picker Title="{Binding SubClassPickerTitle}"
                     ItemsSource="{Binding SubClassList}"
                     SelectedItem="{Binding SubClass, Mode=TwoWay}"
-                    IsVisible="{Binding IsEditing}"/>
+                    IsVisible="{Binding IsEditing}" />
             <Label
                 Text="Ability Scores"
                 Margin="0, 20, 0, 5"
