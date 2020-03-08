@@ -60,13 +60,11 @@
             <Picker Title="Select an Background"
                         ItemsSource="{Binding BackgroundsList}"
                         SelectedItem="{Binding Background, Mode=TwoWay}"
-                        IsVisible="{Binding IsEditing}"
-                        x:Name="BackgroundsList" />
+                        IsVisible="{Binding IsEditing}"/>
             <Picker Title="Choose Background Ability"
                         ItemsSource="{Binding BackgroundAbilityChoices, Mode=TwoWay}"
                         SelectedItem="{Binding BackgroundAbilityChoice, Mode=TwoWay}"
-                        IsVisible="{Binding IsEditing}"
-                        x:Name="BackgroundAbilityChoices" />
+                        IsVisible="{Binding IsEditing}"/>
             <Label Text="Class:" />
             <Label Text="{Binding PcClass}" />
             <Label Text="{Binding SubClass}"/>
