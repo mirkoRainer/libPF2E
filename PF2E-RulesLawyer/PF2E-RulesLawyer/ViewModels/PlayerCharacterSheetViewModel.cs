@@ -130,7 +130,8 @@ namespace PF2E_RulesLawyer.ViewModels
         public String SubClass {
             get => subClass;
             set {
-                playerCharacter.PcClass.SetSubClass(value);
+                if (!String.IsNullOrEmpty(value))
+                    playerCharacter.PcClass.SetSubClass(value);
                 SetProperty<string>(ref subClass, value);
             }
         }
@@ -217,7 +218,7 @@ namespace PF2E_RulesLawyer.ViewModels
 
         public int StrengthScore {
             get {
-                if (playerCharacter.AbilityScores.Strength == null)
+                if (playerCharacter.AbilityScores == null || playerCharacter.AbilityScores.Strength == null)
                 {
                     return 10;
                 }
@@ -225,7 +226,7 @@ namespace PF2E_RulesLawyer.ViewModels
                 return strengthScore;
             }
             set {
-                playerCharacter.AbilityScores.Strength = new AbilityScore(value, Ability.Strength);
+                playerCharacter.SetAbilityScore("Strength", value);
                 strengthModifier = playerCharacter.AbilityScores.Strength.Modifier;
                 SetProperty<int>(ref strengthScore, value);
                 OnPropertyChanged(nameof(StrengthModifierString));
@@ -252,7 +253,7 @@ namespace PF2E_RulesLawyer.ViewModels
                 return dexterityScore;
             }
             set {
-                playerCharacter.AbilityScores.Dexterity = new AbilityScore(value, Ability.Dexterity);
+                playerCharacter.SetAbilityScore("Dexterity", value);
                 dexterityModifier = playerCharacter.AbilityScores.Dexterity.Modifier;
                 SetProperty<int>(ref dexterityScore, value);
                 OnPropertyChanged(nameof(DexterityModifierString));
@@ -279,7 +280,7 @@ namespace PF2E_RulesLawyer.ViewModels
                 return constitutionScore;
             }
             set {
-                playerCharacter.AbilityScores.Constitution = new AbilityScore(value, Ability.Constitution);
+                playerCharacter.SetAbilityScore("Constitution", value);
                 constitutionModifier = playerCharacter.AbilityScores.Constitution.Modifier;
                 SetProperty<int>(ref constitutionScore, value);
                 OnPropertyChanged(nameof(ConstitutionModifierString));
@@ -306,7 +307,7 @@ namespace PF2E_RulesLawyer.ViewModels
                 return intelligenceScore;
             }
             set {
-                playerCharacter.AbilityScores.Intelligence = new AbilityScore(value, Ability.Intelligence);
+                playerCharacter.SetAbilityScore("Intelligence", value);
                 intelligenceModifier = playerCharacter.AbilityScores.Intelligence.Modifier;
                 SetProperty<int>(ref intelligenceScore, value);
                 OnPropertyChanged(nameof(IntelligenceModifierString));
@@ -333,7 +334,7 @@ namespace PF2E_RulesLawyer.ViewModels
                 return wisdomScore;
             }
             set {
-                playerCharacter.AbilityScores.Wisdom = new AbilityScore(value, Ability.Wisdom);
+                playerCharacter.SetAbilityScore("Wisdom", value);
                 wisdomModifier = playerCharacter.AbilityScores.Wisdom.Modifier;
                 SetProperty<int>(ref wisdomScore, value);
                 OnPropertyChanged(nameof(WisdomModifierString));
@@ -360,7 +361,7 @@ namespace PF2E_RulesLawyer.ViewModels
                 return charismaScore;
             }
             set {
-                playerCharacter.AbilityScores.Charisma = new AbilityScore(value, Ability.Charisma);
+                playerCharacter.SetAbilityScore("Charisma", value);
                 charismaModifier = playerCharacter.AbilityScores.Charisma.Modifier;
                 SetProperty<int>(ref charismaScore, value);
                 OnPropertyChanged(nameof(CharismaModifierString));

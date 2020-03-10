@@ -1,5 +1,6 @@
 ﻿using PF2E.Rules.Creature;
 using PF2E.Rules.Creature.PlayerCharacter;
+using System;
 using System.Collections.Generic;
 
 namespace PF2E.Rules.Creature.PlayerCharacter
@@ -10,7 +11,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         public int HitPoints { get { return 8; } }
         public string SubClass { get; private set; }
         public AbilityScoreBoostFlaw KeyAbilityScore { get { return new AbilityScoreBoostFlaw(true, Ability.Dexterity); } }
-        public AbilityScoreBoostFlaw AlternateKeyAbilityScore {  get { return new AbilityScoreBoostFlaw(true, Ability.Strength); } }
+        public AbilityScoreBoostFlaw AlternateKeyAbilityScore { get { return new AbilityScoreBoostFlaw(true, Ability.Strength); } }
 
         public string TypicalMembers => throw new System.NotImplementedException();
 
@@ -48,6 +49,8 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         public void SetSubClass(string value)
         {
+            if (String.IsNullOrEmpty(value))
+                return;
             SubClass = value;
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -12,13 +13,13 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             CalculateAbilityScores(boostsAndFlaws);
         }
 
-        public AbilityScore Strength { get; set; }
-        public AbilityScore Dexterity { get; set; }
-        public AbilityScore Constitution { get; set; }
-        public AbilityScore Intelligence { get; set; }
-        public AbilityScore Wisdom { get; set; }
-        public AbilityScore Charisma { get; set; }
-        public int FreeBoostsAvailable { get; set; }
+        public AbilityScore Strength { get; private set; }
+        public AbilityScore Dexterity { get; private set; }
+        public AbilityScore Constitution { get; private set; }
+        public AbilityScore Intelligence { get; private set; }
+        public AbilityScore Wisdom { get; private set; }
+        public AbilityScore Charisma { get; private set; }
+        public int FreeBoostsAvailable { get; private set; }
 
         private readonly PropertyInfo[] propertiesOfThisClass;
 
@@ -27,6 +28,8 @@ namespace PF2E.Rules.Creature.PlayerCharacter
             foreach (var property in propertiesOfThisClass)
             {
                 if (property.Name == "FreeBoostsAvailable") continue; // TODO: Make this better!
+                if (boosts.Count == 0)
+                    property.SetValue(this, new AbilityScore(10, property.Name));
                 foreach (var boost in boosts)
                 {
                     if (boost.Ability == Ability.Free.ToString())
@@ -46,31 +49,62 @@ namespace PF2E.Rules.Creature.PlayerCharacter
 
         private void CalculateAbilityScores(List<AbilityScoreBoostFlaw> boostsAndFlaws)
         {
+            Strength = new AbilityScore(10, Ability.Strength);
+            Dexterity = new AbilityScore(10, Ability.Dexterity);
+            Constitution = new AbilityScore(10, Ability.Constitution);
+            Intelligence = new AbilityScore(10, Ability.Intelligence);
+            Wisdom = new AbilityScore(10, Ability.Wisdom);
+            Charisma = new AbilityScore(10, Ability.Charisma);
             foreach (var boostFlaw in boostsAndFlaws)
             {
                 foreach (var property in propertiesOfThisClass)
                 {
                     if (property.Name == "FreeBoostsAvailable") continue;
-                    int total = 10;
                     if (boostFlaw.Ability == Ability.Free.ToString())
                     {
                         continue;
                     }
                     if (boostFlaw.Ability == property.Name)
                     {
+                        AbilityScore newAbilityScore;
+                        AbilityScore abilityScore = property.GetValue(this) as AbilityScore;
                         if (boostFlaw.IsBoost)
                         {
-                            total += 2;
+                            newAbilityScore = new AbilityScore(abilityScore.Score + 2, abilityScore.Ability);
                         }
                         else
                         {
-                            total -= 2;
+                            newAbilityScore = new AbilityScore(abilityScore.Score - 2, abilityScore.Ability);
                         }
+                        property.SetValue(this, newAbilityScore);
                     }
-                    property.SetValue(this, new AbilityScore(total, property.Name));
                 }
                 if (boostFlaw.Ability == "Free")
                     FreeBoostsAvailable++;
+            }
+        }
+
+        public void SetAbilityScore(int score, Ability ability)
+        {
+            foreach (var property in propertiesOfThisClass)
+            {
+                if (property.Name == ability.ToString())
+                {
+                    property.SetValue(this, new AbilityScore(score, ability));
+                    return;
+                }
+            }
+        }
+
+        public void SetAbilityScore(AbilityScore abilityScore)
+        {
+            foreach (var property in propertiesOfThisClass)
+            {
+                if (property.Name == abilityScore.Ability.ToString())
+                {
+                    property.SetValue(this, abilityScore);
+                    return;
+                }
             }
         }
     }

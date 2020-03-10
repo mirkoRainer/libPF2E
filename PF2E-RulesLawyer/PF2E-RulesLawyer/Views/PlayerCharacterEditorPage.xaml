@@ -59,21 +59,26 @@
                         ItemsSource="{Binding BackgroundsList}"
                         SelectedItem="{Binding Background, Mode=TwoWay}"
                         IsVisible="{Binding IsEditing}" />
-            <Picker Title="Choose Background Ability"
-                        ItemsSource="{Binding BackgroundAbilityChoices, Mode=TwoWay}"
-                        SelectedItem="{Binding BackgroundAbilityChoice, Mode=TwoWay}"
-                        IsVisible="{Binding IsEditing}" />
+            <!--Background Ability Picker-->
+            <Picker
+                Title="Choose Background Ability"
+                ItemsSource="{Binding BackgroundAbilityChoices, Mode=TwoWay}"
+                SelectedItem="{Binding BackgroundAbilityChoice, Mode=TwoWay}"
+                IsVisible="{Binding IsEditing}" />
             <Label Text="Class:" />
             <Label Text="{Binding PcClass}" />
             <Label Text="{Binding SubClass}" />
+            <!--Class Picker-->
             <Picker Title="Select a Class"
                     ItemsSource="{Binding ClassList}"
                     SelectedItem="{Binding PcClass, Mode=TwoWay}"
                     IsVisible="{Binding IsEditing}" />
+            <!--SubClass Picker-->
             <Picker Title="{Binding SubClassPickerTitle}"
                     ItemsSource="{Binding SubClassList}"
                     SelectedItem="{Binding SubClass, Mode=TwoWay}"
                     IsVisible="{Binding IsEditing}" />
+            <!--Ability Scores-->
             <Label Text="Ability Scores"
                 Margin="0, 20, 0, 5"
                 HorizontalTextAlignment="Center"

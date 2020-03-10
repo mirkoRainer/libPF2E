@@ -128,7 +128,23 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         public int ExperiencePoints { get; set; }
 
         // Ability Scores
-        public AbilityScoreArray AbilityScores { get; set; }
+        public AbilityScoreArray AbilityScores { get; private set; }
+
+        public void SetAbilityScore(string abilityName, int score)
+        {
+            if (AbilityScoreArrayIsMissing())
+                AbilityScores = new AbilityScoreArray(new List<AbilityScoreBoostFlaw>());
+            if (String.IsNullOrEmpty(abilityName))
+                return;
+            AbilityScores.SetAbilityScore(score, Enum.Parse<Ability>(abilityName));
+        }
+
+        private bool AbilityScoreArrayIsMissing()
+        {
+            if (AbilityScores == null)
+                return true;
+            return false;
+        }
 
         // Armor Class
 
@@ -209,6 +225,7 @@ namespace PF2E.Rules.Creature.PlayerCharacter
         public Skill Intimidation { get; set; }
         public List<Skill> Lore { get; set; }
         public Skill Medicine { get; set; }
+
         public Skill Nature { get; set; }
         public Skill Occultism { get; set; }
         public Skill Performance { get; set; }

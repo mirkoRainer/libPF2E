@@ -48,15 +48,13 @@ namespace PF2ETests.Rules.Creature.PlayerCharacter
                 new AbilityScoreBoostFlaw(true, Ability.Dexterity),
                 new AbilityScoreBoostFlaw(true, Ability.Constitution)
             };
-            var abilityScoreArray = new AbilityScoreArray(new List<AbilityScoreBoostFlaw>())
-            {
-                Strength = new AbilityScore(14, Ability.Strength),
-                Dexterity = new AbilityScore(14, Ability.Dexterity),
-                Constitution = new AbilityScore(14, Ability.Constitution),
-                Intelligence = new AbilityScore(10, Ability.Intelligence),
-                Wisdom = new AbilityScore(10, Ability.Wisdom),
-                Charisma = new AbilityScore(10, Ability.Charisma)
-            };
+            var abilityScoreArray = new AbilityScoreArray(new List<AbilityScoreBoostFlaw>());
+            abilityScoreArray.SetAbilityScore(new AbilityScore(14, Ability.Strength));
+            abilityScoreArray.SetAbilityScore(new AbilityScore(14, Ability.Dexterity));
+            abilityScoreArray.SetAbilityScore(new AbilityScore(14, Ability.Constitution));
+            abilityScoreArray.SetAbilityScore(new AbilityScore(10, Ability.Intelligence));
+            abilityScoreArray.SetAbilityScore(new AbilityScore(10, Ability.Wisdom));
+            abilityScoreArray.SetAbilityScore(new AbilityScore(10, Ability.Charisma));
             abilityScoreArray.AddBoosts(boosts);
 
             Assert.That(abilityScoreArray.Strength.Score, Is.EqualTo(16));
