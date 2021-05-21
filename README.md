@@ -1,9 +1,8 @@
-# Pathfinder Second Edition Rules Lawyer
-## PF2E Library
+# PF2E Library
 
-The core library this app is built around is the PF2E Library. 
+This Library aims to codify the PF2e rule set.
+
 Ideally this Library will be used similar to the following:
-
 
 ```
 var player = new PlayerCharacter(Ancestries.Dwarf, Backgrounds.Emancipated, PcClasses.Rogue);
