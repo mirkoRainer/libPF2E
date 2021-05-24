@@ -13,3 +13,5 @@ player.Strike(goblin, player.melee[0]);
 ```
 
 This is a very rough example but using language specific to PF2e I hope to make the external API very friendly to Parhfinder 2E players. 
+
+A more robust data struct for a Player Character can be found [here](https://github.com/mirkoRainer/RulesLawyer/blob/master/src/PF2eCoreLib/PlayerCharacter/PlayerCharacter.ts).
